@@ -1,4 +1,4 @@
-#Co ważne:
+# Co ważne:
 
 ### Pobrać sobie:
 
@@ -18,6 +18,8 @@ Połączyć się do zainstalowanej bazy danych przez inteliJ podając:
   
 - Jak nie wiemy jaki podać login i hasło https://www.postgresqltutorial.com/postgresql-reset-password/
 - Baza danych postgres
+- 
+![image](https://user-images.githubusercontent.com/57731778/114434044-d84fc800-9bc2-11eb-9e1a-7fbebfa55ce2.png)
 
 Wykonać skrypt w pliku src/main/resources/META-INF/sql/createDB.sql poprzez utworzone połączenie
 
@@ -34,6 +36,9 @@ Podajemy ścieżkę do folderu z payara.
 W domyślnym url zmieniamy http na https.
 
 Pozostałe Domyślne ustawienia powinny być ok, jeśli coś trzeba fix to klikamy fix.
+
+![image](https://user-images.githubusercontent.com/57731778/114433976-c1a97100-9bc2-11eb-8b27-f7fdfef1bc09.png)
+
 
 Uruchamiamy install z lifecycle mavena w celu zbudowania aplikacji.
 
