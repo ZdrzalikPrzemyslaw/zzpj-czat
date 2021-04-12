@@ -21,7 +21,7 @@ Wykonać skrypt w pliku src/main/resources/META-INF/sql/createDB.sql poprzez utw
 
 Tworzymy nowe połączenie z bazą danych chatdb
 
-Teraz powinno dać się wdrożyć aplikację poprzez wtyczkę Payara
+Teraz powinno dać się wdrożyć aplikację poprzez wtyczkę Payara - wybieramy preset Local
 Jesli plugin nie działa na naszej wersji - robimy downgrade
 W tym celu tworzymy nową konfigurację poprzez Payara Server
 Podajemy ścieżkę do folderu z payara.
