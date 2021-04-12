@@ -1,11 +1,14 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS access_levels;
+DROP TABLE IF EXISTS chats;
 
 DROP SEQUENCE IF EXISTS users_seq;
 DROP SEQUENCE IF EXISTS accounts_seq;
 DROP SEQUENCE IF EXISTS access_levels_seq;
+DROP SEQUENCE IF EXISTS chats_seq;
 
+--------------------------------------------------------------------
 CREATE TABLE users
 (
     id           BIGINT PRIMARY KEY,
@@ -106,9 +109,9 @@ CREATE TABLE chats
 (
     id         BIGINT PRIMARY KEY,
     owner_id   BIGINT      NOT NULL
-        CONSTRAINT chats_account_fk REFERENCES accounts (id),
+        CONSTRAINT chats_accounts_fk REFERENCES accounts (id),
     name       VARCHAR(30) NULL,
-    created_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     version    BIGINT
         CONSTRAINT chats_version_gr0 CHECK (version >= 0)
 );
@@ -131,3 +134,34 @@ CREATE
     INDEX chats_name_index ON chats (name);
 CREATE
     INDEX chats_owner_id_index ON chats (owner_id);
+
+--------------------------------------------------------------------
+CREATE TABLE chat_messages
+(
+    id         BIGINT PRIMARY KEY,
+    chat_id    BIGINT      NOT NULL
+        CONSTRAINT chat_messages_chats_fk REFERENCES chats (id),
+    account_id BIGINT      NOT NULL
+        CONSTRAINT chat_messages_accounts_fk REFERENCES accounts (id),
+    text       VARCHAR(4096),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE chat_messages
+    OWNER TO zzpjadmin;
+
+CREATE SEQUENCE chat_messages_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE chat_messages_seq
+    OWNER TO zzpjadmin;
+
+CREATE
+    INDEX chat_messages_id_index ON chat_messages (id);
+CREATE
+    INDEX chat_messages_chat_index ON chat_messages (chat_id);
+CREATE
+    INDEX chat_messages_account_index ON chat_messages (account_id);
