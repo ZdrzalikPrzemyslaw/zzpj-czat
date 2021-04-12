@@ -26,5 +26,6 @@ Jesli plugin nie działa na naszej wersji - robimy downgrade
 W tym celu tworzymy nową konfigurację poprzez Payara Server
 Podajemy ścieżkę do folderu z payara.
 Pozostałe Domyślne ustawienia powinny być ok, jeśli coś trzeba fix to klikamy fix.
+Uruchamiamy install z lifecycle mavena w celu zbudowania aplikacji.
 Odpalamy.
 Jak wejdzmey na stronę powinno być error 404.
