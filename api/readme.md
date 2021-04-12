@@ -15,10 +15,9 @@ Dodać sobie folder bin w folderze postgres do patha
 
 Połączyć się do zainstalowanej bazy danych przez inteliJ podając:
 - hosta localhost port 5432
-  
 - Jak nie wiemy jaki podać login i hasło https://www.postgresqltutorial.com/postgresql-reset-password/
 - Baza danych postgres
-- 
+
 ![image](https://user-images.githubusercontent.com/57731778/114434044-d84fc800-9bc2-11eb-9e1a-7fbebfa55ce2.png)
 
 Wykonać skrypt w pliku src/main/resources/META-INF/sql/createDB.sql poprzez utworzone połączenie
