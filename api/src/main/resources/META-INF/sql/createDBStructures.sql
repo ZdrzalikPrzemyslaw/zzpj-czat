@@ -102,3 +102,32 @@ CREATE
 
 
 --------------------------------------------------------------------
+CREATE TABLE chats
+(
+    id         BIGINT PRIMARY KEY,
+    owner_id   BIGINT      NOT NULL
+        CONSTRAINT chats_account_fk REFERENCES accounts (id),
+    name       VARCHAR(30) NULL,
+    created_at TIMESTAMPTZ NOT NULL,
+    version    BIGINT
+        CONSTRAINT chats_version_gr0 CHECK (version >= 0)
+);
+
+ALTER TABLE chats
+    OWNER TO zzpjadmin;
+
+CREATE SEQUENCE chats_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE chats_seq
+    OWNER TO zzpjadmin;
+
+CREATE
+    INDEX chats_id_index ON chats (id);
+CREATE
+    INDEX chats_name_index ON chats (name);
+CREATE
+    INDEX chats_owner_id_index ON chats (owner_id);
