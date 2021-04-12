@@ -5,7 +5,6 @@ DROP TABLE IF EXISTS access_levels;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS users;
 
-
 DROP SEQUENCE IF EXISTS chat_messages_seq;
 DROP SEQUENCE IF EXISTS chat_users_seq;
 DROP SEQUENCE IF EXISTS chats_seq;
