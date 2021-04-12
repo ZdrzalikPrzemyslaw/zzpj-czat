@@ -6,6 +6,7 @@
 - https://s3-eu-west-1.amazonaws.com/payara.fish/Payara+Downloads/5.2021.1/payara-5.2021.1.zip?utm_referrer=https%3A%2F%2Fwww.payara.fish%2Fdownloads%2Fpayara-platform-community-edition%2F
 - https://plugins.jetbrains.com/plugin/15114-payara-platform-tools
 
+
 Dodać sobie folder bin w folderze postgres do patha
 
 ### Zainstalować
@@ -19,6 +20,7 @@ Połączyć się do zainstalowanej bazy danych przez inteliJ podając:
 Wykonać skrypt w pliku src/main/resources/META-INF/sql/createDB.sql poprzez utworzone połączenie
 
 Teraz powinno dać się wdrożyć aplikację poprzez wtyczkę Payara
+Jesli plugin nie działa na naszej wersji - robimy downgrade
 W tym celu tworzymy nową konfigurację poprzez Payara Server
 Podajemy ścieżkę do folderu z payara.
 Pozostałe Domyślne ustawienia powinny być ok, jeśli coś trzeba fix to klikamy fix.
