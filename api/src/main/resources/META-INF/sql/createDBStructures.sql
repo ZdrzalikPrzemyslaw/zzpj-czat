@@ -1,12 +1,17 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS accounts;
-DROP TABLE IF EXISTS access_levels;
+DROP TABLE IF EXISTS chat_messages;
+DROP TABLE IF EXISTS chat_users;
 DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS access_levels;
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS users;
 
-DROP SEQUENCE IF EXISTS users_seq;
-DROP SEQUENCE IF EXISTS accounts_seq;
-DROP SEQUENCE IF EXISTS access_levels_seq;
+
+DROP SEQUENCE IF EXISTS chat_messages_seq;
+DROP SEQUENCE IF EXISTS chat_users_seq;
 DROP SEQUENCE IF EXISTS chats_seq;
+DROP SEQUENCE IF EXISTS access_levels_seq;
+DROP SEQUENCE IF EXISTS accounts_seq;
+DROP SEQUENCE IF EXISTS users_seq;
 
 --------------------------------------------------------------------
 CREATE TABLE users
@@ -165,3 +170,33 @@ CREATE
     INDEX chat_messages_chat_index ON chat_messages (chat_id);
 CREATE
     INDEX chat_messages_account_index ON chat_messages (account_id);
+
+--------------------------------------------------------------------
+CREATE TABLE chat_users
+(
+    id         BIGINT PRIMARY KEY,
+    chat_id    BIGINT NOT NULL
+        CONSTRAINT chat_users_chats_fk REFERENCES chats (id),
+    account_id BIGINT NOT NULL
+        CONSTRAINT chat_users_accounts_fk REFERENCES accounts (id),
+    UNIQUE (chat_id, account_id)
+);
+
+ALTER TABLE chat_users
+    OWNER TO zzpjadmin;
+
+CREATE SEQUENCE chat_users_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE chat_users_seq
+    OWNER TO zzpjadmin;
+
+CREATE
+    INDEX chat_users_id_index ON chat_users (id);
+CREATE
+    INDEX chat_users_chat_index ON chat_users (chat_id);
+CREATE
+    INDEX chat_users_account_index ON chat_users (account_id);
