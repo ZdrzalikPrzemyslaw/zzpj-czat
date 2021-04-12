@@ -15,9 +15,11 @@ Połączyć się do zainstalowanej bazy danych przez inteliJ podając:
 - hosta localhost port 5432
   
 - Jak nie wiemy jaki podać login i hasło https://www.postgresqltutorial.com/postgresql-reset-password/
-- Baza danych chatdb
+- Baza danych postgres
 
 Wykonać skrypt w pliku src/main/resources/META-INF/sql/createDB.sql poprzez utworzone połączenie
+
+Tworzymy nowe połączenie z bazą danych chatdb
 
 Teraz powinno dać się wdrożyć aplikację poprzez wtyczkę Payara
 Jesli plugin nie działa na naszej wersji - robimy downgrade
