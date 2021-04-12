@@ -6,10 +6,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.Collection;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "chatdb")
@@ -20,9 +21,11 @@ public class UsersEntity {
     private String lastName;
     private String phoneNumber;
     private String language;
-    private Collection<AccountsEntity> accountsById;
 
     @Id
+    @SequenceGenerator(name = "users_generator", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_generator")
+    @Basic(optional = false)
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
@@ -32,7 +35,7 @@ public class UsersEntity {
         this.id = id;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "email", nullable = false, length = 100)
     public String getEmail() {
         return email;
@@ -42,7 +45,7 @@ public class UsersEntity {
         this.email = email;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "first_name", nullable = false, length = 50)
     public String getFirstName() {
         return firstName;
@@ -52,7 +55,7 @@ public class UsersEntity {
         this.firstName = firstName;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "last_name", nullable = false, length = 80)
     public String getLastName() {
         return lastName;
@@ -96,14 +99,5 @@ public class UsersEntity {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(id).append(email).append(firstName).append(lastName).append(phoneNumber).append(language).toHashCode();
-    }
-
-    @OneToMany(mappedBy = "usersByUserId")
-    public Collection<AccountsEntity> getAccountsById() {
-        return accountsById;
-    }
-
-    public void setAccountsById(Collection<AccountsEntity> accountsById) {
-        this.accountsById = accountsById;
     }
 }

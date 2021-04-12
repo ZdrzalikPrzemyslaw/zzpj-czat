@@ -50,10 +50,10 @@ CREATE TABLE accounts
     username VARCHAR(32) UNIQUE NOT NULL,
     -- CHAR(64) - skrot hasla bedzie mial stala dlugosc - 64 znaki
     password CHAR(64)           NOT NULL,
-    enabled  BOOL DEFAULT TRUE  NOT NULL,
+    enabled  BOOL               NOT NULL DEFAULT TRUE,
     version  BIGINT             NOT NULL
         CONSTRAINT acc_version_gr0 CHECK (version >= 0),
-    user_id  BIGINT             NOT NULL UNIQUE
+    user_id  BIGINT UNIQUE      NOT NULL
         CONSTRAINT accounts_user_id_fk REFERENCES users (id)
 );
 

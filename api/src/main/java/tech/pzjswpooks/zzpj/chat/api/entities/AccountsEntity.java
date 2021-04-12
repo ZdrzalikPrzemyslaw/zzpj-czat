@@ -4,17 +4,25 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.Collection;
 
 @Entity
-@Table(name = "accounts", schema = "public", catalog = "chatdb")
+@Table(name = "accounts", schema = "public", catalog = "chatdb", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username"}),
+        @UniqueConstraint(columnNames = {"user_id"})})
 public class AccountsEntity {
     private Long id;
     private String username;
@@ -29,6 +37,9 @@ public class AccountsEntity {
     private Collection<ChatsEntity> chatsById;
 
     @Id
+    @SequenceGenerator(name = "accounts_generator", sequenceName = "accounts_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accounts_generator")
+    @Basic(optional = false)
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
@@ -38,7 +49,7 @@ public class AccountsEntity {
         this.id = id;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "username", nullable = false, length = 32)
     public String getUsername() {
         return username;
@@ -48,7 +59,7 @@ public class AccountsEntity {
         this.username = username;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "password", nullable = false, length = 64)
     public String getPassword() {
         return password;
@@ -58,7 +69,7 @@ public class AccountsEntity {
         this.password = password;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "enabled", nullable = false)
     public Boolean getEnabled() {
         return enabled;
@@ -68,7 +79,7 @@ public class AccountsEntity {
         this.enabled = enabled;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "version", nullable = false)
     public Long getVersion() {
         return version;
@@ -78,7 +89,7 @@ public class AccountsEntity {
         this.version = version;
     }
 
-    @Basic
+    @Basic(optional = false)
     @Column(name = "user_id", nullable = false)
     public Long getUserId() {
         return userId;
@@ -113,8 +124,8 @@ public class AccountsEntity {
         this.accessLevelsById = accessLevelsById;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
     public UsersEntity getUsersByUserId() {
         return usersByUserId;
     }
