@@ -1,5 +1,10 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS access_levels;
+
+DROP SEQUENCE IF EXISTS users_seq;
+DROP SEQUENCE IF EXISTS accounts_seq;
+DROP SEQUENCE IF EXISTS access_levels_seq;
 
 CREATE TABLE users
 (
@@ -31,6 +36,7 @@ CREATE
 CREATE
     INDEX users_last_name_index ON users (last_name);
 
+--------------------------------------------------------------------
 CREATE TABLE accounts
 (
     id       BIGINT PRIMARY KEY,
@@ -60,3 +66,39 @@ CREATE
     INDEX accounts_id_index ON accounts (id);
 CREATE
     INDEX accounts_username_index ON accounts (username);
+
+--------------------------------------------------------------------
+CREATE TABLE access_levels
+(
+    id         BIGINT PRIMARY KEY,
+    level      VARCHAR(32) NOT NULL
+        CONSTRAINT access_levels_level_values CHECK (level IN
+                                                     ('level.admin', 'level.user')),
+    account_id BIGINT      NOT NULL
+        CONSTRAINT acc_lvl_account_fk REFERENCES accounts (id),
+    enabled    BOOL        NOT NULL DEFAULT TRUE,
+    version    BIGINT
+        CONSTRAINT acc_lvl_version_gr0 CHECK (version >= 0),
+    CONSTRAINT acc_lvl_level_account_pair_unique UNIQUE (level, account_id)
+);
+
+ALTER TABLE access_levels
+    OWNER TO zzpjadmin;
+
+CREATE SEQUENCE access_levels_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE access_levels_seq
+    OWNER TO zzpjadmin;
+
+CREATE
+    INDEX access_levels_id_index ON access_levels (id);
+
+CREATE
+    INDEX accounts_account_id_index ON access_levels (account_id);
+
+
+--------------------------------------------------------------------
