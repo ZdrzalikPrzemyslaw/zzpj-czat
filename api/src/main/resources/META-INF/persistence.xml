@@ -6,6 +6,12 @@
     <persistence-unit name="zzpjadmin" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:app/jdbc/zzpjadmin</jta-data-source>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity</class>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity</class>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity</class>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity</class>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity</class>
+        <class>tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <properties>
