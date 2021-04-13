@@ -1,18 +1,3 @@
-DROP TABLE IF EXISTS chat_messages;
-DROP TABLE IF EXISTS chat_users;
-DROP TABLE IF EXISTS chats;
-DROP TABLE IF EXISTS access_levels;
-DROP TABLE IF EXISTS accounts;
-DROP TABLE IF EXISTS users;
-
-DROP SEQUENCE IF EXISTS chat_messages_seq;
-DROP SEQUENCE IF EXISTS chat_users_seq;
-DROP SEQUENCE IF EXISTS chats_seq;
-DROP SEQUENCE IF EXISTS access_levels_seq;
-DROP SEQUENCE IF EXISTS accounts_seq;
-DROP SEQUENCE IF EXISTS users_seq;
-
---------------------------------------------------------------------
 CREATE TABLE users
 (
     id           BIGINT PRIMARY KEY,
