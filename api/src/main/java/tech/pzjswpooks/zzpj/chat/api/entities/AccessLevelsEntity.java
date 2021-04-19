@@ -1,28 +1,45 @@
 package tech.pzjswpooks.zzpj.chat.api.entities;
 
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "access_levels", schema = "public", catalog = "chatdb")
+@NamedQueries({
+        @NamedQuery(name = "AccessLevelsEntity.findAll", query = "SELECT a FROM AccessLevelsEntity a"),
+        @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id")
+})
 public class AccessLevelsEntity {
-    private Long id;
-    private String level;
-    private Long accountId;
-    private Boolean enabled;
-    private Long version;
-    private AccountsEntity accountsByAccountId;
-
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "access_levels_generator")
+    @SequenceGenerator(name = "access_levels_generator", sequenceName = "access_levels_seq", allocationSize = 1)
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Basic(optional = false)
+    @Column(name = "level", nullable = false, length = 32)
+    private String level;
+
+    @Column(name = "account_id", nullable = false)
+    @JoinColumn(name = "account_Id",referencedColumnName = "id",nullable = false,updatable = false)
+    @ManyToOne
+    private AccountsEntity accountId;
+
+    @Basic(optional = false)
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
+    @Basic
+    @Column(name = "version", nullable = true)
+    private Long version;
+
+    //private AccountsEntity accountsByAccountId;
+
+
     public Long getId() {
         return id;
     }
@@ -31,8 +48,7 @@ public class AccessLevelsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "level", nullable = false, length = 32)
+
     public String getLevel() {
         return level;
     }
@@ -41,18 +57,16 @@ public class AccessLevelsEntity {
         this.level = level;
     }
 
-    @Basic
-    @Column(name = "account_id", nullable = false)
-    public Long getAccountId() {
+
+    public AccountsEntity getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Long accountId) {
+    public void setAccountId(AccountsEntity accountId) {
         this.accountId = accountId;
     }
 
-    @Basic
-    @Column(name = "enabled", nullable = false)
+
     public Boolean getEnabled() {
         return enabled;
     }
@@ -61,8 +75,7 @@ public class AccessLevelsEntity {
         this.enabled = enabled;
     }
 
-    @Basic
-    @Column(name = "version", nullable = true)
+
     public Long getVersion() {
         return version;
     }
@@ -91,6 +104,7 @@ public class AccessLevelsEntity {
         return new HashCodeBuilder(17, 37).append(id).append(level).append(accountId).append(enabled).append(version).toHashCode();
     }
 
+    /*
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     public AccountsEntity getAccountsByAccountId() {
@@ -100,4 +114,6 @@ public class AccessLevelsEntity {
     public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
         this.accountsByAccountId = accountsByAccountId;
     }
+
+     */
 }
