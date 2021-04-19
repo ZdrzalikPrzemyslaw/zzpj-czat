@@ -3,30 +3,46 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "users", schema = "public", catalog = "chatdb")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email"})
+})
+@NamedQueries({
+        @NamedQuery(name = "UsersEntity.findAll", query = "SELECT a FROM ChatUsersEntity a"),
+        @NamedQuery(name = "UsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
+})
 public class UsersEntity {
-    private Long id;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String language;
 
     @Id
     @SequenceGenerator(name = "users_generator", sequenceName = "users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_generator")
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Basic(optional = false)
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
+
+    @Basic(optional = false)
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
+
+    @Basic(optional = false)
+    @Column(name = "last_name", nullable = false, length = 80)
+    private String lastName;
+
+    @Basic
+    @Column(name = "phone_number", nullable = true, length = 15)
+    private String phoneNumber;
+
+    @Basic
+    @Column(name = "language", nullable = true, length = 35)
+    private String language;
+
+
     public Long getId() {
         return id;
     }
@@ -35,8 +51,6 @@ public class UsersEntity {
         this.id = id;
     }
 
-    @Basic(optional = false)
-    @Column(name = "email", nullable = false, length = 100)
     public String getEmail() {
         return email;
     }
@@ -45,8 +59,6 @@ public class UsersEntity {
         this.email = email;
     }
 
-    @Basic(optional = false)
-    @Column(name = "first_name", nullable = false, length = 50)
     public String getFirstName() {
         return firstName;
     }
@@ -55,8 +67,6 @@ public class UsersEntity {
         this.firstName = firstName;
     }
 
-    @Basic(optional = false)
-    @Column(name = "last_name", nullable = false, length = 80)
     public String getLastName() {
         return lastName;
     }
@@ -65,8 +75,6 @@ public class UsersEntity {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "phone_number", nullable = true, length = 15)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -75,8 +83,6 @@ public class UsersEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    @Basic
-    @Column(name = "language", nullable = true, length = 35)
     public String getLanguage() {
         return language;
     }
