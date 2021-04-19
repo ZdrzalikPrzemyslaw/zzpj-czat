@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "chat_users")
 @NamedQueries({
-        @NamedQuery(name = "ChatUsers.findAll", query = "SELECT a FROM ChatUsersEntity a"),
-        @NamedQuery(name = "ChatUsers.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
+        @NamedQuery(name = "ChatUsersEntity.findAll", query = "SELECT a FROM ChatUsersEntity a"),
+        @NamedQuery(name = "ChatUsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
 })
 public class ChatUsersEntity {
     @Id

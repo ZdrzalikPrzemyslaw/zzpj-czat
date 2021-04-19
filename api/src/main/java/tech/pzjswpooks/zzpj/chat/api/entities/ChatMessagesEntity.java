@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "chat_messages")
 @NamedQueries({
-        @NamedQuery(name = "ChatMessages.findAll", query = "SELECT a FROM ChatMessagesEntity a"),
-        @NamedQuery(name = "ChatMessages.findById", query = "SELECT a FROM ChatMessagesEntity a WHERE a.id = :id")
+        @NamedQuery(name = "ChatMessagesEntity.findAll", query = "SELECT a FROM ChatMessagesEntity a"),
+        @NamedQuery(name = "ChatMessagesEntity.findById", query = "SELECT a FROM ChatMessagesEntity a WHERE a.id = :id")
 })
 public class ChatMessagesEntity {
 
