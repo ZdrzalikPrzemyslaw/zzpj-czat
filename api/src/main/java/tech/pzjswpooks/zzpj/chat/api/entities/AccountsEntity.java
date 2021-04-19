@@ -1,8 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.entities;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,13 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.Collection;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
 @Table(name = "accounts", schema = "public", catalog = "chatdb", uniqueConstraints = {
@@ -101,13 +99,18 @@ public class AccountsEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AccountsEntity that = (AccountsEntity) o;
 
-        return new EqualsBuilder().append(id, that.id).append(username, that.username).append(password, that.password).append(enabled, that.enabled).append(version, that.version).append(userId, that.userId).isEquals();
+        return new EqualsBuilder().append(id, that.id).append(username, that.username).append(password, that.password).append(enabled, that.enabled)
+                .append(version, that.version).append(userId, that.userId).isEquals();
     }
 
     @Override

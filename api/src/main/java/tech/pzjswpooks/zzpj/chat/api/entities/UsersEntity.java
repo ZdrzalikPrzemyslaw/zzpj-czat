@@ -87,13 +87,18 @@ public class UsersEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         UsersEntity that = (UsersEntity) o;
 
-        return new EqualsBuilder().append(id, that.id).append(email, that.email).append(firstName, that.firstName).append(lastName, that.lastName).append(phoneNumber, that.phoneNumber).append(language, that.language).isEquals();
+        return new EqualsBuilder().append(id, that.id).append(email, that.email).append(firstName, that.firstName)
+                .append(lastName, that.lastName).append(phoneNumber, that.phoneNumber).append(language, that.language).isEquals();
     }
 
     @Override
