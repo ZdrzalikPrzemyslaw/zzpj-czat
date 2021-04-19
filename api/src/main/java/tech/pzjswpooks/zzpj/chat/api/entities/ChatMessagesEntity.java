@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ChatMessagesEntity {
 
     @Id
-    @SequenceGenerator(name = "chat_messages_generator", sequenceName = "chat_messages__seq", allocationSize = 1)
+    @SequenceGenerator(name = "chat_messages_generator", sequenceName = "chat_messages_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_messages_generator")
     @Basic(optional = false)
     @Column(name = "id", nullable = false, updatable = false)
