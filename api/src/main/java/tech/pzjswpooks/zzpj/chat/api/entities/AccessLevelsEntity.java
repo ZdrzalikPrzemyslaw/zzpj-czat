@@ -7,7 +7,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "access_levels", schema = "public", catalog = "chatdb")
+@Table(name = "access_levels", uniqueConstraints = {
+        @UniqueConstraint(name = "acc_lvl_level_account_pair_unique", columnNames = {"level", "account_id"})
+})
 @NamedQueries({
         @NamedQuery(name = "AccessLevelsEntity.findAll", query = "SELECT a FROM AccessLevelsEntity a"),
         @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id")
@@ -25,7 +27,7 @@ public class AccessLevelsEntity {
     private String level;
 
     @Column(name = "account_id", nullable = false)
-    @JoinColumn(name = "account_Id",referencedColumnName = "id",nullable = false,updatable = false)
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne
     private AccountsEntity accountId;
 
@@ -64,6 +66,11 @@ public class AccessLevelsEntity {
 
     public void setAccountId(AccountsEntity accountId) {
         this.accountId = accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId.setUserId(accountId);
+        ;
     }
 
 

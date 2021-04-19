@@ -1,44 +1,58 @@
 package tech.pzjswpooks.zzpj.chat.api.entities;
 
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "accounts", schema = "public", catalog = "chatdb", uniqueConstraints = {
+@Table(name = "accounts", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"user_id"})})
+
+@NamedQueries({
+        @NamedQuery(name = "AccountsEntity.findAll", query = "SELECT a FROM AccountsEntity a"),
+        @NamedQuery(name = "AccountsEntity.findById", query = "SELECT a FROM AccountsEntity a WHERE a.id = :id")
+})
 public class AccountsEntity {
-    private Long id;
-    private String username;
-    private String password;
-    private Boolean enabled;
-    private Long version;
-    private Long userId;
-    private Collection<AccessLevelsEntity> accessLevelsById;
-    private UsersEntity usersByUserId;
-    private Collection<ChatMessagesEntity> chatMessagesById;
-    private Collection<ChatUsersEntity> chatUsersById;
-    private Collection<ChatsEntity> chatsById;
 
     @Id
     @SequenceGenerator(name = "accounts_generator", sequenceName = "accounts_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accounts_generator")
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Basic(optional = false)
+    @Column(name = "username", nullable = false, length = 32)
+    private String username;
+
+    @Basic(optional = false)
+    @Column(name = "password", nullable = false, length = 64)
+    private String password;
+
+    @Basic(optional = false)
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
+    @Basic(optional = false)
+    @Column(name = "version", nullable = false)
+    private Long version;
+
+    @Column(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_Id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne
+    private UsersEntity userId;
+    /*
+    private Collection<AccessLevelsEntity> accessLevelsById;
+    private UsersEntity usersByUserId;
+    private Collection<ChatMessagesEntity> chatMessagesById;
+    private Collection<ChatUsersEntity> chatUsersById;
+    private Collection<ChatsEntity> chatsById;
+     */
+
+
     public Long getId() {
         return id;
     }
@@ -47,8 +61,7 @@ public class AccountsEntity {
         this.id = id;
     }
 
-    @Basic(optional = false)
-    @Column(name = "username", nullable = false, length = 32)
+
     public String getUsername() {
         return username;
     }
@@ -57,8 +70,7 @@ public class AccountsEntity {
         this.username = username;
     }
 
-    @Basic(optional = false)
-    @Column(name = "password", nullable = false, length = 64)
+
     public String getPassword() {
         return password;
     }
@@ -67,8 +79,7 @@ public class AccountsEntity {
         this.password = password;
     }
 
-    @Basic(optional = false)
-    @Column(name = "enabled", nullable = false)
+
     public Boolean getEnabled() {
         return enabled;
     }
@@ -77,8 +88,7 @@ public class AccountsEntity {
         this.enabled = enabled;
     }
 
-    @Basic(optional = false)
-    @Column(name = "version", nullable = false)
+
     public Long getVersion() {
         return version;
     }
@@ -87,14 +97,17 @@ public class AccountsEntity {
         this.version = version;
     }
 
-    @Basic(optional = false)
-    @Column(name = "user_id", nullable = false)
-    public Long getUserId() {
+
+    public UsersEntity getUserId() {
         return userId;
     }
 
+    public void setUserId(UsersEntity userId) {
+        this.userId.setId(userId.getId());
+    }
+
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.userId.setId(userId);
     }
 
     @Override
@@ -117,7 +130,7 @@ public class AccountsEntity {
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(id).append(username).append(password).append(enabled).append(version).append(userId).toHashCode();
     }
-
+    /*
     @OneToMany(mappedBy = "accountsByAccountId")
     public Collection<AccessLevelsEntity> getAccessLevelsById() {
         return accessLevelsById;
@@ -163,4 +176,6 @@ public class AccountsEntity {
     public void setChatsById(Collection<ChatsEntity> chatsById) {
         this.chatsById = chatsById;
     }
+
+     */
 }
