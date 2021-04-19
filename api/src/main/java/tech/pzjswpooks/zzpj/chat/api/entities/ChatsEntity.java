@@ -3,30 +3,50 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
-@Table(name = "chats", schema = "public", catalog = "chatdb")
+@Table(name = "chats")
+@NamedQueries({
+        @NamedQuery(name = "ChatsEntity.findAll", query = "SELECT a FROM ChatsEntity a"),
+        @NamedQuery(name = "ChatsEntity.findById", query = "SELECT a FROM ChatsEntity a WHERE a.id = :id")
+})
 public class ChatsEntity {
+
+    @Id
+    @SequenceGenerator(name = "chats_generator", sequenceName = "chats_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chats_generator")
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-    private Long ownerId;
+
+    @Column(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne
+    private AccountsEntity ownerId;
+
+    @Basic
+    @Column(name = "name", nullable = true, length = 30)
     private String name;
-    private Object createdAt;
+
+    @Basic(optional = false)
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    @Basic(optional = false)
+    @Column(name = "version", nullable = false)
     private Long version;
+    /*
     private Collection<ChatMessagesEntity> chatMessagesById;
     private Collection<ChatUsersEntity> chatUsersById;
     private AccountsEntity accountsByOwnerId;
+     */
 
-    @Id
-    @Column(name = "id", nullable = false)
+    public void initCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
@@ -35,18 +55,14 @@ public class ChatsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "owner_id", nullable = false)
+
     public Long getOwnerId() {
-        return ownerId;
+        return ownerId.getId();
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
+    //public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
 
-    @Basic
-    @Column(name = "name", nullable = true, length = 30)
+
     public String getName() {
         return name;
     }
@@ -55,18 +71,15 @@ public class ChatsEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "created_at", nullable = false)
+
     public Object getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Object createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    @Basic
-    @Column(name = "version", nullable = true)
     public Long getVersion() {
         return version;
     }
@@ -95,6 +108,7 @@ public class ChatsEntity {
         return new HashCodeBuilder(17, 37).append(id).append(ownerId).append(name).append(createdAt).append(version).toHashCode();
     }
 
+    /*
     @OneToMany(mappedBy = "chatsByChatId")
     public Collection<ChatMessagesEntity> getChatMessagesById() {
         return chatMessagesById;
@@ -122,4 +136,6 @@ public class ChatsEntity {
     public void setAccountsByOwnerId(AccountsEntity accountsByOwnerId) {
         this.accountsByOwnerId = accountsByOwnerId;
     }
+
+     */
 }
