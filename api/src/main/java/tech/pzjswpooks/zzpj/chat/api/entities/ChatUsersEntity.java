@@ -6,7 +6,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "chat_users")
+@Table(name = "chat_users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"chat_id", "account_id"})
+})
 @NamedQueries({
         @NamedQuery(name = "ChatUsersEntity.findAll", query = "SELECT a FROM ChatUsersEntity a"),
         @NamedQuery(name = "ChatUsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
