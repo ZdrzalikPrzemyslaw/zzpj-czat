@@ -1,10 +1,21 @@
 package tech.pzjswpooks.zzpj.chat.api.entities;
 
-import java.util.Collection;
-import javax.persistence.*;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "accounts", uniqueConstraints = {
@@ -88,7 +99,6 @@ public class AccountsEntity {
         this.enabled = enabled;
     }
 
-
     public Long getVersion() {
         return version;
     }
@@ -97,18 +107,10 @@ public class AccountsEntity {
         this.version = version;
     }
 
-
     public UsersEntity getUserId() {
         return userId;
     }
 
-    public void setUserId(UsersEntity userId) {
-        this.userId.setId(userId.getId());
-    }
-
-    public void setUserId(Long userId) {
-        this.userId.setId(userId);
-    }
 
     @Override
     public boolean equals(Object o) {

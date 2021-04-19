@@ -3,9 +3,20 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PreUpdate;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Entity
 @Table(name = "chats")
@@ -43,7 +54,11 @@ public class ChatsEntity {
     private AccountsEntity accountsByOwnerId;
      */
 
-    public void initCreatedAt(LocalDateTime createdAt) {
+    /**
+     * Initializes createdAt with current time.
+     */
+    @PreUpdate
+    public void initCreatedAt() {
         this.createdAt = LocalDateTime.now();
     }
 

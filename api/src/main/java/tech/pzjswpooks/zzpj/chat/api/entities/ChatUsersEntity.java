@@ -3,7 +3,19 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "chat_users", uniqueConstraints = {
@@ -32,10 +44,8 @@ public class ChatUsersEntity {
     private AccountsEntity accountId;
 
 
-//    private ChatsEntity chatsByChatId;
-//
-//
-//    private AccountsEntity accountsByAccountId;
+    //    private ChatsEntity chatsByChatId;
+    //    private AccountsEntity accountsByAccountId;
 
 
     public Long getId() {
@@ -70,23 +80,26 @@ public class ChatUsersEntity {
         return new HashCodeBuilder(17, 37).append(id).append(chatId).append(accountId).toHashCode();
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false)
-//    public ChatsEntity getChatsByChatId() {
-//        return chatsByChatId;
-//    }
-//
-//    public void setChatsByChatId(ChatsEntity chatsByChatId) {
-//        this.chatsByChatId = chatsByChatId;
-//    }
-//
-//    @ManyToOne
-//    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-//    public AccountsEntity getAccountsByAccountId() {
-//        return accountsByAccountId;
-//    }
-//
-//    public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
-//        this.accountsByAccountId = accountsByAccountId;
-//    }
+    /*
+    @ManyToOne
+    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false)
+    public ChatsEntity getChatsByChatId() {
+        return chatsByChatId;
+    }
+
+    public void setChatsByChatId(ChatsEntity chatsByChatId) {
+        this.chatsByChatId = chatsByChatId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    public AccountsEntity getAccountsByAccountId() {
+        return accountsByAccountId;
+    }
+
+    public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
+        this.accountsByAccountId = accountsByAccountId;
+    }
+
+     */
 }
