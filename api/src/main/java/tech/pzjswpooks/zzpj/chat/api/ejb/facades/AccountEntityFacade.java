@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 // TODO: 24.04.2021 Nie jestem pewien czy tutaj ta tranzakcja jest konieczna
-@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
 
     @PersistenceContext(unitName = "zzpjadmin")
