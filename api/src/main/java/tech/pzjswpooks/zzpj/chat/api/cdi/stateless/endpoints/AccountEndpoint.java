@@ -1,4 +1,4 @@
-package tech.pzjswpooks.zzpj.chat.api.cdi.endpoints;
+package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;

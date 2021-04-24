@@ -1,9 +1,9 @@
-package tech.pzjswpooks.zzpj.chat.api;
+package tech.pzjswpooks.zzpj.chat.api.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("api")
-public class JAXRSConfiguration extends Application {
+public class JAXRSConfig extends Application {
 
 }
