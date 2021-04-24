@@ -3,6 +3,8 @@ package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -12,6 +14,8 @@ import javax.persistence.TypedQuery;
  * Klasa definiująca główne operacje wykonywane na encjach typu AccountEntity.
  */
 @Stateless
+// TODO: 24.04.2021 Nie jestem pewien czy tutaj ta tranzakcja jest konieczna
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
 
     @PersistenceContext(unitName = "zzpjadmin")

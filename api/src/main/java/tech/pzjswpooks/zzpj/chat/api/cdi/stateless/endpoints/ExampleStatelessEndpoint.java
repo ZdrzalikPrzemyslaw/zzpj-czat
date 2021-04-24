@@ -1,4 +1,4 @@
-package tech.pzjswpooks.zzpj.chat.api.cdi.endpoints;
+package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
