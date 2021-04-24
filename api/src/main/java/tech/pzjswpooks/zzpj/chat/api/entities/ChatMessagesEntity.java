@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,13 +35,13 @@ public class ChatMessagesEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private ChatsEntity chatId;
     @Basic
     @Column(name = "text", nullable = true, length = 4096)
     private String text;
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private AccountsEntity accountId;
     @Basic
     @Column(name = "created_at", nullable = false)
