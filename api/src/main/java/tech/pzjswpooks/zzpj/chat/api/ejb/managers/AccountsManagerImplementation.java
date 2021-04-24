@@ -11,8 +11,13 @@ import javax.inject.Inject;
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AccountsManagerImplementation implements AccountsManager {
-    @Inject
+
     private AccountEntityFacade accountEntityFacade;
+
+    @Inject
+    public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade) {
+        this.accountEntityFacade = accountEntityFacade;
+    }
 
     @Override
     public void lockAccount(String username) {

@@ -28,11 +28,16 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.utils.PropertiesLoader;
 @Stateless
 public class JwtUtils {
 
-    @Inject
-    private PropertiesLoader propertiesLoader;
 
+    private PropertiesLoader propertiesLoader;
     private String registrationConfirmationJwtSecret;
     private Long registrationConfirmationJwtExpirationMs;
+
+    @Inject
+    public JwtUtils(PropertiesLoader propertiesLoader) {
+        this.propertiesLoader = propertiesLoader;
+    }
+
 
     @PostConstruct
     private void init() {
@@ -65,6 +70,7 @@ public class JwtUtils {
 
     /**
      * Pobiera login użytkownika z tokenu JWT wydanego na potrzebę weryfikacji konta po rejestracji.
+     *
      * @param token JWT token
      * @return Login użytkownika o zadanym tokenie
      * @throws ParseException ParseException
@@ -75,6 +81,7 @@ public class JwtUtils {
 
     /**
      * Metoda sprawdzająca token jwt na potrzeby weryfikacji konta poprzez email.
+     *
      * @param tokenToValidate JWT token
      * @return boolean
      */

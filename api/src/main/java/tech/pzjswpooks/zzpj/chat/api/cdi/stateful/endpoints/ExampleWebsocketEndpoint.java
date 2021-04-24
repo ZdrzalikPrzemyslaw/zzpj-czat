@@ -15,11 +15,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 // TODO: 24.04.2021 https://github.com/javaee/tutorial-examples/tree/master/web/websocket/websocketbot
 //  https://javaee.github.io/tutorial/websocket012.html
 @Stateful
-@ServerEndpoint(value="/socket_example/{id}", encoders = {}, decoders = {})
+@ServerEndpoint(value = "/socket_example/{id}", encoders = {}, decoders = {})
 public class ExampleWebsocketEndpoint {
 
     /* Queue for all open WebSocket sessions */
-    private static Queue<Session> queue = new ConcurrentLinkedQueue<>();
+    private static final Queue<Session> queue = new ConcurrentLinkedQueue<>();
 
     @OnOpen
     public void open(Session session,

@@ -14,8 +14,14 @@ import javax.ws.rs.core.Response;
 
 @Path("account")
 public class AccountEndpoint {
+
+    private final AccountsManager accountsManager;
+
     @Inject
-    private AccountsManager accountsManager;
+    public AccountEndpoint(AccountsManager accountsManager) {
+        this.accountsManager = accountsManager;
+    }
+
 
     /**
      * Metoda służąca do blokowania konta przez administratora.
