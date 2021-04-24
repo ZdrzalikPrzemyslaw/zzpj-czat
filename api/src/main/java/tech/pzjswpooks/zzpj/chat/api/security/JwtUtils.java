@@ -11,6 +11,10 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
+
+import javax.annotation.PostConstruct;
+import javax.ejb.DependsOn;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.text.ParseException;
@@ -27,8 +31,14 @@ public class JwtUtils {
     @Inject
     private PropertiesLoader propertiesLoader;
 
-    private final String registrationConfirmationJwtSecret = propertiesLoader.getJwtSecret();
-    private final Long registrationConfirmationJwtExpirationMs = propertiesLoader.getJwtExpiration();
+    private String registrationConfirmationJwtSecret;
+    private Long registrationConfirmationJwtExpirationMs;
+
+    @PostConstruct
+    private void init() {
+        registrationConfirmationJwtSecret = propertiesLoader.getConfirmationJwtSecret();
+        registrationConfirmationJwtExpirationMs = propertiesLoader.getConfirmationJwtExpiration();
+    }
 
     /**
      * Generuje token JWT na potrzeby weryfikacji rejestracji.

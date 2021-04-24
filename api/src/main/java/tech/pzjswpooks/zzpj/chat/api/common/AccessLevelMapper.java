@@ -11,6 +11,7 @@ public class AccessLevelMapper {
      *
      * @param level poziom dostępu do zamiany na obiekt
      * @return obiekt poziomu dostępu
+     * @throws NotImplementedException gdy poziom dostepu nie istnieje
      */
     public static AccessLevelsEntity mapLevelNameToAccessLevel(String level) throws NotImplementedException {
         if (AccessLevels.ADMIN.getLevel().equals(level)) {
