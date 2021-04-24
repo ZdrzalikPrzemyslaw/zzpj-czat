@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,18 @@ import javax.persistence.UniqueConstraint;
         @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id")
 })
 public class AccessLevelsEntity {
+
+    public AccessLevelsEntity() {
+
+    }
+
+    // Nie jestem pewien tego konstruktora
+    public AccessLevelsEntity(Long id, String level, AccountsEntity accountId) {
+        this.id = id;
+        this.level = level;
+        this.accountId = accountId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "access_levels_generator")
     @SequenceGenerator(name = "access_levels_generator", sequenceName = "access_levels_seq", allocationSize = 1)
@@ -35,49 +48,32 @@ public class AccessLevelsEntity {
     private Long id;
 
     @Basic(optional = false)
-    @Column(name = "level", nullable = false, length = 32)
+    @Column(name = "level", nullable = false, length = 32, updatable = false)
     private String level;
 
-    @Column(name = "account_id", nullable = false)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private AccountsEntity accountId;
 
     @Basic(optional = false)
     @Column(name = "enabled", nullable = false)
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @Basic
     @Column(name = "version", nullable = true)
-    private Long version;
-
-    //private AccountsEntity accountsByAccountId;
+    private Long version = 0L;
 
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     public String getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-
     public AccountsEntity getAccountId() {
         return accountId;
-    }
-
-    public void setAccountId(AccountsEntity accountId) {
-        this.accountId = accountId;
     }
 
     public Boolean getEnabled() {
@@ -87,7 +83,6 @@ public class AccessLevelsEntity {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
 
     public Long getVersion() {
         return version;
@@ -117,16 +112,5 @@ public class AccessLevelsEntity {
         return new HashCodeBuilder(17, 37).append(id).append(level).append(accountId).append(enabled).append(version).toHashCode();
     }
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    public AccountsEntity getAccountsByAccountId() {
-        return accountsByAccountId;
-    }
 
-    public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
-        this.accountsByAccountId = accountsByAccountId;
-    }
-
-     */
 }

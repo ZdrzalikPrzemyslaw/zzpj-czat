@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,36 +33,33 @@ public class ChatMessagesEntity {
     @Basic(optional = false)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-
-    @Column(name = "chat_id", nullable = false)
     @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ChatsEntity chatId;
-
     @Basic
     @Column(name = "text", nullable = true, length = 4096)
     private String text;
-
-    @Column(name = "account_id", nullable = false)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false)
     private AccountsEntity accountId;
-
     @Basic
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    //    private ChatsEntity chatsByChatId;
-    //    private AccountsEntity accountsByAccountId;
+    public ChatMessagesEntity() {
+
+    }
+
+    @PrePersist
+    private void init() {
+        createdAt = LocalDateTime.now();
+    }
 
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getChatId() {
         return chatId.getId();
@@ -72,7 +70,6 @@ public class ChatMessagesEntity {
         return accountId.getId();
     }
 
-
     public String getText() {
         return text;
     }
@@ -81,22 +78,10 @@ public class ChatMessagesEntity {
         this.text = text;
     }
 
-
-    public Object getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
-     * Initializes createdAt with current time.
-     */
-    @PreUpdate
-    public void initCreatedAt() {
-        this.createdAt = LocalDateTime.now();
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -118,26 +103,4 @@ public class ChatMessagesEntity {
         return new HashCodeBuilder(17, 37).append(id).append(chatId).append(accountId).append(text).append(createdAt).toHashCode();
     }
 
-    /*
-
-    @ManyToOne
-    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false)
-    public ChatsEntity getChatsByChatId() {
-        return chatsByChatId;
-    }
-
-    public void setChatsByChatId(ChatsEntity chatsByChatId) {
-        this.chatsByChatId = chatsByChatId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    public AccountsEntity getAccountsByAccountId() {
-        return accountsByAccountId;
-    }
-
-    public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
-        this.accountsByAccountId = accountsByAccountId;
-    }
-     */
 }

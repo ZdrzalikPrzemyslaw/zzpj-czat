@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +14,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "chats")
@@ -32,51 +39,50 @@ public class ChatsEntity {
     @Basic(optional = false)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
-
-    @Column(name = "owner_id", nullable = false)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false, updatable = true)
+    @ManyToOne(optional = false)
     private AccountsEntity ownerId;
-
-    @Basic
+    @Basic(optional = true)
     @Column(name = "name", nullable = true, length = 30)
     private String name;
-
     @Basic(optional = false)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     @Basic(optional = false)
     @Column(name = "version", nullable = false)
-    private Long version;
-    /*
-    private Collection<ChatMessagesEntity> chatMessagesById;
-    private Collection<ChatUsersEntity> chatUsersById;
-    private AccountsEntity accountsByOwnerId;
-     */
+    private Long version = 0L;
+    @JoinColumn(name = "chat_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    private final List<ChatMessagesEntity> chatMessages = new ArrayList<>();
+    @JoinColumn(name = "chat_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    private final Set<ChatUsersEntity> chatUsers = new HashSet<>();
 
-    /**
-     * Initializes createdAt with current time.
-     */
-    @PreUpdate
-    public void initCreatedAt() {
-        this.createdAt = LocalDateTime.now();
+    public ChatsEntity() {
+
+    }
+
+    public ChatsEntity(AccountsEntity ownerId, String name) {
+        this.ownerId = ownerId;
+        this.name = name;
+    }
+
+    @PrePersist
+    private void init() {
+        createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public AccountsEntity getOwner() {
+        return ownerId;
     }
 
-
-    public Long getOwnerId() {
-        return ownerId.getId();
+    public void setOwner(AccountsEntity ownerId) {
+        this.ownerId = ownerId;
     }
-
-    //public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
-
 
     public String getName() {
         return name;
@@ -86,13 +92,8 @@ public class ChatsEntity {
         this.name = name;
     }
 
-
-    public Object getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Long getVersion() {
@@ -123,34 +124,11 @@ public class ChatsEntity {
         return new HashCodeBuilder(17, 37).append(id).append(ownerId).append(name).append(createdAt).append(version).toHashCode();
     }
 
-    /*
-    @OneToMany(mappedBy = "chatsByChatId")
-    public Collection<ChatMessagesEntity> getChatMessagesById() {
-        return chatMessagesById;
+    public List<ChatMessagesEntity> getChatMessages() {
+        return chatMessages;
     }
 
-    public void setChatMessagesById(Collection<ChatMessagesEntity> chatMessagesById) {
-        this.chatMessagesById = chatMessagesById;
+    public Set<ChatUsersEntity> getChatUsers() {
+        return chatUsers;
     }
-
-    @OneToMany(mappedBy = "chatsByChatId")
-    public Collection<ChatUsersEntity> getChatUsersById() {
-        return chatUsersById;
-    }
-
-    public void setChatUsersById(Collection<ChatUsersEntity> chatUsersById) {
-        this.chatUsersById = chatUsersById;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
-    public AccountsEntity getAccountsByOwnerId() {
-        return accountsByOwnerId;
-    }
-
-    public void setAccountsByOwnerId(AccountsEntity accountsByOwnerId) {
-        this.accountsByOwnerId = accountsByOwnerId;
-    }
-
-     */
 }

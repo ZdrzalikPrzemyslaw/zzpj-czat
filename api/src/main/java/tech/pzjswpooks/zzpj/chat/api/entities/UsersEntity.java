@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.security.SecureRandom;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -31,35 +33,40 @@ public class UsersEntity {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Basic(optional = false)
     @Column(name = "email", nullable = false, length = 100)
     private String email;
-
     @Basic(optional = false)
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
-
     @Basic(optional = false)
     @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-
     @Basic
     @Column(name = "phone_number", nullable = true, length = 15)
     private String phoneNumber;
-
     @Basic
     @Column(name = "language", nullable = true, length = 35)
     private String language;
+    @OneToOne(optional = false, mappedBy = "user_id")
+    private AccountsEntity accountId;
 
+    public UsersEntity() {
+
+    }
+
+    UsersEntity(String email, String firstName, String language, String lastName, String phoneNumber) {
+        this.email = email;
+        this.firstName = firstName;
+        this.language = language;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;

@@ -26,6 +26,10 @@ import javax.persistence.UniqueConstraint;
         @NamedQuery(name = "ChatUsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
 })
 public class ChatUsersEntity {
+    public ChatUsersEntity() {
+
+    }
+
     @Id
     @SequenceGenerator(name = "chat_users_generator", sequenceName = "chat_users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_users_generator")
@@ -33,20 +37,13 @@ public class ChatUsersEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "chat_id", nullable = false)
     @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ChatsEntity chatId;
 
-    @Column(name = "account_id", nullable = false)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false)
     private AccountsEntity accountId;
-
-
-    //    private ChatsEntity chatsByChatId;
-    //    private AccountsEntity accountsByAccountId;
-
 
     public Long getId() {
         return id;
@@ -80,26 +77,5 @@ public class ChatUsersEntity {
         return new HashCodeBuilder(17, 37).append(id).append(chatId).append(accountId).toHashCode();
     }
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false)
-    public ChatsEntity getChatsByChatId() {
-        return chatsByChatId;
-    }
 
-    public void setChatsByChatId(ChatsEntity chatsByChatId) {
-        this.chatsByChatId = chatsByChatId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    public AccountsEntity getAccountsByAccountId() {
-        return accountsByAccountId;
-    }
-
-    public void setAccountsByAccountId(AccountsEntity accountsByAccountId) {
-        this.accountsByAccountId = accountsByAccountId;
-    }
-
-     */
 }
