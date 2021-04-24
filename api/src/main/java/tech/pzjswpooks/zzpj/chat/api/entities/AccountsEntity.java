@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -61,6 +62,7 @@ public class AccountsEntity {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
     @Basic(optional = false)
+    @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;
     @OneToOne(optional = false, mappedBy = "accountId")

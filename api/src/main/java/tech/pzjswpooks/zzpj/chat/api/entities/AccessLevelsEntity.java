@@ -23,6 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "access_levels", uniqueConstraints = {
@@ -52,6 +53,7 @@ public class AccessLevelsEntity {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
     @Basic
+    @Version
     @Column(name = "version", nullable = true)
     private Long version = 0L;
 

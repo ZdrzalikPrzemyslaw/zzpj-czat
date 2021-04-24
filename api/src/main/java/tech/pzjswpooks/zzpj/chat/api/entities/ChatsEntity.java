@@ -20,6 +20,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,6 +51,7 @@ public class ChatsEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     @Basic(optional = false)
+    @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;
     @JoinColumn(name = "chat_id")
