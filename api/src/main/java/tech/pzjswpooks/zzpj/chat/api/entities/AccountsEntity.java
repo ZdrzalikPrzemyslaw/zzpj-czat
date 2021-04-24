@@ -31,7 +31,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "AccountsEntity.findAll", query = "SELECT a FROM AccountsEntity a"),
-        @NamedQuery(name = "AccountsEntity.findById", query = "SELECT a FROM AccountsEntity a WHERE a.id = :id")
+        @NamedQuery(name = "AccountsEntity.findById", query = "SELECT a FROM AccountsEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "AccountsEntity.findByUsername", query = "SELECT a FROM AccountsEntity a WHERE a.username = :username")
 })
 public class AccountsEntity {
 
