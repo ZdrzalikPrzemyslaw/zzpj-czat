@@ -3,6 +3,7 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -105,6 +106,17 @@ public class AccessLevelsEntity {
         AccessLevelsEntity that = (AccessLevelsEntity) o;
 
         return new EqualsBuilder().append(id, that.id).append(level, that.level).append(accountId, that.accountId).append(enabled, that.enabled).append(version, that.version).isEquals();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("level", level)
+                .append("accountId", accountId)
+                .append("enabled", enabled)
+                .append("version", version)
+                .toString();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package tech.pzjswpooks.zzpj.chat.api.common;
+package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
