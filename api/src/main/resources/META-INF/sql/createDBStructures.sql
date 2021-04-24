@@ -1,3 +1,46 @@
+DROP TABLE IF EXISTS chat_messages;
+DROP TABLE IF EXISTS chat_users;
+DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS access_levels;
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS users;
+
+DROP SEQUENCE IF EXISTS chat_messages_seq;
+DROP SEQUENCE IF EXISTS chat_users_seq;
+DROP SEQUENCE IF EXISTS chats_seq;
+DROP SEQUENCE IF EXISTS access_levels_seq;
+DROP SEQUENCE IF EXISTS accounts_seq;
+DROP SEQUENCE IF EXISTS users_seq;
+--------------------------------------------------------------------
+CREATE TABLE accounts
+(
+    id       BIGINT PRIMARY KEY,
+    username VARCHAR(32) UNIQUE NOT NULL,
+    -- CHAR(64) - skrot hasla bedzie mial stala dlugosc - 64 znaki
+    password CHAR(64)           NOT NULL,
+    enabled  BOOL               NOT NULL DEFAULT TRUE,
+    version  BIGINT             NOT NULL
+        CONSTRAINT acc_version_gr0 CHECK (version >= 0)
+);
+
+ALTER TABLE accounts
+    OWNER TO zzpjadmin;
+
+CREATE SEQUENCE accounts_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE accounts_seq
+    OWNER TO zzpjadmin;
+
+CREATE
+    INDEX accounts_id_index ON accounts (id);
+CREATE
+    INDEX accounts_username_index ON accounts (username);
+
+--------------------------------------------------------------------
 CREATE TABLE users
 (
     id           BIGINT PRIMARY KEY,
@@ -6,7 +49,9 @@ CREATE TABLE users
     first_name   VARCHAR(50)  NOT NULL,
     last_name    VARCHAR(80)  NOT NULL,
     phone_number VARCHAR(15),
-    language     VARCHAR(35)
+    language     VARCHAR(35),
+    account_id  BIGINT UNIQUE      NOT NULL
+        CONSTRAINT users_account_id_fk REFERENCES accounts (id)
 );
 
 ALTER TABLE users
@@ -29,37 +74,7 @@ CREATE
     INDEX users_last_name_index ON users (last_name);
 
 --------------------------------------------------------------------
-CREATE TABLE accounts
-(
-    id       BIGINT PRIMARY KEY,
-    username VARCHAR(32) UNIQUE NOT NULL,
-    -- CHAR(64) - skrot hasla bedzie mial stala dlugosc - 64 znaki
-    password CHAR(64)           NOT NULL,
-    enabled  BOOL               NOT NULL DEFAULT TRUE,
-    version  BIGINT             NOT NULL
-        CONSTRAINT acc_version_gr0 CHECK (version >= 0),
-    user_id  BIGINT UNIQUE      NOT NULL
-        CONSTRAINT accounts_user_id_fk REFERENCES users (id)
-);
 
-ALTER TABLE accounts
-    OWNER TO zzpjadmin;
-
-CREATE SEQUENCE accounts_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE CACHE 1;
-
-ALTER SEQUENCE accounts_seq
-    OWNER TO zzpjadmin;
-
-CREATE
-    INDEX accounts_id_index ON accounts (id);
-CREATE
-    INDEX accounts_username_index ON accounts (username);
-
---------------------------------------------------------------------
 CREATE TABLE access_levels
 (
     id         BIGINT PRIMARY KEY,

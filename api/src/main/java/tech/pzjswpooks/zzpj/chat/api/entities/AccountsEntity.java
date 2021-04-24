@@ -27,8 +27,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "accounts", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"username"}),
-        @UniqueConstraint(columnNames = {"user_id"})})
+        @UniqueConstraint(columnNames = {"username"})})
 
 @NamedQueries({
         @NamedQuery(name = "AccountsEntity.findAll", query = "SELECT a FROM AccountsEntity a"),
@@ -55,7 +54,7 @@ public class AccountsEntity {
     @Column(name = "username", nullable = false, length = 32)
     private String username;
     @Basic(optional = false)
-    @Column(name = "password", nullable = false, length = 64)
+    @Column(name = "password", columnDefinition = "bpchar", nullable = false, length = 64)
     private String password;
     @Basic(optional = false)
     @Column(name = "enabled", nullable = false)
@@ -63,8 +62,7 @@ public class AccountsEntity {
     @Basic(optional = false)
     @Column(name = "version", nullable = false)
     private Long version = 0L;
-    @JoinColumn(name = "user_Id", referencedColumnName = "id", nullable = false, updatable = false)
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne(optional = false, mappedBy = "accountId")
     private UsersEntity userId;
     @JoinColumn(name = "account_id")
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})

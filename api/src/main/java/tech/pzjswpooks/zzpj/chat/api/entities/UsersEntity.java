@@ -6,9 +6,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -19,7 +21,8 @@ import java.security.SecureRandom;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"email"})
+        @UniqueConstraint(columnNames = {"email"}),
+        @UniqueConstraint(columnNames = {"account_id"})
 })
 @NamedQueries({
         @NamedQuery(name = "UsersEntity.findAll", query = "SELECT a FROM ChatUsersEntity a"),
@@ -48,7 +51,8 @@ public class UsersEntity {
     @Basic
     @Column(name = "language", nullable = true, length = 35)
     private String language;
-    @OneToOne(optional = false, mappedBy = "user_id")
+    @JoinColumn(name = "account_id", unique = true, referencedColumnName = "id", nullable = false, updatable = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     private AccountsEntity accountId;
 
     public UsersEntity() {
