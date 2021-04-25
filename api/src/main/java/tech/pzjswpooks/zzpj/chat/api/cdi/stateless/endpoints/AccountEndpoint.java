@@ -9,6 +9,7 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -54,6 +55,7 @@ public class AccountEndpoint {
 
     @PUT
     @Path("/register")
+    @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response registerAccount(RegistrationRequestDto registrationRequestDto) {
         try {
