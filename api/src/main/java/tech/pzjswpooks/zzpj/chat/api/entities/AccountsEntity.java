@@ -66,14 +66,14 @@ public class AccountsEntity {
     @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;
-    @OneToOne(optional = false, mappedBy = "accountId")
+    @OneToOne(optional = false, mappedBy = "accountId", cascade = CascadeType.ALL)
     private UsersEntity userId;
 
     // Konstruktor tworzy też instancje tabeli users
     public AccountsEntity(String username, String password, String email, String firstName, String language, String lastName, String phoneNumber) {
         this.username = username;
         this.password = password;
-        this.userId = new UsersEntity(email, firstName, language, lastName, phoneNumber);
+        this.userId = new UsersEntity(email, firstName, language, lastName, phoneNumber, this);
     }
 
     public AccountsEntity() {
