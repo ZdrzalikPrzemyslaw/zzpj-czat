@@ -13,14 +13,12 @@ import com.nimbusds.jwt.SignedJWT;
 
 
 import javax.annotation.PostConstruct;
-import javax.ejb.DependsOn;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.util.Date;
 
-import tech.pzjswpooks.zzpj.chat.api.ejb.utils.PropertiesLoader;
+import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 /**
  * Typ Jwt utils.

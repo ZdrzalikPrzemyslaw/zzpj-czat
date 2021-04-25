@@ -6,7 +6,10 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.request.RegistrationRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
+import tech.pzjswpooks.zzpj.chat.api.utils.SHA256HashGenerator;
 
+import javax.ejb.Handle;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -20,10 +23,12 @@ import javax.ws.rs.core.Response;
 public class AccountEndpoint {
 
     private final AccountsManager accountsManager;
+    private final HashGenerator hashGenerator;
 
     @Inject
-    public AccountEndpoint(AccountsManager accountsManager) {
+    public AccountEndpoint(AccountsManager accountsManager, HashGenerator hashGenerator) {
         this.accountsManager = accountsManager;
+        this.hashGenerator = hashGenerator;
     }
 
 
@@ -54,7 +59,7 @@ public class AccountEndpoint {
     @Produces({MediaType.APPLICATION_JSON})
     public Response registerAccount(RegistrationRequestDto registrationRequestDto){
         try{
-            accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto));
+            accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto, this.hashGenerator));
         }catch (Exception e){
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new RegistrationResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
