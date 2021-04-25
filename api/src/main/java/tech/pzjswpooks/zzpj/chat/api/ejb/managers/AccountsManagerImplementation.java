@@ -33,4 +33,9 @@ public class AccountsManagerImplementation implements AccountsManager {
         AccountsEntity account = accountEntityFacade.find(id);
         account.setEnabled(false);
     }
+
+    @Override
+    public void registerAccount(AccountsEntity accountsEntity) {
+        accountEntityFacade.create(accountsEntity);
+    }
 }

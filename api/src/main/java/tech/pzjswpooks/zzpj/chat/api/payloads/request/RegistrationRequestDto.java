@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class RegistrationAccountRequestDto {
+public class RegistrationRequestDto {
     @NotEmpty
     @Size(min = 6, max = 32, message = "Invalid size of username")
     private final String username;
@@ -27,7 +27,7 @@ public class RegistrationAccountRequestDto {
     private final String language;
     private final String phoneNumber;
 
-    public RegistrationAccountRequestDto(@NotEmpty @Size(min = 6, max = 32, message = "Invalid size of username") String username, @NotNull @Size(min = 8, message = "Invalid size of password") String password, @NotNull @Email(message = "Not an email") @Size(max = 100, message = "Too long email") String email, @NotEmpty @Size(max = 50, message = "Too long first name") String firstName, @NotEmpty @Size(max = 80, message = "Too long last name") String lastName, String language, String phoneNumber) {
+    public RegistrationRequestDto(@NotEmpty @Size(min = 6, max = 32, message = "Invalid size of username") String username, @NotNull @Size(min = 8, message = "Invalid size of password") String password, @NotNull @Email(message = "Not an email") @Size(max = 100, message = "Too long email") String email, @NotEmpty @Size(max = 50, message = "Too long first name") String firstName, @NotEmpty @Size(max = 80, message = "Too long last name") String lastName, String language, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.email = email;

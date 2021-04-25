@@ -1,8 +1,11 @@
 package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
+import tech.pzjswpooks.zzpj.chat.api.common.AccountEntityMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.RegistrationRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
@@ -49,8 +52,14 @@ public class AccountEndpoint {
     @PUT
     @Path("/register")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response registerAccount(){
-
+    public Response registerAccount(RegistrationRequestDto registrationRequestDto){
+        try{
+            accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto));
+        }catch (Exception e){
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new RegistrationResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new RegistrationResponseDto(null, true)).build();
     }
 
 }
