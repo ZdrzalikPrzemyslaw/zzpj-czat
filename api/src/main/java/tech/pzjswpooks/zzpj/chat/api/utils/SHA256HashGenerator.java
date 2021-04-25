@@ -7,15 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Stateful
 public class SHA256HashGenerator implements HashGenerator {
-    @Override
-    public String generateHash(String input) {
-        try {
-            return bytesToHex(MessageDigest.getInstance("SHA-256").digest(input.getBytes(StandardCharsets.UTF_8)));
-        } catch (NoSuchAlgorithmException e) {
-            // TODO: 20.04.2021
-            e.printStackTrace();
-        }
-        return null;
+    public SHA256HashGenerator() {
     }
 
     private static String bytesToHex(byte[] hash) {
@@ -28,5 +20,16 @@ public class SHA256HashGenerator implements HashGenerator {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    @Override
+    public String generateHash(String input) {
+        try {
+            return bytesToHex(MessageDigest.getInstance("SHA-256").digest(input.getBytes(StandardCharsets.UTF_8)));
+        } catch (NoSuchAlgorithmException e) {
+            // TODO: 20.04.2021
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -60,7 +60,6 @@ public class AccountEndpoint {
     @Produces({MediaType.APPLICATION_JSON})
     public Response registerAccount(RegistrationRequestDto registrationRequestDto) {
         try {
-            HashGenerator hashGenerator = new SHA256HashGenerator();
             accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto, hashGenerator));
         } catch (Exception e) {
             e.printStackTrace();
