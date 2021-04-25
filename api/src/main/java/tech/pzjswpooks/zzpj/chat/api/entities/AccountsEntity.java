@@ -110,6 +110,10 @@ public class AccountsEntity {
         return enabled;
     }
 
+    public void addAccessLevels(AccessLevelsEntity accessLevelsEntity){
+        this.accessLevels.add(accessLevelsEntity);
+    }
+
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }

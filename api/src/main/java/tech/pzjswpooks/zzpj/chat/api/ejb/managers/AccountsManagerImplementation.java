@@ -2,6 +2,7 @@ package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -36,6 +37,7 @@ public class AccountsManagerImplementation implements AccountsManager {
 
     @Override
     public void registerAccount(AccountsEntity accountsEntity) {
+        accountsEntity.addAccessLevels(new UserData());
         accountEntityFacade.create(accountsEntity);
     }
 }
