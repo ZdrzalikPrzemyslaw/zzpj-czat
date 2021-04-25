@@ -1,11 +1,10 @@
-package tech.pzjswpooks.zzpj.chat.api.ejb.utils;
+package tech.pzjswpooks.zzpj.chat.api.utils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.Properties;
 
 /**

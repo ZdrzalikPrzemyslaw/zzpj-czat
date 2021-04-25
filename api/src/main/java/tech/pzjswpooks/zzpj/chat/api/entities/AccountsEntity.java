@@ -7,12 +7,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -46,6 +44,9 @@ public class AccountsEntity {
     @JoinColumn(name = "account_id")
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
     private final List<ChatMessagesEntity> chatMessages = new ArrayList<>();
+    @JoinColumn(name = "account_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    private final Set<ChatUsersEntity> accountId = new HashSet<>();
     @Id
     @SequenceGenerator(name = "accounts_generator", sequenceName = "accounts_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accounts_generator")
@@ -65,17 +66,14 @@ public class AccountsEntity {
     @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;
-    @OneToOne(optional = false, mappedBy = "accountId")
+    @OneToOne(optional = false, mappedBy = "accountId", cascade = CascadeType.ALL)
     private UsersEntity userId;
-    @JoinColumn(name = "account_id")
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
-    private final Set<ChatUsersEntity> accountId = new HashSet<>();
 
     // Konstruktor tworzy też instancje tabeli users
     public AccountsEntity(String username, String password, String email, String firstName, String language, String lastName, String phoneNumber) {
         this.username = username;
         this.password = password;
-        this.userId = new UsersEntity(email, firstName, language, lastName, phoneNumber);
+        this.userId = new UsersEntity(email, firstName, language, lastName, phoneNumber, this);
     }
 
     public AccountsEntity() {
@@ -112,6 +110,10 @@ public class AccountsEntity {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public void addAccessLevels(AccessLevelsEntity accessLevelsEntity) {
+        this.accessLevels.add(accessLevelsEntity);
     }
 
     public Long getVersion() {
