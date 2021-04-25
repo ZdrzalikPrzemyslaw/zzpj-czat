@@ -19,6 +19,9 @@ public class AccountsManagerImplementation implements AccountsManager {
         this.accountEntityFacade = accountEntityFacade;
     }
 
+    public AccountsManagerImplementation() {
+    }
+
     @Override
     public void lockAccount(String username) {
         AccountsEntity account = accountEntityFacade.findByUsername(username);
