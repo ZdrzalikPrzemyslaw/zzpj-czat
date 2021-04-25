@@ -7,9 +7,7 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
-import tech.pzjswpooks.zzpj.chat.api.utils.SHA256HashGenerator;
 
-import javax.ejb.Handle;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -57,10 +55,10 @@ public class AccountEndpoint {
     @PUT
     @Path("/register")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response registerAccount(RegistrationRequestDto registrationRequestDto){
-        try{
+    public Response registerAccount(RegistrationRequestDto registrationRequestDto) {
+        try {
             accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto, this.hashGenerator));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new RegistrationResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
         }
