@@ -5,6 +5,7 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 
 import javax.inject.Inject;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,7 +31,7 @@ public class AccountEndpoint {
      * @return Response
      */
     // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina
-    @PUT
+    @POST
     @Path("/lock/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response lockAccount(@PathParam("id") Long id) {
@@ -44,4 +45,12 @@ public class AccountEndpoint {
         }
         return Response.status(Response.Status.OK).entity(new LockAccountResponseDto(null, true)).build();
     }
+
+    @PUT
+    @Path("/register")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response registerAccount(){
+
+    }
+
 }
