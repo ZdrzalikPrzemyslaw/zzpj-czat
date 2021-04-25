@@ -10,22 +10,22 @@ import javax.validation.constraints.Size;
 public class RegistrationRequestDto {
     @NotEmpty
     @Size(min = 6, max = 32, message = "Invalid size of username")
-    private final String username;
+    private String username;
     @NotNull
     @Size(min = 8, message = "Invalid size of password")
-    private final String password;
+    private String password;
     @NotNull
     @Email(message = "Not an email")
     @Size(max = 100, message = "Too long email")
-    private final String email;
+    private String email;
     @NotEmpty
     @Size(max = 50, message = "Too long first name")
-    private final String firstName;
+    private String firstName;
     @NotEmpty
     @Size(max = 80, message = "Too long last name")
-    private final String lastName;
-    private final String language;
-    private final String phoneNumber;
+    private String lastName;
+    private String language;
+    private String phoneNumber;
 
     public RegistrationRequestDto(@NotEmpty @Size(min = 6, max = 32, message = "Invalid size of username") String username,
                                   @NotNull @Size(min = 8, message = "Invalid size of password") String password,
@@ -40,6 +40,9 @@ public class RegistrationRequestDto {
         this.lastName = lastName;
         this.language = language;
         this.phoneNumber = phoneNumber;
+    }
+
+    public RegistrationRequestDto() {
     }
 
     public String getUsername() {

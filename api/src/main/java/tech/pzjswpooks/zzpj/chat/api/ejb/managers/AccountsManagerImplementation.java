@@ -37,7 +37,9 @@ public class AccountsManagerImplementation implements AccountsManager {
 
     @Override
     public void registerAccount(AccountsEntity accountsEntity) {
-        accountsEntity.addAccessLevels(new UserData());
+        UserData userData = new UserData();
+        userData.setAccountId(accountsEntity);
+        accountsEntity.addAccessLevels(userData);
         accountEntityFacade.create(accountsEntity);
     }
 }

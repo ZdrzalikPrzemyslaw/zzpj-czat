@@ -61,6 +61,10 @@ public class AccessLevelsEntity {
 
     }
 
+    public void setAccountId(AccountsEntity accountId) {
+        this.accountId = accountId;
+    }
+
     // Nie jestem pewien tego konstruktora
     public AccessLevelsEntity(Long id, String level, AccountsEntity accountId) {
         this.id = id;

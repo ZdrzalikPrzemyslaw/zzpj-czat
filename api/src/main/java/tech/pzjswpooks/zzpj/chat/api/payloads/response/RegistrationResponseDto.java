@@ -13,6 +13,9 @@ public class RegistrationResponseDto {
         this.wasSuccessful = wasSuccessful;
     }
 
+    public RegistrationResponseDto() {
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
