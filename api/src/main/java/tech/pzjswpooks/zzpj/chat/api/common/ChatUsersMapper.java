@@ -1,2 +1,4 @@
-package tech.pzjswpooks.zzpj.chat.api.common;public class ChatUsersMapper {
+package tech.pzjswpooks.zzpj.chat.api.common;
+
+public class ChatUsersMapper {
 }
