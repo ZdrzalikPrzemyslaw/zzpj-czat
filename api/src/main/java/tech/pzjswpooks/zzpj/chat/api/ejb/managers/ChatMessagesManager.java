@@ -1,14 +1,10 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
 
 import javax.ejb.Local;
 
 @Local
-public interface AccountsManager {
-    void lockAccount(String username);
+public interface ChatMessagesManager {
 
-    void lockAccount(Long id);
-
-    void registerAccount(AccountsEntity accountsEntity);
 }
