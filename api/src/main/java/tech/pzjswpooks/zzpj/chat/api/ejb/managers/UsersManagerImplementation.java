@@ -1,6 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.UsersEntityFacade;
+import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
+import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -9,7 +12,7 @@ import javax.inject.Inject;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-public class UsersManagerImplementation implements ChatMessagesManager {
+public class UsersManagerImplementation implements UsersManager {
 
     private UsersEntityFacade usersEntityFacade;
 
@@ -19,6 +22,11 @@ public class UsersManagerImplementation implements ChatMessagesManager {
     }
 
     public UsersManagerImplementation() {
+    }
+
+    @Override
+    public void changeUser(UsersEntity usersEntity) {
+        usersEntityFacade.create(usersEntity);
     }
 
 }
