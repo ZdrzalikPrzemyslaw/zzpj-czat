@@ -26,7 +26,6 @@ public class UserEndpoint {
      *
      * @return Response
      */
-    // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina
     @POST
     @Path("/change")
     @Consumes({MediaType.APPLICATION_JSON})
