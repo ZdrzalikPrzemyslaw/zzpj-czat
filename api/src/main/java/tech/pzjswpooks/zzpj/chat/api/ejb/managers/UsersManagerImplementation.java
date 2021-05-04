@@ -26,7 +26,7 @@ public class UsersManagerImplementation implements UsersManager {
 
     @Override
     public void changeUser(UsersEntity usersEntity) {
-        usersEntityFacade.create(usersEntity);
+        usersEntityFacade.edit(usersEntity);
     }
 
 }
