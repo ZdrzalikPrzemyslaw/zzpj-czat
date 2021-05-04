@@ -1,2 +1,4 @@
-package tech.pzjswpooks.zzpj.chat.api.ejb.managers;public interface AccessLevelsManager {
+package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
+
+public interface AccessLevelsManager {
 }
