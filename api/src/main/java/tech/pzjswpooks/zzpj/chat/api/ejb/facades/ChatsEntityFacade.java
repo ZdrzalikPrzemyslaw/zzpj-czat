@@ -14,7 +14,6 @@ import javax.persistence.TypedQuery;
  * Klasa definiująca główne operacje wykonywane na encjach typu ChatsEntity.
  */
 @Stateless
-// TODO: 24.04.2021 Nie jestem pewien czy tutaj ta tranzakcja jest konieczna
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ChatsEntityFacade extends AbstractFacade<ChatsEntity> {
 
