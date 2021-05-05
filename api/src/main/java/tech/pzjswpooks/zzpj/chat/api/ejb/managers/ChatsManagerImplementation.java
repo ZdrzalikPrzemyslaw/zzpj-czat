@@ -19,4 +19,8 @@ public class ChatsManagerImplementation implements ChatsManager {
     public ChatsManagerImplementation(ChatsEntityFacade chatsEntityFacade) {
         this.chatsEntityFacade = chatsEntityFacade;
     }
+
+    public ChatsManagerImplementation() {
+
+    }
 }

@@ -27,28 +27,6 @@ public class ChatsEntityFacade extends AbstractFacade<ChatsEntity> {
         super(ChatsEntity.class);
     }
 
-    /**
-     * Find by id chat.
-     *
-     * @param id id
-     * @return chat
-     */
-    public ChatsEntity findById(Long id) {
-        TypedQuery<ChatsEntity> tq = em.createNamedQuery("ChatsEntity.findById", ChatsEntity.class);
-        tq.setParameter("id", id);
-        return tq.getSingleResult();
-    }
-
-    /**
-     * Find all chats.
-     *
-     * @return chats
-     */
-    public ChatsEntity findAll() {
-        TypedQuery<ChatsEntity> tq = em.createNamedQuery("ChatsEntity.findAll", ChatsEntity.class);
-        return tq.getResultList();
-    }
-
 
     /**
      * Tworzy nową instancję klasy ChatsFacade.
