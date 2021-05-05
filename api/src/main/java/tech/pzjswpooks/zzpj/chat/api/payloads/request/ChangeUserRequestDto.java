@@ -10,8 +10,6 @@ import javax.validation.constraints.Size;
 
 public class ChangeUserRequestDto {
     @NotNull
-    private AccountsEntity accountsEntity;
-    @NotNull
     @Email(message = "Not an email")
     @Size(max = 100, message = "Too long email")
     private String email;
@@ -24,12 +22,11 @@ public class ChangeUserRequestDto {
     private String language;
     private String phoneNumber;
 
-    public ChangeUserRequestDto(@NotNull AccountsEntity accountsEntity,
+    public ChangeUserRequestDto(
                                 @NotNull @Email(message = "Not an email") @Size(max = 100, message = "Too long email") String email,
                                 @NotEmpty @Size(max = 50, message = "Too long first name") String firstName,
                                 @NotEmpty @Size(max = 80, message = "Too long last name") String lastName,
                                 String language, String phoneNumber) {
-        this.accountsEntity = accountsEntity;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,14 +35,6 @@ public class ChangeUserRequestDto {
     }
 
     public ChangeUserRequestDto() {
-    }
-
-    public AccountsEntity getAccountsEntity() {
-        return accountsEntity;
-    }
-
-    public void setAccountsEntity(AccountsEntity accountsEntity) {
-        this.accountsEntity = accountsEntity;
     }
 
     public String getEmail() {

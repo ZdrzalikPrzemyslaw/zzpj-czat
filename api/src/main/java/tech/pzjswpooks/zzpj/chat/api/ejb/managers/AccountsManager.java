@@ -11,4 +11,6 @@ public interface AccountsManager {
     void lockAccount(Long id);
 
     void registerAccount(AccountsEntity accountsEntity);
+
+    AccountsEntity getLoggedInAccount();
 }
