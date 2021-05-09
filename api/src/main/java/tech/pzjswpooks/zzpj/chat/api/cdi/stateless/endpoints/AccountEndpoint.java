@@ -9,6 +9,7 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
 import tech.pzjswpooks.zzpj.chat.api.utils.SHA256HashGenerator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

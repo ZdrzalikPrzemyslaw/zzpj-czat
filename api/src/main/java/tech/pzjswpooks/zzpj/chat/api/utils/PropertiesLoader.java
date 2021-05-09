@@ -3,6 +3,7 @@ package tech.pzjswpooks.zzpj.chat.api.utils;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -32,6 +33,9 @@ public class PropertiesLoader {
      */
     public Long getConfirmationJwtExpiration() {
         return confirmationJwtExpiration;
+    }
+
+    public PropertiesLoader() {
     }
 
     private Long confirmationJwtExpiration;
