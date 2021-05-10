@@ -8,8 +8,8 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "java:app/jdbc/zzpjadmin",
-        callerQuery = "#{'select password from accounts where username = ?'}",
-        groupsQuery = "select al.level from access_levels al, accounts a  where a.username = ? and al.account_id = a.id",
+        callerQuery = "#{'select password from accounts where username = ? and enabled = true'}",
+        groupsQuery = "select al.level from access_levels al, accounts a  where a.username = ? and al.account_id = a.id and a.enabled = true and al.enabled = true",
         hashAlgorithm = AuthHashImpl.class
 )
 //@BasicAuthenticationMechanismDefinition
