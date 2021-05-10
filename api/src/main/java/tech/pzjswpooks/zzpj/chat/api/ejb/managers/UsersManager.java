@@ -10,6 +10,6 @@ import javax.ejb.Local;
 @Local
 public interface UsersManager {
 
-    void changeUser(UsersEntity usersEntity, ChangeUserRequestDto r);
+    void changeUserDetails(UsersEntity usersEntity, ChangeUserRequestDto r);
 
 }

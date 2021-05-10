@@ -27,20 +27,20 @@ public class UsersManagerImplementation implements UsersManager {
     }
 
     @Override
-    public void changeUser(UsersEntity usersEntity, ChangeUserRequestDto r) {
-        if( !Objects.isNull(r.getEmail()) ) {
+    public void changeUserDetails(UsersEntity usersEntity, ChangeUserRequestDto r) {
+        if (!Objects.isNull(r.getEmail())) {
             usersEntity.setEmail(r.getEmail());
         }
-        if( !Objects.isNull(r.getFirstName()) ) {
+        if (!Objects.isNull(r.getFirstName())) {
             usersEntity.setFirstName(r.getFirstName());
         }
-        if( !Objects.isNull(r.getLastName()) ) {
+        if (!Objects.isNull(r.getLastName())) {
             usersEntity.setLastName(r.getLastName());
         }
-        if( !Objects.isNull(r.getLanguage()) ) {
+        if (!Objects.isNull(r.getLanguage())) {
             usersEntity.setLanguage(r.getLanguage());
         }
-        if( !Objects.isNull(r.getPhoneNumber()) ) {
+        if (!Objects.isNull(r.getPhoneNumber())) {
             usersEntity.setPhoneNumber(r.getPhoneNumber());
         }
 

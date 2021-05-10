@@ -8,7 +8,10 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChangeUserResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Objects;
@@ -25,11 +28,6 @@ public class UserEndpoint {
         this.accountsManager = accountsManager;
     }
 
-    /**
-     * Metoda służąca do zmiany danych użytkownika
-     *
-     * @return Response
-     */
     @POST
     @Path("/change")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -40,7 +38,7 @@ public class UserEndpoint {
             return Response.status(Response.Status.UNAUTHORIZED).entity(new ChangeUserResponseDto(null, false)).build();
         }
         try {
-            usersManager.changeUser(loggedInAccount.getUserId(), changeUserRequestDto);
+            usersManager.changeUserDetails(loggedInAccount.getUserId(), changeUserRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new ChangeUserResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
