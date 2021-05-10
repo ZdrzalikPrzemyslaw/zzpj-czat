@@ -42,4 +42,10 @@ public class AccountsManagerImplementation implements AccountsManager {
         accountsEntity.addAccessLevels(userData);
         accountEntityFacade.create(accountsEntity);
     }
+
+    // TODO: 10.05.2021 Wy jąt ki
+    @Override
+    public AccountsEntity getAccountByUsername(String username) {
+        return accountEntityFacade.findByUsername(username);
+    }
 }

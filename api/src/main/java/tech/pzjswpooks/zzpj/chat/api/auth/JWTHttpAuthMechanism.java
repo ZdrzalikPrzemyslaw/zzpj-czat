@@ -1,7 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.auth;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccessLevelsManager;
+import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.security.JwtUtils;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,29 +29,32 @@ public class JWTHttpAuthMechanism implements HttpAuthenticationMechanism {
     private JwtUtils jwtUtils;
 
     @Inject
-    private AccessLevelsManager accessLevelsManager;
+    private AccountsManager accountsManager;
 
     @Override
-    public AuthenticationStatus validateRequest(HttpServletRequest req,
-                                                HttpServletResponse res,
-                                                HttpMessageContext msg) {
+    public AuthenticationStatus validateRequest(HttpServletRequest req, HttpServletResponse res, HttpMessageContext msgContext) {
         try {
             String jwt = parseJwt(req);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                List<AccessLevelsEntity> levelsForUsername = accessLevelsManager.getLevelsForUsername(username);
-                Set<String> levels = new HashSet<>();
-                for (var i : levelsForUsername) {
-                    levels.add(i.getLevel());
+                AccountsEntity accountsEntity = accountsManager.getAccountByUsername(username);
+                if (accountsEntity.getEnabled()) {
+                    Set<AccessLevelsEntity> levelsForUsername = accountsEntity.getAccessLevels();
+                    Set<String> levels = new HashSet<>();
+                    for (var i : levelsForUsername) {
+                        if (i.getEnabled()) {
+                            levels.add(i.getLevel());
+                        }
+                    }
+                    return msgContext.notifyContainerAboutLogin(username, levels);
                 }
-                return msg.notifyContainerAboutLogin(username, levels);
-            } else if (!msg.isProtected()) {
-                return msg.doNothing();
+            } if (!msgContext.isProtected()) {
+                return msgContext.doNothing();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return msg.responseUnauthorized();
+        return msgContext.responseUnauthorized();
     }
 
     private String parseJwt(HttpServletRequest request) {
