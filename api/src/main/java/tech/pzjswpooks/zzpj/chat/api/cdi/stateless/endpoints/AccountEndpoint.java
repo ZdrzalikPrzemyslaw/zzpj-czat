@@ -3,11 +3,10 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 import tech.pzjswpooks.zzpj.chat.api.common.AccountEntityMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.RegistrationRequestDto;
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAccountResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAndUnlockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.RegistrationResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
-import tech.pzjswpooks.zzpj.chat.api.utils.SHA256HashGenerator;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -42,6 +41,7 @@ public class AccountEndpoint {
     // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina
     @POST
     @Path("/lock/{id}")
+    @RolesAllowed("level.admin")
     @Produces({MediaType.APPLICATION_JSON})
     public Response lockAccount(@PathParam("id") Long id) {
         try {
@@ -49,10 +49,26 @@ public class AccountEndpoint {
             // TODO: 24.04.2021 Fix catch block
         } catch (Throwable e) {
             e.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).entity(new LockAccountResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new LockAndUnlockAccountResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
             // TODO: 20.04.2021 add application exception
         }
-        return Response.status(Response.Status.OK).entity(new LockAccountResponseDto(null, true)).build();
+        return Response.status(Response.Status.OK).entity(new LockAndUnlockAccountResponseDto(null, true)).build();
+    }
+
+    @POST
+    @Path("/unlock/{id}")
+    @RolesAllowed("level.admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response unlockAccount(@PathParam("id") Long id) {
+        try {
+            accountsManager.unlockAccount(id);
+            // TODO: 24.04.2021 Fix catch block
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new LockAndUnlockAccountResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
+            // TODO: 20.04.2021 add application exception
+        }
+        return Response.status(Response.Status.OK).entity(new LockAndUnlockAccountResponseDto(null, true)).build();
     }
 
     @PUT

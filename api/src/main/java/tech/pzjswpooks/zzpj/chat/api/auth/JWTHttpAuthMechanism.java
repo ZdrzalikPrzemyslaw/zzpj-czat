@@ -48,7 +48,8 @@ public class JWTHttpAuthMechanism implements HttpAuthenticationMechanism {
                     }
                     return msgContext.notifyContainerAboutLogin(username, levels);
                 }
-            } if (!msgContext.isProtected()) {
+            }
+            if (!msgContext.isProtected()) {
                 return msgContext.doNothing();
             }
         } catch (Exception e) {
