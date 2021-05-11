@@ -36,6 +36,12 @@ public class AccountsManagerImplementation implements AccountsManager {
     }
 
     @Override
+    public void unlockAccount(Long id) {
+        AccountsEntity account = accountEntityFacade.find(id);
+        account.setEnabled(true);
+    }
+
+    @Override
     public void registerAccount(AccountsEntity accountsEntity) {
         UserData userData = new UserData();
         userData.setAccountId(accountsEntity);
