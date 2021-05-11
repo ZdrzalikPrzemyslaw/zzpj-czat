@@ -60,7 +60,7 @@ public class UsersEntity {
 
     }
 
-    UsersEntity(String email, String firstName, String language, String lastName, String phoneNumber, AccountsEntity accountsEntity) {
+    public UsersEntity(String email, String firstName, String language, String lastName, String phoneNumber, AccountsEntity accountsEntity) {
         this.accountId = accountsEntity;
         this.email = email;
         this.firstName = firstName;

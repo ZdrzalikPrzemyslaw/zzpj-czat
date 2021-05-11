@@ -12,5 +12,7 @@ public interface AccountsManager {
 
     void registerAccount(AccountsEntity accountsEntity);
 
+    AccountsEntity getLoggedInAccount();
+  
     AccountsEntity getAccountByUsername(String username);
 }

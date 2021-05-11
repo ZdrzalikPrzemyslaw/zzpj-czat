@@ -8,12 +8,16 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
+import javax.ws.rs.core.Context;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AccountsManagerImplementation implements AccountsManager {
 
     private AccountEntityFacade accountEntityFacade;
+    @Context
+    private SecurityContext securityContext;
 
     @Inject
     public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade) {
@@ -43,6 +47,15 @@ public class AccountsManagerImplementation implements AccountsManager {
         accountEntityFacade.create(accountsEntity);
     }
 
+    @Override
+    public AccountsEntity getLoggedInAccount() {
+        if (securityContext.getCallerPrincipal() == null) {
+            return null;
+        } else {
+            return accountEntityFacade.findByUsername(securityContext.getCallerPrincipal().getName());
+        }
+    }
+      
     // TODO: 10.05.2021 Wy jąt ki
     @Override
     public AccountsEntity getAccountByUsername(String username) {
