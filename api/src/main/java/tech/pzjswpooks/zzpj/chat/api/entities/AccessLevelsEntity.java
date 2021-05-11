@@ -31,7 +31,8 @@ import javax.persistence.Version;
 })
 @NamedQueries({
         @NamedQuery(name = "AccessLevelsEntity.findAll", query = "SELECT a FROM AccessLevelsEntity a"),
-        @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id")
+        @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "AccessLevelsEntity.findByUsername", query = "SELECT a FROM AccessLevelsEntity a, AccountsEntity ae WHERE a.accountId = ae and ae.username = :username")
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "level", discriminatorType = DiscriminatorType.STRING)

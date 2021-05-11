@@ -55,4 +55,10 @@ public class AccountsManagerImplementation implements AccountsManager {
             return accountEntityFacade.findByUsername(securityContext.getCallerPrincipal().getName());
         }
     }
+      
+    // TODO: 10.05.2021 Wy jąt ki
+    @Override
+    public AccountsEntity getAccountByUsername(String username) {
+        return accountEntityFacade.findByUsername(username);
+    }
 }

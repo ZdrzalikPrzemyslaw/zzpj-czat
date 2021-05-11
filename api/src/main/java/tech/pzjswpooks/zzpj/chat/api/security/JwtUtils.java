@@ -13,6 +13,9 @@ import com.nimbusds.jwt.SignedJWT;
 
 
 import javax.annotation.PostConstruct;
+import javax.ejb.DependsOn;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.text.ParseException;
@@ -26,15 +29,11 @@ import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 @Stateless
 public class JwtUtils {
 
-
+    @Inject
     private PropertiesLoader propertiesLoader;
     private String registrationConfirmationJwtSecret;
     private Long registrationConfirmationJwtExpirationMs;
 
-    @Inject
-    public JwtUtils(PropertiesLoader propertiesLoader) {
-        this.propertiesLoader = propertiesLoader;
-    }
 
 
     @PostConstruct
