@@ -1,5 +1,5 @@
 language: java
-sudo: false
-script: mvn clean install
+sudo: true
+script: mvn -f api/pom.xml clean install
 
 
