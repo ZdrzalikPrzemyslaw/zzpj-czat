@@ -18,13 +18,5 @@ public class ExampleStatelessEndpoint {
         return Response.status(Response.Status.OK).entity("Example").build();
     }
 
-    @GET
-    @Path("/ready")
-    @PermitAll
-    @Consumes({MediaType.APPLICATION_JSON})
-    public Response ready() {
-        return Response.status(Response.Status.OK).entity("ready").build();
-    }
-
 
 }

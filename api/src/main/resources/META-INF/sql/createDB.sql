@@ -3,5 +3,5 @@
 -- To wykonujemy sobie przez inteliJ żeby stworzyć sobie lokalnie baze danych i użytkownika.
 DROP DATABASE if exists chatDB;
 DROP USER if exists zzpjadmin;
-CREATE USER zzpjadmin with password 'password';
+CREATE USER zzpjadmin with password 'pa$$word1';
 CREATE DATABASE chatDB with owner zzpjadmin;

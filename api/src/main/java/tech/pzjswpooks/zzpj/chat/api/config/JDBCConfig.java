@@ -14,8 +14,9 @@ import javax.persistence.PersistenceContext;
         className = "org.postgresql.ds.PGSimpleDataSource",
         // TODO: User i passwrd
         user = "zzpjadmin",
-        password = "password",
+        password = "pa$$word1",
         // TODO: narazie loclahost
+//        serverName = "zzpjdb.postgres.database.azure.com",
         serverName = "localhost",
         portNumber = 5432,
         databaseName = "chatdb",

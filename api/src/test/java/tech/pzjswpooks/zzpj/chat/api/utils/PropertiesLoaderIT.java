@@ -46,7 +46,7 @@ public class PropertiesLoaderIT {
     )
             .withNetwork(network)
             .withExposedPorts(8080, 4848, 6900)
-            .waitingFor(Wait.forHttp("/zzpj/api/example/ready").forPort(8080).forStatusCode(200));
+            .waitingFor(Wait.forHttp("/api/api/readiness").forPort(8080).forStatusCode(200));
 
     private URL serviceURL;
 
