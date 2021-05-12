@@ -15,8 +15,7 @@ import javax.persistence.PersistenceContext;
         // TODO: User i passwrd
         user = "zzpjadmin",
         password = "pa$$word1",
-        // TODO: narazie loclahost
-//        serverName = "zzpjdb.postgres.database.azure.com",
+        //        serverName = "zzpjdb.postgres.database.azure.com",
         serverName = "localhost",
         portNumber = 5432,
         databaseName = "chatdb",
