@@ -1,5 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,6 +16,14 @@ public class ExampleStatelessEndpoint {
     @Consumes({MediaType.APPLICATION_JSON})
     public Response exampleGet() {
         return Response.status(Response.Status.OK).entity("Example").build();
+    }
+
+    @GET
+    @Path("/ready")
+    @PermitAll
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response ready() {
+        return Response.status(Response.Status.OK).entity("ready").build();
     }
 
 
