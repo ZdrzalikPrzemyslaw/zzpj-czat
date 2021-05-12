@@ -32,17 +32,6 @@ public class AccessLevelsFacade extends AbstractFacade<AccessLevelsEntity> {
         return em;
     }
 
-    public AccessLevelsEntity findById(String id) {
-        TypedQuery<AccessLevelsEntity> tq = em.createNamedQuery("AccessLevelsEntity.findById", AccessLevelsEntity.class);
-        tq.setParameter("id", id);
-        return tq.getSingleResult();
-    }
-
-    public List<AccessLevelsEntity> findAll(String id) {
-        TypedQuery<AccessLevelsEntity> tq = em.createNamedQuery("AccessLevelsEntity.findAll", AccessLevelsEntity.class);
-        return tq.getResultList();
-    }
-
     public List<AccessLevelsEntity> findByUsername(String username) {
         TypedQuery<AccessLevelsEntity> tq = em.createNamedQuery("AccessLevelsEntity.findByUsername", AccessLevelsEntity.class);
         tq.setParameter("username", username);

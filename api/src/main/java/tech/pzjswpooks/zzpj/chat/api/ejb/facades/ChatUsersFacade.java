@@ -26,18 +26,6 @@ public class ChatUsersFacade extends AbstractFacade<ChatUsersEntity> {
         super(entityClass);
     }
 
-    /**
-     * Find users in chat by id.
-     *
-     * @param id id
-     * @return ChatUsersEntity
-     */
-    public ChatUsersEntity findById(String id) {
-        TypedQuery<ChatUsersEntity> tq = em.createNamedQuery("ChatUsersEntity.findById", ChatUsersEntity.class);
-        tq.setParameter("id", id);
-        return tq.getSingleResult();
-    }
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
