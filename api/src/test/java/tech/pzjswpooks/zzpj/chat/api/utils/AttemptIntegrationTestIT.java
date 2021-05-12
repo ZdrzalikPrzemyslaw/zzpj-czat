@@ -26,7 +26,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 
 @Testcontainers
-public class PropertiesLoaderIT {
+public class AttemptIntegrationTestIT {
 
 
     private static Network network = Network.newNetwork();
@@ -52,7 +52,7 @@ public class PropertiesLoaderIT {
 
     private WebTarget target;
 
-    public PropertiesLoaderIT() throws MalformedURLException, URISyntaxException {
+    public AttemptIntegrationTestIT() throws MalformedURLException, URISyntaxException {
         Formatter formatter = new Formatter();
         String stringURL = formatter.format("http://localhost:%d/api/api", serviceOne.getMappedPort(8080)).toString();
         serviceURL = new URL(stringURL);

@@ -41,7 +41,7 @@ public class PropertiesLoader {
     private Long confirmationJwtExpiration;
 
     @PostConstruct
-    private void loadProperties() {
+    public void loadProperties() {
         Properties prop = null;
         try {
             prop = new Properties();
