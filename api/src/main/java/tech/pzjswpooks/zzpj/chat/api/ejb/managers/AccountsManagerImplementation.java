@@ -56,7 +56,8 @@ public class AccountsManagerImplementation implements AccountsManager {
     }
 
     @Override
-    public void addAccessLevel(AccountsEntity accountsEntity, String accessLevel) {
+    public void addAccessLevel(String username, String accessLevel) {
+        AccountsEntity accountsEntity = getAccountByUsername(username);
         AccessLevelsEntity accessLevelsEntity = AccessLevelMapper.mapLevelNameToAccessLevel(accessLevel);
         accessLevelsEntity.setAccountId(accountsEntity);
         accountsEntity.addAccessLevels(accessLevelsEntity);
