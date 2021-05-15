@@ -1,6 +1,8 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
+import tech.pzjswpooks.zzpj.chat.api.common.AccessLevelMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
+import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
 
@@ -51,6 +53,13 @@ public class AccountsManagerImplementation implements AccountsManager {
         userData.setAccountId(accountsEntity);
         accountsEntity.addAccessLevels(userData);
         accountEntityFacade.create(accountsEntity);
+    }
+
+    @Override
+    public void addAccessLevel(AccountsEntity accountsEntity, String accessLevel) {
+        AccessLevelsEntity accessLevelsEntity = AccessLevelMapper.mapLevelNameToAccessLevel(accessLevel);
+        accessLevelsEntity.setAccountId(accountsEntity);
+        accountsEntity.addAccessLevels(accessLevelsEntity);
     }
 
     @Override
