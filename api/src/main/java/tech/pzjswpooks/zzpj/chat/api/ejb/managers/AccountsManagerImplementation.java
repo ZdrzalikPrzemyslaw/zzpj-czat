@@ -3,17 +3,20 @@ package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
+import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.security.enterprise.SecurityContext;
 import javax.ws.rs.core.Context;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-public class AccountsManagerImplementation implements AccountsManager {
+@Interceptors(LogInterceptor.class)
+public class AccountsManagerImplementation extends AbstractManager implements AccountsManager {
 
     private AccountEntityFacade accountEntityFacade;
     @Context
