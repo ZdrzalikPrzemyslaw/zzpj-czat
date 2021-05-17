@@ -19,12 +19,12 @@ import javax.ws.rs.core.Context;
 public class AccountsManagerImplementation extends AbstractManager implements AccountsManager {
 
     private AccountEntityFacade accountEntityFacade;
-    @Context
     private SecurityContext securityContext;
 
     @Inject
-    public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade) {
+    public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade, SecurityContext securityContext) {
         this.accountEntityFacade = accountEntityFacade;
+        this.securityContext = securityContext;
     }
 
     public AccountsManagerImplementation() {
