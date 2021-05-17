@@ -6,7 +6,7 @@ import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
 @Interceptors(LogInterceptor.class)
 public class ChatUsersFacade extends AbstractFacade<ChatUsersEntity> {
 
@@ -21,7 +21,8 @@ public class ChatUsersFacade extends AbstractFacade<ChatUsersEntity> {
     }
 
     /**
-     *  Tworzy nową instancję klasy AccountFacade.
+     * Tworzy nową instancję klasy AccountFacade.
+     *
      * @param entityClass entity class.
      */
     public ChatUsersFacade(Class<ChatUsersEntity> entityClass) {
