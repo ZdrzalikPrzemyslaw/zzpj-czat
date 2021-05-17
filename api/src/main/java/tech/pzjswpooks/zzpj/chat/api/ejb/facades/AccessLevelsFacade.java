@@ -1,12 +1,15 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
+import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Interceptors(LogInterceptor.class)
 public class AccessLevelsFacade extends AbstractFacade<AccessLevelsEntity> {
     @PersistenceContext(unitName = "zzpjadmin")
     private EntityManager em;

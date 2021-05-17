@@ -5,16 +5,19 @@ import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
 import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeUserRequestDto;
+import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import java.util.Objects;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-public class UsersManagerImplementation implements UsersManager {
+@Interceptors(LogInterceptor.class)
+public class UsersManagerImplementation extends AbstractManager implements UsersManager {
 
     private UsersEntityFacade usersEntityFacade;
 
