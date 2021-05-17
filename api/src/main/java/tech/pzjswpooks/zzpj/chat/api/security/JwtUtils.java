@@ -14,13 +14,14 @@ import com.nimbusds.jwt.SignedJWT;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.DependsOn;
-import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.util.Date;
 
-import tech.pzjswpooks.zzpj.chat.api.ejb.utils.PropertiesLoader;
+import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 /**
  * Typ Jwt utils.
@@ -30,9 +31,10 @@ public class JwtUtils {
 
     @Inject
     private PropertiesLoader propertiesLoader;
-
     private String registrationConfirmationJwtSecret;
     private Long registrationConfirmationJwtExpirationMs;
+
+
 
     @PostConstruct
     private void init() {
@@ -65,6 +67,7 @@ public class JwtUtils {
 
     /**
      * Pobiera login użytkownika z tokenu JWT wydanego na potrzebę weryfikacji konta po rejestracji.
+     *
      * @param token JWT token
      * @return Login użytkownika o zadanym tokenie
      * @throws ParseException ParseException
@@ -75,6 +78,7 @@ public class JwtUtils {
 
     /**
      * Metoda sprawdzająca token jwt na potrzeby weryfikacji konta poprzez email.
+     *
      * @param tokenToValidate JWT token
      * @return boolean
      */

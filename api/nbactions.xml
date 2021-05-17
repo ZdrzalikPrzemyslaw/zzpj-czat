@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-PayaraMicro Start</actionName>
+            <displayName>PayaraMicro Start</displayName>
+            <goals>
+                <goal>payara-micro:start</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-PayaraMicro Stop</actionName>
+            <displayName>PayaraMicro Stop</displayName>
+            <goals>
+                <goal>payara-micro:stop</goal>
+            </goals>
+        </action>
+    </actions>

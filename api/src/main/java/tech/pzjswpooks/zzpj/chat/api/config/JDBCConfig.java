@@ -8,13 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 
+// TODO: 24.04.2021 To powinno być wg wielu znanych doktorów wczytywane z pliku (dokladnie login hasło itp) który hest git ignored. NIE IWME JAK TO ZROBIC : ( 
 @DataSourceDefinition(
         name = "java:app/jdbc/zzpjadmin",
         className = "org.postgresql.ds.PGSimpleDataSource",
         // TODO: User i passwrd
         user = "zzpjadmin",
-        password = "password",
-        // TODO: narazie loclahost
+        password = "pa$$word1",
+        //        serverName = "zzpjdb.postgres.database.azure.com",
         serverName = "localhost",
         portNumber = 5432,
         databaseName = "chatdb",

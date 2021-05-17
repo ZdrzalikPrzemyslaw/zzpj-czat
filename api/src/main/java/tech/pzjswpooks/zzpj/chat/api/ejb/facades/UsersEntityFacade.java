@@ -1,6 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.Stateless;
@@ -10,45 +10,32 @@ import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
 
 /**
- * Klasa definiująca główne operacje wykonywane na encjach typu AccountEntity.
+ * Klasa definiująca główne operacje wykonywane na encjach typu ChatMessagesEntity.
  */
 @Stateless
 // TODO: 24.04.2021 Nie jestem pewien czy tutaj ta tranzakcja jest konieczna
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 @Interceptors(LogInterceptor.class)
-public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
+public class UsersEntityFacade extends AbstractFacade<UsersEntity> {
 
     @PersistenceContext(unitName = "zzpjadmin")
     private EntityManager em;
 
     /**
-     * Tworzy nową instancję klasy AccountFacade.
+     * Tworzy nową instancję klasy UsersEntityFacade.
      */
-    public AccountEntityFacade() {
-        super(AccountsEntity.class);
+    public UsersEntityFacade() {
+        super(UsersEntity.class);
     }
 
     /**
-     * Find by username account.
-     *
-     * @param username username
-     * @return account
-     */
-    public AccountsEntity findByUsername(String username) {
-        TypedQuery<AccountsEntity> tq = em.createNamedQuery("AccountsEntity.findByUsername", AccountsEntity.class);
-        tq.setParameter("username", username);
-        return tq.getSingleResult();
-    }
-
-    /**
-     * Tworzy nową instancję klasy AccountFacade.
+     * Tworzy nową instancję klasy UsersEntityFacade.
      *
      * @param entityClass entity class
      */
-    public AccountEntityFacade(Class<AccountsEntity> entityClass) {
+    public UsersEntityFacade(Class<UsersEntity> entityClass) {
         super(entityClass);
     }
 
@@ -58,7 +45,7 @@ public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
     }
 
     @Override
-    public void edit(AccountsEntity entity)  {
+    public void edit(UsersEntity entity)  {
         try {
             super.edit(entity);
         } catch (PersistenceException e) {

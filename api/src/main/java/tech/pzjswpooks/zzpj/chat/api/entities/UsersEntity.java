@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,14 +53,15 @@ public class UsersEntity {
     @Column(name = "language", nullable = true, length = 35)
     private String language;
     @JoinColumn(name = "account_id", unique = true, referencedColumnName = "id", nullable = false, updatable = false)
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     private AccountsEntity accountId;
 
     public UsersEntity() {
 
     }
 
-    UsersEntity(String email, String firstName, String language, String lastName, String phoneNumber) {
+    public UsersEntity(String email, String firstName, String language, String lastName, String phoneNumber, AccountsEntity accountsEntity) {
+        this.accountId = accountsEntity;
         this.email = email;
         this.firstName = firstName;
         this.language = language;

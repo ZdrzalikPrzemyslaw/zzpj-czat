@@ -1,11 +1,11 @@
-package tech.pzjswpooks.zzpj.chat.api.ejb.utils;
+package tech.pzjswpooks.zzpj.chat.api.utils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.Properties;
 
 /**
@@ -35,10 +35,13 @@ public class PropertiesLoader {
         return confirmationJwtExpiration;
     }
 
+    public PropertiesLoader() {
+    }
+
     private Long confirmationJwtExpiration;
 
     @PostConstruct
-    private void loadProperties() {
+    public void loadProperties() {
         Properties prop = null;
         try {
             prop = new Properties();

@@ -23,6 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "access_levels", uniqueConstraints = {
@@ -30,7 +31,8 @@ import javax.persistence.UniqueConstraint;
 })
 @NamedQueries({
         @NamedQuery(name = "AccessLevelsEntity.findAll", query = "SELECT a FROM AccessLevelsEntity a"),
-        @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id")
+        @NamedQuery(name = "AccessLevelsEntity.findById", query = "SELECT a FROM AccessLevelsEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "AccessLevelsEntity.findByUsername", query = "SELECT a FROM AccessLevelsEntity a, AccountsEntity ae WHERE a.accountId = ae and ae.username = :username")
 })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "level", discriminatorType = DiscriminatorType.STRING)
@@ -52,11 +54,16 @@ public class AccessLevelsEntity {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
     @Basic
+    @Version
     @Column(name = "version", nullable = true)
     private Long version = 0L;
 
     public AccessLevelsEntity() {
 
+    }
+
+    public void setAccountId(AccountsEntity accountId) {
+        this.accountId = accountId;
     }
 
     // Nie jestem pewien tego konstruktora
