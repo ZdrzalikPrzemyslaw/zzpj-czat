@@ -2,7 +2,10 @@ package tech.pzjswpooks.zzpj.chat.api.utils;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +26,10 @@ public class LogInterceptor {
      */
     @AroundInvoke
     public Object intercept(InvocationContext context) throws Exception {
+        String logFile = new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + "-log.txt";
+        FileHandler fileHandler = new FileHandler(logFile);
+        LOGGER.addHandler(fileHandler);
+
 
         String returnedValue = null;
         Level logLevel = Level.INFO;
