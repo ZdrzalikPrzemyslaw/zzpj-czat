@@ -26,10 +26,12 @@ import java.util.stream.Collectors;
 public class UsersManagerImplementation extends AbstractManager implements UsersManager {
 
     private UsersEntityFacade usersEntityFacade;
+    private AccountEntityFacade accountEntityFacade;
 
     @Inject
-    public UsersManagerImplementation(UsersEntityFacade usersEntityFacade) {
+    public UsersManagerImplementation(UsersEntityFacade usersEntityFacade, AccountEntityFacade accountEntityFacade) {
         this.usersEntityFacade = usersEntityFacade;
+        this.accountEntityFacade = accountEntityFacade;
     }
 
     public UsersManagerImplementation() {
@@ -59,7 +61,6 @@ public class UsersManagerImplementation extends AbstractManager implements Users
     @Override
     public List<UsersEntity> searchUserByUsernameRegex(SearchUserRequestDto dto) {
         List<UsersEntity> allUsers = usersEntityFacade.findAll();
-        AccountEntityFacade accountEntityFacade = new AccountEntityFacade();
         String regex = ".*" + dto.getFilter() + ".*";
 
         /*
@@ -73,10 +74,27 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         }
          */
 
-        // programowanie funkcyjne...
-        // ...ale nie jestem pewien czy ok
+        // tu nie jestem pewien czy się bierze dobre id
         return allUsers.stream()
                 .filter(u -> Pattern.matches(regex,accountEntityFacade.find(u.getId()).getUsername()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UsersEntity> searchUserByEmailRegex(SearchUserRequestDto dto) {
+        List<UsersEntity> allUsers = usersEntityFacade.findAll();
+        String regex = ".*" + dto.getFilter() + ".*";
+        return allUsers.stream()
+                .filter(u -> Pattern.matches(regex,u.getEmail()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UsersEntity> searchUserByFirstOrLastNameRegex(SearchUserRequestDto dto) {
+        List<UsersEntity> allUsers = usersEntityFacade.findAll();
+        String regex = ".*" + dto.getFilter() + ".*";
+        return allUsers.stream()
+                .filter(u -> (Pattern.matches(regex,u.getFirstName()) || Pattern.matches(regex,u.getLastName())))
                 .collect(Collectors.toList());
     }
 }

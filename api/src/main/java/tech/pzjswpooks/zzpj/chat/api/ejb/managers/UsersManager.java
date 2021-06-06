@@ -16,4 +16,8 @@ public interface UsersManager {
 
     List<UsersEntity> searchUserByUsernameRegex(SearchUserRequestDto dto);
 
+    List<UsersEntity> searchUserByEmailRegex(SearchUserRequestDto dto);
+
+    List<UsersEntity> searchUserByFirstOrLastNameRegex(SearchUserRequestDto dto);
+
 }

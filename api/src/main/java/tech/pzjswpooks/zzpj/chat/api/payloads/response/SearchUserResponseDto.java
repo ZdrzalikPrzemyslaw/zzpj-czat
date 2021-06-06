@@ -8,15 +8,10 @@ import java.util.List;
 
 public class SearchUserResponseDto {
     @Nullable
-    private MessageResponseDto messageResponseDto;
-    private Boolean wasSuccessful;
-    @Nullable
-    private List<UsersEntity> usersEntities;
+    private List<UsersResponseDTO> users;
 
-    public SearchUserResponseDto(@Nullable List<UsersEntity> usersEntities, @Nullable MessageResponseDto messageResponseDto, Boolean wasSuccessful) {
-        this.usersEntities = usersEntities;
-        this.messageResponseDto = messageResponseDto;
-        this.wasSuccessful = wasSuccessful;
+    public SearchUserResponseDto(@Nullable List<UsersResponseDTO> users) {
+        this.users = users;
     }
 
     public SearchUserResponseDto() {
@@ -25,22 +20,13 @@ public class SearchUserResponseDto {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("users", usersEntities)
-                .append("messageResponseDto", messageResponseDto)
-                .append("wasSuccessful", wasSuccessful)
+                .append("users", users)
                 .toString();
     }
 
-    public List<UsersEntity> getUsersEntities() {
-        return usersEntities;
+    public List<UsersResponseDTO> getUsers() {
+        return users;
     }
 
-    @Nullable
-    public MessageResponseDto getMessageResponseDto() {
-        return messageResponseDto;
-    }
 
-    public Boolean getWasSuccessful() {
-        return wasSuccessful;
-    }
 }
