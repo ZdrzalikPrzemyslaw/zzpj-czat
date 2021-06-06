@@ -61,10 +61,7 @@ public class UserEndpoint {
     public Response searchUserByUsername(SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByUsernameRegex(searchUserRequestDto)
-                    .stream()
-                    .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
-                    .collect(Collectors.toList());
+            users = usersManager.searchUserByUsernameRegex(searchUserRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();
@@ -79,10 +76,7 @@ public class UserEndpoint {
     public Response searchUserByEmail(SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByEmailRegex(searchUserRequestDto)
-                    .stream()
-                    .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
-                    .collect(Collectors.toList());
+            users = usersManager.searchUserByEmailRegex(searchUserRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();
@@ -91,16 +85,13 @@ public class UserEndpoint {
     }
 
     @GET
-    @Path("/search_username")
+    @Path("/search_name")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response searchUserByFirstOrLastName(SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByFirstOrLastNameRegex(searchUserRequestDto)
-                    .stream()
-                    .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
-                    .collect(Collectors.toList());
+            users = usersManager.searchUserByFirstOrLastNameRegex(searchUserRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();

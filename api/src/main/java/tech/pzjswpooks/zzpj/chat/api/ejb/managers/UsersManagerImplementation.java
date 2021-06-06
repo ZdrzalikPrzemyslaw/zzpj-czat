@@ -1,5 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
+import tech.pzjswpooks.zzpj.chat.api.common.UsersEntityToDtoMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.UsersEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
@@ -7,6 +8,7 @@ import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
 import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.Stateful;
@@ -59,8 +61,7 @@ public class UsersManagerImplementation extends AbstractManager implements Users
     }
 
     @Override
-    public List<UsersEntity> searchUserByUsernameRegex(SearchUserRequestDto dto) {
-        List<UsersEntity> allUsers = usersEntityFacade.findAll();
+    public List<UsersResponseDTO> searchUserByUsernameRegex(SearchUserRequestDto dto) {
         String regex = ".*" + dto.getFilter() + ".*";
 
         /*
@@ -75,26 +76,30 @@ public class UsersManagerImplementation extends AbstractManager implements Users
          */
 
         // tu nie jestem pewien czy się bierze dobre id
-        return allUsers.stream()
+        return  usersEntityFacade.findAll()
+                .stream()
                 .filter(u -> Pattern.matches(regex,accountEntityFacade.find(u.getId()).getUsername()))
+                .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<UsersEntity> searchUserByEmailRegex(SearchUserRequestDto dto) {
-        List<UsersEntity> allUsers = usersEntityFacade.findAll();
+    public List<UsersResponseDTO> searchUserByEmailRegex(SearchUserRequestDto dto) {
         String regex = ".*" + dto.getFilter() + ".*";
-        return allUsers.stream()
+        return usersEntityFacade.findAll()
+                .stream()
                 .filter(u -> Pattern.matches(regex,u.getEmail()))
+                .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<UsersEntity> searchUserByFirstOrLastNameRegex(SearchUserRequestDto dto) {
-        List<UsersEntity> allUsers = usersEntityFacade.findAll();
+    public List<UsersResponseDTO> searchUserByFirstOrLastNameRegex(SearchUserRequestDto dto) {
         String regex = ".*" + dto.getFilter() + ".*";
-        return allUsers.stream()
+        return usersEntityFacade.findAll()
+                .stream()
                 .filter(u -> (Pattern.matches(regex,u.getFirstName()) || Pattern.matches(regex,u.getLastName())))
+                .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
 }
