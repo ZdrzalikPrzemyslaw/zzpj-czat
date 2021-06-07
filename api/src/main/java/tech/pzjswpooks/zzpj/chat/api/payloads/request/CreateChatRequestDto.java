@@ -20,7 +20,7 @@ public class CreateChatRequestDto {
     @Size(min = 1, max = 30, message = "Invalid size of name")
     private String name;
 
-    public CreateChatRequestDto(@NotNull @Size(min = 1, max = 50, message = "Invalid size of name") String name) {
+    public CreateChatRequestDto(@NotNull @Size(min = 1, max = 30, message = "Invalid size of name") String name) {
         this.name = name;
     }
 
