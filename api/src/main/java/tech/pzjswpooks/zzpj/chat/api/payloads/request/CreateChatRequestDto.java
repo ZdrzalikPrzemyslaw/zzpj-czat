@@ -38,4 +38,12 @@ public class CreateChatRequestDto {
                 .append("name", name)
                 .toString();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
