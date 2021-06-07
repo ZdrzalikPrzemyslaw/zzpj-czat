@@ -7,4 +7,6 @@ import javax.ejb.Local;
 
 @Local
 public interface ChatsManager {
+
+    void createChat(ChatsEntity chatsEntity);
 }
