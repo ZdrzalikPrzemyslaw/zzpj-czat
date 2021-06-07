@@ -29,6 +29,6 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
 
     @Override
     public void createChat(ChatsEntity chatsEntity) {
-
+        chatsEntityFacade.create(chatsEntity);
     }
 }
