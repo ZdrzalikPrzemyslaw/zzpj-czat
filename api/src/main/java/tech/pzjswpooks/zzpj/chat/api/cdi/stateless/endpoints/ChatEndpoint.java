@@ -35,7 +35,7 @@ public class ChatEndpoint {
     @Path("/create")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response registerAccount(@NotNull @Valid CreateChatRequestDto createChatRequestDto) {
+    public Response createChat(@NotNull @Valid CreateChatRequestDto createChatRequestDto) {
         AccountsEntity loggedInAccount = accountsManager.getLoggedInAccount();
         if (Objects.isNull(loggedInAccount)) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(new CreateChatResponseDto(null, false)).build();
