@@ -4,6 +4,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChangeUserResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.CreateChatResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 
 import javax.inject.Inject;
