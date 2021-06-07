@@ -7,6 +7,7 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChangeUserResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -30,14 +31,15 @@ public class UserEndpoint {
 
     @POST
     @Path("/change")
+    @RolesAllowed({"level.user", "level.admin"})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response changeUser(ChangeUserRequestDto changeUserRequestDto) {
-        AccountsEntity loggedInAccount = accountsManager.getLoggedInAccount();
-        if (Objects.isNull(loggedInAccount)) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity(new ChangeUserResponseDto(null, false)).build();
-        }
         try {
+            AccountsEntity loggedInAccount = accountsManager.getLoggedInAccount();
+            if (Objects.isNull(loggedInAccount)) {
+                return Response.status(Response.Status.UNAUTHORIZED).entity(new ChangeUserResponseDto(null, false)).build();
+            }
             usersManager.changeUserDetails(loggedInAccount.getUserId(), changeUserRequestDto);
         } catch (Exception e) {
             e.printStackTrace();
