@@ -1,7 +1,13 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatUsersFacade;
+import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
+import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
+import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
+import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -14,13 +20,36 @@ import javax.interceptor.Interceptors;
 @Interceptors(LogInterceptor.class)
 public class ChatUsersManagerImplementation extends AbstractManager implements ChatUsersManager {
 
-    private ChatUsersFacade chatUsersFacade;
+    private ChatsEntityFacade chatsEntityFacade;
+
+    private LoggedInAccountUtil loggedInAccountUtil;
+
+    private ChatUsersFacade chatsUsersFacade;
+
+    private AccountsManager accountsManager;
 
     @Inject
-    public ChatUsersManagerImplementation(ChatUsersFacade chatUsersFacade) {
-        this.chatUsersFacade = chatUsersFacade;
+    public ChatUsersManagerImplementation(ChatsEntityFacade chatsEntityFacade, ChatUsersFacade chatsUsersFacade, AccountsManager accountsManager) {
+        this.chatsEntityFacade = chatsEntityFacade;
+        this.chatsUsersFacade = chatsUsersFacade;
+        this.accountsManager = accountsManager;
     }
 
     public ChatUsersManagerImplementation() {
     }
+
+    @Override
+    public void addUser(AddUserToChatRequestDTO addUserToChatRequestDTO, Long id) throws AppBaseException {
+        var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
+        var newUser = accountsManager.getAccountByUsername(addUserToChatRequestDTO.getUsername());
+        try {
+            ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
+            ChatUsersEntity chatUsersEntity = new ChatUsersEntity(chatsEntity, newUser);
+            chatsUsersFacade.create(chatUsersEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw AppBaseException.noResultsError();
+        }
+    }
+
 }

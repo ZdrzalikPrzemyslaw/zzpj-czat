@@ -6,6 +6,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManagerImplementation;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChatsInfoResponseDTO;
@@ -81,6 +82,20 @@ public class ChatEndpoint {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response changeChatOwner(@NotNull @Valid ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, @PathParam("id") Long id) {
+        try {
+            chatsManager.changeOwner(changeChatOwnerRequestDTO, id);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_FAILED)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_SUCCESSFUL)).build();
+    }
+
+    @PUT
+    @RolesAllowed({I18n.USER, I18n.ADMIN})
+    @Path("/add-user/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response addUserToChat(@NotNull @Valid AddUserToChatRequestDTO addUserToChatRequestDTO, @PathParam("id") Long id) {
         try {
             chatsManager.changeOwner(changeChatOwnerRequestDTO, id);
         } catch (Exception e) {
