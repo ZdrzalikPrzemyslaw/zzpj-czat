@@ -1,13 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
-import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.common.UsersEntityToDtoMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.UsersEntityFacade;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
-import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
-import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
@@ -17,7 +13,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -78,9 +73,9 @@ public class UsersManagerImplementation extends AbstractManager implements Users
          */
 
         // tu nie jestem pewien czy się bierze dobre id
-        return  usersEntityFacade.findAll()
+        return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> Pattern.matches(regex,accountEntityFacade.find(u.getId()).getUsername()))
+                .filter(u -> Pattern.matches(regex, accountEntityFacade.find(u.getId()).getUsername()))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -90,7 +85,7 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         String regex = ".*" + dto.getFilter() + ".*";
         return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> Pattern.matches(regex,u.getEmail()))
+                .filter(u -> Pattern.matches(regex, u.getEmail()))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -100,7 +95,7 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         String regex = ".*" + dto.getFilter() + ".*";
         return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> (Pattern.matches(regex,u.getFirstName()) || Pattern.matches(regex,u.getLastName())))
+                .filter(u -> (Pattern.matches(regex, u.getFirstName()) || Pattern.matches(regex, u.getLastName())))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }

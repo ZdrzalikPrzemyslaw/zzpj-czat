@@ -145,4 +145,9 @@ public class I18n {
     public static final String INVALID_DOCTOR_DOCUMENTATION_ENTRY = "invalid_doctor_documentation_entry";
     public static final String REMOVAL_FAILURE_ERROR = "removal_failure_error";
     public static final String DOCUMENTATION_ENTRY_DELETION_UNSUCCESSFUL = "documentation_entry_deletion_unsuccessful";
+    public static final String CHAT_NAME_INVALID_SIZE = "chat_name_invalid_size";
+    public static final String CHAT_CREATION_FAILED = "chat_creation_failed";
+    public static final String CHAT_CREATION_SUCCESSFUL = "chat_creation_successful";
+    public static final String USERS_DATA_FETCH_FAILED = "users_data_fetch_failed";
+    public static final String USERS_DATA_FETCH_SUCCESSFUL = "users_data_fetch_successful";
 }

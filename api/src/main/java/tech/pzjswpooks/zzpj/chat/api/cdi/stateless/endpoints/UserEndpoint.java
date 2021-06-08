@@ -4,6 +4,7 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.UsersManager;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
@@ -49,7 +50,6 @@ public class UserEndpoint {
 
     @POST
     @Path("/change")
-
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -64,6 +64,7 @@ public class UserEndpoint {
 
     @GET
     @Path("/search_username")
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response searchUserByUsername(SearchUserRequestDto searchUserRequestDto) {
@@ -71,14 +72,14 @@ public class UserEndpoint {
         try {
             users = usersManager.searchUserByUsernameRegex(searchUserRequestDto);
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new SearchUserResponseDto(users)).build();
     }
 
     @GET
     @Path("/search_email")
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response searchUserByEmail(SearchUserRequestDto searchUserRequestDto) {
@@ -86,8 +87,7 @@ public class UserEndpoint {
         try {
             users = usersManager.searchUserByEmailRegex(searchUserRequestDto);
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new SearchUserResponseDto(users)).build();
     }
@@ -101,8 +101,7 @@ public class UserEndpoint {
         try {
             users = usersManager.searchUserByFirstOrLastNameRegex(searchUserRequestDto);
         } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.BAD_REQUEST).entity(new SearchUserResponseDto(null)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new SearchUserResponseDto(users)).build();
     }

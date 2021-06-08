@@ -2,6 +2,7 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -69,6 +70,7 @@ public class ChatsEntity {
         this.ownerId = ownerId;
         this.name = name;
     }
+
 
     @PrePersist
     private void init() {

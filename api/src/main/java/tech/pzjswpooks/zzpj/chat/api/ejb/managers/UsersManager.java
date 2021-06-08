@@ -1,7 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
-import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;

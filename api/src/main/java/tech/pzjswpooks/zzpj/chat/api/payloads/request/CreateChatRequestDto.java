@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -17,17 +18,15 @@ import javax.validation.constraints.Size;
 
 public class CreateChatRequestDto {
     @NotEmpty
-    @Size(min = 1, max = 30, message = "Invalid size of name")
+    @Size(min = 1, max = 30, message = I18n.CHAT_NAME_INVALID_SIZE)
     private String name;
 
-    public CreateChatRequestDto(@NotNull @Size(min = 1, max = 30, message = "Invalid size of name") String name) {
+    public CreateChatRequestDto(String name) {
         this.name = name;
     }
 
     public CreateChatRequestDto() {
     }
-
-
 
     @Override
     public String toString() {
