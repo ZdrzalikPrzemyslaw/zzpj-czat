@@ -1,5 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.response;
 
+import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
+
 public class UsersResponseDTO {
 
     private String firstName;
@@ -10,6 +12,12 @@ public class UsersResponseDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public UsersResponseDTO(UsersEntity usersEntity) {
+        this.firstName = usersEntity.getFirstName();
+        this.lastName = usersEntity.getLastName();
+        this.email = usersEntity.getEmail();
     }
 
     public String getFirstName() {

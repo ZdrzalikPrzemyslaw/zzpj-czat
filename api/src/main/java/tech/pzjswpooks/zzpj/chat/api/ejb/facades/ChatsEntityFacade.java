@@ -1,5 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
+import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import java.util.Collection;
 
 /**
  * Klasa definiująca główne operacje wykonywane na encjach typu ChatsEntity.
@@ -43,6 +45,12 @@ public class ChatsEntityFacade extends AbstractFacade<ChatsEntity> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public Collection<ChatsEntity> getChatsByUsernameBelongsTo(String username) {
+        TypedQuery<ChatsEntity> tq = em.createNamedQuery("ChatsEntity.findByUsername", ChatsEntity.class);
+        tq.setParameter("username", username);
+        return tq.getResultList();
     }
 
 

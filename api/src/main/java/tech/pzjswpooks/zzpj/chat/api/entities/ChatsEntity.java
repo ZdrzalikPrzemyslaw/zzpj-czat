@@ -2,7 +2,6 @@ package tech.pzjswpooks.zzpj.chat.api.entities;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -32,10 +30,17 @@ import java.util.Set;
 @Table(name = "chats")
 @NamedQueries({
         @NamedQuery(name = "ChatsEntity.findAll", query = "SELECT a FROM ChatsEntity a"),
-        @NamedQuery(name = "ChatsEntity.findById", query = "SELECT a FROM ChatsEntity a WHERE a.id = :id")
+        @NamedQuery(name = "ChatsEntity.findById", query = "SELECT a FROM ChatsEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "ChatsEntity.findByUsername", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae, ChatUsersEntity cue WHERE a.id = cue.chatId.id and cue.accountId.id = ae.id and ae.username = :username")
 })
 public class ChatsEntity {
 
+    @JoinColumn(name = "chat_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    private final List<ChatMessagesEntity> chatMessages = new ArrayList<>();
+    @JoinColumn(name = "chat_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    private final Set<ChatUsersEntity> chatUsers = new HashSet<>();
     @Id
     @SequenceGenerator(name = "chats_generator", sequenceName = "chats_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chats_generator")
@@ -55,12 +60,6 @@ public class ChatsEntity {
     @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;
-    @JoinColumn(name = "chat_id")
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
-    private final List<ChatMessagesEntity> chatMessages = new ArrayList<>();
-    @JoinColumn(name = "chat_id")
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
-    private final Set<ChatUsersEntity> chatUsers = new HashSet<>();
 
     public ChatsEntity() {
 

@@ -1,6 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
+import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
@@ -13,6 +14,9 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.persistence.TypedQuery;
+import java.util.Collection;
+import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -41,5 +45,10 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
         var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
         ChatsEntity chatsEntity = new ChatsEntity(accountByUsername, createChatRequestDto.getName());
         chatsEntityFacade.create(chatsEntity);
+    }
+
+    @Override
+    public Collection<ChatsEntity> getChatsUserBelongsTo(String username) {
+        return chatsEntityFacade.getChatsByUsernameBelongsTo(username);
     }
 }

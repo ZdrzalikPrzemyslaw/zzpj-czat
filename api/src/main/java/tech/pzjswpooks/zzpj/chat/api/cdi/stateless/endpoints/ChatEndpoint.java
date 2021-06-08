@@ -5,8 +5,10 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChatsInfoResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.CreateChatResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.RolesAllowed;
@@ -14,6 +16,7 @@ import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.POST;
 import javax.ws.rs.Consumes;
@@ -29,11 +32,13 @@ public class ChatEndpoint {
 
     private final AccountsManager accountsManager;
     private final ChatsManager chatsManager;
+    private final LoggedInAccountUtil loggedInAccountUtil;
 
     @Inject
-    public ChatEndpoint(AccountsManager accountsManager, ChatsManager chatsManager) {
+    public ChatEndpoint(AccountsManager accountsManager, ChatsManager chatsManager, LoggedInAccountUtil loggedInAccountUtil) {
         this.accountsManager = accountsManager;
         this.chatsManager = chatsManager;
+        this.loggedInAccountUtil = loggedInAccountUtil;
     }
 
     @POST
@@ -48,6 +53,20 @@ public class ChatEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_CREATION_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_CREATION_SUCCESSFUL)).build();
+    }
+
+    @GET
+    @RolesAllowed({I18n.USER, I18n.ADMIN})
+    @Path("/get-all")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllChatsCurrentUserBelongsTo() {
+        try {
+            return Response.status(Response.Status.OK).entity(new ChatsInfoResponseDTO(chatsManager.getChatsUserBelongsTo(loggedInAccountUtil.getLoggedInAccountLogin()))).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHATS_DATA_FETCH_FAILED)).build();
+        }
+
     }
 
 }

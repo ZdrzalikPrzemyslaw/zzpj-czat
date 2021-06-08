@@ -50,12 +50,12 @@ public class ChatUsersEntity {
         return id;
     }
 
-    public Long getChatId() {
-        return chatId.getId();
+    public ChatsEntity getChatId() {
+        return chatId;
     }
 
-    public Long getAccountId() {
-        return accountId.getId();
+    public AccountsEntity getAccountId() {
+        return accountId;
     }
 
     @Override
