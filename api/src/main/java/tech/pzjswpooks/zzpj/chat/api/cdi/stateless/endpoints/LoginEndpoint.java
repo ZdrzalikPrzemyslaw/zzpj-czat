@@ -8,6 +8,7 @@ import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.Response;
 
 @Interceptors(LogInterceptor.class)
 @DenyAll
+@Stateful
 @Path("login")
 public class LoginEndpoint {
 

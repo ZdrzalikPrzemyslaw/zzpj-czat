@@ -4,6 +4,7 @@ import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 
 import java.util.List;
 
+@Local
 public interface AccessLevelsManager {
 
     List<AccessLevelsEntity> getLevelsForUsername(String username);

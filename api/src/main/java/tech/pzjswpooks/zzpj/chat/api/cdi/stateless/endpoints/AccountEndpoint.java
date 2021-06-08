@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Interceptors(LogInterceptor.class)
 @Path("account")
+@Stateful
 @DenyAll
 public class AccountEndpoint {
 

@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 
 @Interceptors(LogInterceptor.class)
 @DenyAll
+@Stateful
 @Path("user")
 public class UserEndpoint {
 
