@@ -99,6 +99,7 @@ public class I18n {
     public static final String MAIL_ACTIVATION_LINK_SEND_ERROR = "mail_activation_link_send_error";
     public static final String MAIL_ACCOUNT_LOCK_SEND_ERROR = "mail_account_lock_send_error";
     public static final String MAIL_ACTIVATION_CONFIRMATION_SEND_ERROR = "mail_activation_confirmation_send_error";
+    public static final String NO_RESULTS_ERROR = "no_results_error";
 
 
     public static final String ACCOUNT_MAIL_ACTIVATE_SUBJECT = "account_mail_active_subject";
@@ -151,4 +152,7 @@ public class I18n {
     public static final String USERS_DATA_FETCH_FAILED = "users_data_fetch_failed";
     public static final String USERS_DATA_FETCH_SUCCESSFUL = "users_data_fetch_successful";
     public static final String CHATS_DATA_FETCH_FAILED = "chats_data_fetch_failed";
+
+    public static final String CHAT_OWNER_CHANGE_SUCCESSFUL = "chat_owner_change_succesful";
+    public static final String CHAT_OWNER_CHANGE_FAILED = "chat_owner_change_failed";
 }

@@ -54,6 +54,12 @@ public class AppBaseException extends Exception {
         return new AppBaseException(I18n.DATABASE_OPTIMISTIC_LOCK_ERROR);
     }
 
+
+    public static AppBaseException noResultsError() {
+        return new AppBaseException(I18n.DATABASE_OPTIMISTIC_LOCK_ERROR);
+    }
+
+
     /**
      * Tworzy wyjątek reprezentujący wystąpienie konfliktu związanego z mechanizmem ponawiania transakcji.
      *

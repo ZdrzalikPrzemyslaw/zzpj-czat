@@ -31,6 +31,11 @@ public class ChatUsersEntity {
 
     }
 
+    public ChatUsersEntity(ChatsEntity chatId, AccountsEntity accountId) {
+        this.chatId = chatId;
+        this.accountId = accountId;
+    }
+
     @Id
     @SequenceGenerator(name = "chat_users_generator", sequenceName = "chat_users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_users_generator")
