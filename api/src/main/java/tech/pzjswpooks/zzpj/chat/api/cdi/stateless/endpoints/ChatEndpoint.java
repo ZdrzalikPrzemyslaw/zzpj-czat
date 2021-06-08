@@ -75,13 +75,13 @@ public class ChatEndpoint {
     @Path("/change-owner/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response changeChatOwner(@NotNull @Valid ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, @PathParam("id") int id) {
+    public Response changeChatOwner(@NotNull @Valid ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, @PathParam("id") Long id) {
         try {
             chatsManager.changeOwner(changeChatOwnerRequestDTO, id);
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_CREATION_FAILED)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_FAILED)).build();
         }
-        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_CREATION_SUCCESSFUL)).build();
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_SUCCESSFUL)).build();
     }
 
 }

@@ -152,4 +152,7 @@ public class I18n {
     public static final String USERS_DATA_FETCH_FAILED = "users_data_fetch_failed";
     public static final String USERS_DATA_FETCH_SUCCESSFUL = "users_data_fetch_successful";
     public static final String CHATS_DATA_FETCH_FAILED = "chats_data_fetch_failed";
+
+    public static final String CHAT_OWNER_CHANGE_SUCCESSFUL = "chat_owner_change_succesful";
+    public static final String CHAT_OWNER_CHANGE_FAILED = "chat_owner_change_failed";
 }

@@ -65,7 +65,7 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
     }
 
     @Override
-    public void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, int id) throws AppBaseException {
+    public void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, Long id) throws AppBaseException {
         var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
         var newOwner = accountsManager.getAccountByUsername(changeChatOwnerRequestDTO.getUsername());
         try {

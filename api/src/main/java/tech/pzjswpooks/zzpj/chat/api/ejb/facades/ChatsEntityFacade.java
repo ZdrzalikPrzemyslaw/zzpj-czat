@@ -53,10 +53,10 @@ public class ChatsEntityFacade extends AbstractFacade<ChatsEntity> {
         return tq.getResultList();
     }
 
-    public ChatsEntity getChatByOwnerAndId(String username, int id) {
+    public ChatsEntity getChatByOwnerAndId(String username, Long id) {
         TypedQuery<ChatsEntity> tq = em.createNamedQuery("ChatsEntity.findByOwnerAndId", ChatsEntity.class);
-        tq.setParameter("username", username);
         tq.setParameter("id", id);
+        tq.setParameter("username", username);
 
         return tq.getSingleResult();
     }
