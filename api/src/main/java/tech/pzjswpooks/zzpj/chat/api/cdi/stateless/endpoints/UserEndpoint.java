@@ -8,9 +8,11 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
+
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
+
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.validation.Valid;
@@ -41,6 +43,7 @@ public class UserEndpoint {
 
     @POST
     @Path("/change")
+
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
