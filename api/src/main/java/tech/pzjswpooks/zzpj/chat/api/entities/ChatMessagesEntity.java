@@ -51,6 +51,12 @@ public class ChatMessagesEntity {
 
     }
 
+    public ChatMessagesEntity(ChatsEntity chatId, String text, AccountsEntity accountId) {
+        this.chatId = chatId;
+        this.text = text;
+        this.accountId = accountId;
+    }
+
     @PrePersist
     private void init() {
         createdAt = LocalDateTime.now();

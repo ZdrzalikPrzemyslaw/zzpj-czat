@@ -151,4 +151,7 @@ public class I18n {
     public static final String USERS_DATA_FETCH_FAILED = "users_data_fetch_failed";
     public static final String USERS_DATA_FETCH_SUCCESSFUL = "users_data_fetch_successful";
     public static final String CHATS_DATA_FETCH_FAILED = "chats_data_fetch_failed";
+
+    public static final String MESSAGE_SEND_FAILED = "message_send_failed";
+    public static final String MESSAGE_SEND_SUCCESSFULLY = "message_send_successfully";
 }
