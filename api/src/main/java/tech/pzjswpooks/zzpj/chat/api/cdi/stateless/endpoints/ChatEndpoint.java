@@ -89,4 +89,5 @@ public class ChatEndpoint {
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_SUCCESSFUL)).build();
     }
 
+
 }
