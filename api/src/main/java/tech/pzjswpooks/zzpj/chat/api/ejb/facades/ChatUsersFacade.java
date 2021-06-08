@@ -7,6 +7,7 @@ import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 @Interceptors(LogInterceptor.class)
 public class ChatUsersFacade extends AbstractFacade<ChatUsersEntity> {
 

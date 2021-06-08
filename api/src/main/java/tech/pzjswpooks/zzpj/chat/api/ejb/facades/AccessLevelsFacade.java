@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 @Interceptors(LogInterceptor.class)
 public class AccessLevelsFacade extends AbstractFacade<AccessLevelsEntity> {
     @PersistenceContext(unitName = "zzpjadmin")
