@@ -33,8 +33,8 @@ import java.util.Set;
         @NamedQuery(name = "ChatsEntity.findById", query = "SELECT a FROM ChatsEntity a WHERE a.id = :id"),
         @NamedQuery(name = "ChatsEntity.findByUsername", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae, ChatUsersEntity cue "
                 + "WHERE a.id = cue.chatId.id and cue.accountId.id = ae.id and ae.username = :username"),
-        @NamedQuery(name = "ChatsEntity.findByOwnerAndId", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae " +
-                "WHERE a.id = :id AND a.ownerId.id = ae.id AND ae.username = :username ")
+        @NamedQuery(name = "ChatsEntity.findByOwnerAndId", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae "
+                + "WHERE a.id = :id AND a.ownerId.id = ae.id AND ae.username = :username ")
 })
 public class ChatsEntity {
 
@@ -42,7 +42,7 @@ public class ChatsEntity {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
     private final List<ChatMessagesEntity> chatMessages = new ArrayList<>();
     @JoinColumn(name = "chat_id")
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private final Set<ChatUsersEntity> chatUsers = new HashSet<>();
     @Id
     @SequenceGenerator(name = "chats_generator", sequenceName = "chats_seq", allocationSize = 1)

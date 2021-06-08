@@ -1,12 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
-import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatUsersFacade;
+import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
-import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
-import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatUsersFacade;
 import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
@@ -18,9 +15,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.persistence.TypedQuery;
 import java.util.Collection;
-import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -72,8 +67,7 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
             chatsEntity.setOwner(newOwner);
             chatsEntityFacade.edit(chatsEntity);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw AppBaseException.noResultsError();
         }

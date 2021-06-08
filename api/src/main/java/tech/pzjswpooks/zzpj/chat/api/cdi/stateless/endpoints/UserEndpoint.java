@@ -67,7 +67,7 @@ public class UserEndpoint {
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByUsername(SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByUsername(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
             users = usersManager.searchUserByUsernameRegex(searchUserRequestDto);
@@ -82,7 +82,7 @@ public class UserEndpoint {
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByEmail(SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByEmail(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
             users = usersManager.searchUserByEmailRegex(searchUserRequestDto);
@@ -96,7 +96,7 @@ public class UserEndpoint {
     @Path("/search_name")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByFirstOrLastName(SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByFirstOrLastName(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
         List<UsersResponseDTO> users;
         try {
             users = usersManager.searchUserByFirstOrLastNameRegex(searchUserRequestDto);
