@@ -1,26 +1,24 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
-public class ChangeUserRequestDto {
-    @Email(message = "Not an email")
-    @Size(max = 100, message = "Too long email")
+public class EditAccountRequestDTO {
+    @Email(message = I18n.NOT_AN_EMAIL)
+    @Size(min = 4, max = 100, message = I18n.EMAIL_INVALID_SIZE)
     private String email;
-    @Size(max = 50, message = "Too long first name")
+    @Size(min = 1, max = 50, message = I18n.FIRST_NAME_INVALID_SIZE)
     private String firstName;
-    @Size(max = 80, message = "Too long last name")
+    @Size(min = 1, max = 80, message = I18n.LAST_NAME_INVALID_SIZE)
     private String lastName;
     private String language;
+    @Size(min = 9, max = 15, message = I18n.PHONE_NUMBER_INVALID_SIZE)
     private String phoneNumber;
 
-    public ChangeUserRequestDto(
-                                @Email(message = "Not an email") @Size(max = 100, message = "Too long email") String email,
-                                @Size(max = 50, message = "Too long first name") String firstName,
-                                @Size(max = 80, message = "Too long last name") String lastName,
-                                String language, String phoneNumber) {
+    public EditAccountRequestDTO(String email, String firstName, String lastName, String language, String phoneNumber) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +26,7 @@ public class ChangeUserRequestDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public ChangeUserRequestDto() {
+    public EditAccountRequestDTO() {
     }
 
     public String getEmail() {

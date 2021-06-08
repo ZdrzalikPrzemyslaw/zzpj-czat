@@ -3,10 +3,13 @@ package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 @Interceptors(LogInterceptor.class)
 public class ChatUsersFacade extends AbstractFacade<ChatUsersEntity> {
 
