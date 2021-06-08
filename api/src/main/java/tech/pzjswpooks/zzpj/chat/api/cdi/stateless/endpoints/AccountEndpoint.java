@@ -15,6 +15,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -51,7 +53,7 @@ public class AccountEndpoint {
     @Path("/lock/{username}")
     @RolesAllowed(I18n.ADMIN)
     @Produces({MediaType.APPLICATION_JSON})
-    public Response lockAccount(@PathParam("username") String username) {
+    public Response lockAccount(@Valid @NotNull @PathParam("username") String username) {
         try {
             accountsManager.lockAccount(username);
         } catch (Throwable e) {
@@ -64,7 +66,7 @@ public class AccountEndpoint {
     @Path("/unlock/{username}")
     @RolesAllowed(I18n.ADMIN)
     @Produces({MediaType.APPLICATION_JSON})
-    public Response unlockAccount(@PathParam("username") String username) {
+    public Response unlockAccount(@Valid @NotNull @PathParam("username") String username) {
         try {
             accountsManager.unlockAccount(username);
         } catch (Throwable e) {
@@ -78,7 +80,7 @@ public class AccountEndpoint {
     @PermitAll
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response registerAccount(RegistrationRequestDto registrationRequestDto) {
+    public Response registerAccount(@Valid @NotNull RegistrationRequestDto registrationRequestDto) {
         try {
             accountsManager.registerAccount(AccountEntityMapper.mapRegistrationDtoToAccount(registrationRequestDto, hashGenerator));
         } catch (Exception e) {
@@ -92,7 +94,7 @@ public class AccountEndpoint {
     @RolesAllowed("level.admin")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response addAccessLevel(AccessRequestDto accessRequestDto) {
+    public Response addAccessLevel(@Valid @NotNull AccessRequestDto accessRequestDto) {
         try {
             accountsManager.addAccessLevel(accessRequestDto.getUsername(), accessRequestDto.getAccessLevel());
         } catch (Exception e) {
