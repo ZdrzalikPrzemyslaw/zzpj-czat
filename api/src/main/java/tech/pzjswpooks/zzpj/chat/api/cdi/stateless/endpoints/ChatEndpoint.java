@@ -100,9 +100,9 @@ public class ChatEndpoint {
         try {
             chatsManager.changeName(changeChatNameRequestDTO, id);
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_FAILED)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_FAILED)).build();
         }
-        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_SUCCESSFUL)).build();
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_SUCCESSFUL)).build();
     }
 
 
