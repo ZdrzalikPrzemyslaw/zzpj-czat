@@ -6,7 +6,6 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
@@ -41,7 +40,7 @@ public class ChatMessagesEndpoint {
      */
     @PUT
     @Path("/send/{id}")
-    @PermitAll
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Produces({MediaType.APPLICATION_JSON})
     public Response sendMessage(@PathParam("id") Long id, String text) {
         try {
