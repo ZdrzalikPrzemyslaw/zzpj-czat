@@ -155,4 +155,7 @@ public class I18n {
 
     public static final String CHAT_OWNER_CHANGE_SUCCESSFUL = "chat_owner_change_succesful";
     public static final String CHAT_OWNER_CHANGE_FAILED = "chat_owner_change_failed";
+
+    public static final String MESSAGE_SEND_FAILED = "message_send_failed";
+    public static final String MESSAGE_SEND_SUCCESSFULLY = "message_send_successfully";
 }
