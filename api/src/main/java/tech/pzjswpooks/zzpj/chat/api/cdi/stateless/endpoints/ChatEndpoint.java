@@ -9,6 +9,7 @@ import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.DeleteUserFromChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChatsInfoResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.CreateChatResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
@@ -20,6 +21,7 @@ import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.POST;
@@ -106,5 +108,20 @@ public class ChatEndpoint {
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_SUCCESSFUL)).build();
     }
+
+    @DELETE
+    @RolesAllowed({I18n.USER, I18n.ADMIN})
+    @Path("/delete-user/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deleteUserFromChat(@NotNull @Valid DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, @PathParam("id") Long id) {
+        try {
+            chatUsersManager.deleteUser(deleteUserFromChatRequestDTO, id);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_FAILED)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_SUCCESSFUL)).build();
+    }
+
 
 }
