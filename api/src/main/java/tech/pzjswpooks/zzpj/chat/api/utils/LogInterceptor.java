@@ -1,18 +1,20 @@
 package tech.pzjswpooks.zzpj.chat.api.utils;
 
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Klasa interceptora logów.
+ */
 public class LogInterceptor {
     private static final Logger LOGGER = Logger.getLogger(LogInterceptor.class.getName());
 
-    //TODO: Zmuszenie sessionContextu do poprawnego injectowania
-
-    //    @Resource
-    //    private SessionContext sessionContext;
+    @Inject
+    private LoggedInAccountUtil loggedInAccountUtil;
 
     /**
      * Dodaje logi do metod.
@@ -29,13 +31,13 @@ public class LogInterceptor {
         try {
             Object result = context.proceed();
             if (result != null) {
-                returnedValue = "Zwrócono: " + result.toString();
+                returnedValue = "Zwrócono: " + result;
             } else {
                 returnedValue = "Nie zwrócono żadnej wartości";
             }
             return result;
         } catch (Exception e) {
-            returnedValue = "Zgłoszono wyjątek: " + e.toString() + " Przyczyna: " + e.getCause();
+            returnedValue = "Zgłoszono wyjątek: " + e + " Przyczyna: " + e.getCause();
             logLevel = Level.WARNING;
             throw e;
         } finally {
@@ -46,10 +48,9 @@ public class LogInterceptor {
                 } else {
                     parameters = " ";
                 }
-                //TODO: Wypisywanie użytkownika
-                LOGGER.log(logLevel, "Użytkownik: " + "Metoda: " + context.getMethod().toGenericString() + "Parametry: " + parameters + "Zwrócona wartość: " + returnedValue);
+                LOGGER.log(logLevel, "Użytkownik: " + loggedInAccountUtil.getLoggedInAccountLogin()
+                        + " Metoda: " + context.getMethod().toGenericString() + " Parametry: " + parameters + " Zwrócona wartość: " + returnedValue);
             }
         }
     }
 }
-
