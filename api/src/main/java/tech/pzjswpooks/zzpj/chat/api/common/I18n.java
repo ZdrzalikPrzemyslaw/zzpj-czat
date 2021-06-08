@@ -99,6 +99,7 @@ public class I18n {
     public static final String MAIL_ACTIVATION_LINK_SEND_ERROR = "mail_activation_link_send_error";
     public static final String MAIL_ACCOUNT_LOCK_SEND_ERROR = "mail_account_lock_send_error";
     public static final String MAIL_ACTIVATION_CONFIRMATION_SEND_ERROR = "mail_activation_confirmation_send_error";
+    public static final String NO_RESULTS_ERROR = "no_results_error";
 
 
     public static final String ACCOUNT_MAIL_ACTIVATE_SUBJECT = "account_mail_active_subject";

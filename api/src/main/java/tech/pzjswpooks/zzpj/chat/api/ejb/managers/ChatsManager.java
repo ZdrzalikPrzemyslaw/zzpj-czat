@@ -1,6 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
+import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
+import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 
 import javax.ejb.Local;
@@ -14,4 +17,6 @@ public interface ChatsManager {
     void createChat(CreateChatRequestDto createChatRequestDto);
 
     Collection<ChatsEntity> getChatsUserBelongsTo(String username);
+
+    void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, int id) throws AppBaseException;
 }

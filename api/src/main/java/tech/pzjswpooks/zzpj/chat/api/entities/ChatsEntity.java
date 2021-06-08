@@ -32,7 +32,9 @@ import java.util.Set;
         @NamedQuery(name = "ChatsEntity.findAll", query = "SELECT a FROM ChatsEntity a"),
         @NamedQuery(name = "ChatsEntity.findById", query = "SELECT a FROM ChatsEntity a WHERE a.id = :id"),
         @NamedQuery(name = "ChatsEntity.findByUsername", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae, ChatUsersEntity cue "
-                + "WHERE a.id = cue.chatId.id and cue.accountId.id = ae.id and ae.username = :username")
+                + "WHERE a.id = cue.chatId.id and cue.accountId.id = ae.id and ae.username = :username"),
+        @NamedQuery(name = "ChatsEntity.findByOwnerAndId", query = "SELECT a FROM ChatsEntity a, AccountsEntity ae " +
+                "WHERE a.id = :id AND a.ownerId.id = ae.id AND ae.username = :username ")
 })
 public class ChatsEntity {
 

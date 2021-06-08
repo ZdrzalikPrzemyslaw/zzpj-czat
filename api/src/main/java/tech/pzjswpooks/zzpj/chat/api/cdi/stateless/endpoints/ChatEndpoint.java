@@ -2,8 +2,11 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
+import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManager;
+import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManagerImplementation;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChatsInfoResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.CreateChatResponseDto;
@@ -31,7 +34,9 @@ public class ChatEndpoint {
     private final LoggedInAccountUtil loggedInAccountUtil;
 
     @Inject
-    public ChatEndpoint(AccountsManager accountsManager, ChatsManager chatsManager, LoggedInAccountUtil loggedInAccountUtil) {
+    public ChatEndpoint(AccountsManager accountsManager,
+                        ChatsManager chatsManager,
+                        LoggedInAccountUtil loggedInAccountUtil) {
         this.accountsManager = accountsManager;
         this.chatsManager = chatsManager;
         this.loggedInAccountUtil = loggedInAccountUtil;
@@ -67,12 +72,12 @@ public class ChatEndpoint {
 
     @PUT
     @RolesAllowed({I18n.USER, I18n.ADMIN})
-    @Path("/change-owner")
+    @Path("/change-owner/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response changeChatOwner(@NotNull @Valid CreateChatRequestDto createChatRequestDto) {
+    public Response changeChatOwner(@NotNull @Valid ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, @PathParam("id") int id) {
         try {
-            chatsManager.createChat(createChatRequestDto);
+            chatsManager.changeOwner(changeChatOwnerRequestDTO, id);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_CREATION_FAILED)).build();
         }

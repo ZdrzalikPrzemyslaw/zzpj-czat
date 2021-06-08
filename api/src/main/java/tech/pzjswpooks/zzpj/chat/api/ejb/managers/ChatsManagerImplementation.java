@@ -7,6 +7,8 @@ import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatUsersFacade;
+import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
@@ -61,4 +63,22 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
     public Collection<ChatsEntity> getChatsUserBelongsTo(String username) {
         return chatsEntityFacade.getChatsByUsernameBelongsTo(username);
     }
+
+    @Override
+    public void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, int id) throws AppBaseException {
+        var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
+        var newOwner = accountsManager.getAccountByUsername(changeChatOwnerRequestDTO.getUsername());
+        try {
+            ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
+            chatsEntity.setOwner(newOwner);
+            chatsEntityFacade.edit(chatsEntity);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw AppBaseException.noResultsError();
+        }
+
+
+    }
+
 }
