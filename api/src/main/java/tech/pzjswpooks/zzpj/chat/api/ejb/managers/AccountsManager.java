@@ -16,5 +16,7 @@ public interface AccountsManager {
 
     void registerAccount(AccountsEntity accountsEntity);
 
+    void addAccessLevel(String username, String accessLevel);
+
     AccountsEntity getAccountByUsername(String username);
 }

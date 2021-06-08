@@ -1,6 +1,8 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
+import tech.pzjswpooks.zzpj.chat.api.common.AccessLevelMapper;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
+import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
@@ -60,6 +62,14 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
         userData.setAccountId(accountsEntity);
         accountsEntity.addAccessLevels(userData);
         accountEntityFacade.create(accountsEntity);
+    }
+
+    @Override
+    public void addAccessLevel(String username, String accessLevel) {
+        AccountsEntity accountsEntity = getAccountByUsername(username);
+        AccessLevelsEntity accessLevelsEntity = AccessLevelMapper.mapLevelNameToAccessLevel(accessLevel);
+        accessLevelsEntity.setAccountId(accountsEntity);
+        accountsEntity.addAccessLevels(accessLevelsEntity);
     }
 
     // TODO: 10.05.2021 Wy jąt ki

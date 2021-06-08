@@ -3,7 +3,10 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 import tech.pzjswpooks.zzpj.chat.api.common.AccountEntityMapper;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.AccessRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.RegistrationRequestDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.AccessResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.LockAndUnlockAccountResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.HashGenerator;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
@@ -84,6 +87,21 @@ public class AccountEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.ACCOUNT_CREATION_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.ACCOUNT_CREATED_SUCCESSFULLY)).build();
+    }
+
+    @POST
+    @Path("/access")
+    @RolesAllowed("level.admin")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response addAccessLevel(AccessRequestDto accessRequestDto) {
+        try {
+            accountsManager.addAccessLevel(accessRequestDto.getUsername(), accessRequestDto.getAccessLevel());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new AccessResponseDto(new MessageResponseDto(e.getMessage()), false)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new AccessResponseDto(null, true)).build();
     }
 
 }
