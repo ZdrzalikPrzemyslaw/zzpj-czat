@@ -1,5 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.auth;
 
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
+
 import javax.annotation.security.DeclareRoles;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -13,7 +15,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
         hashAlgorithm = AuthHashImpl.class
 )
 //@BasicAuthenticationMechanismDefinition
-@DeclareRoles({"level.user", "level.admin"})
+@DeclareRoles({I18n.USER, I18n.ADMIN})
 @ApplicationScoped
 //@Named
 public class ApplicationConfig {

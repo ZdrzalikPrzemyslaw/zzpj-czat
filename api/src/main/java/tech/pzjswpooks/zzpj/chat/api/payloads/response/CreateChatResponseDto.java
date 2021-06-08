@@ -3,14 +3,17 @@ package tech.pzjswpooks.zzpj.chat.api.payloads.response;
 import com.sun.istack.Nullable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class LockAndUnlockAccountResponseDto {
+public class CreateChatResponseDto {
     @Nullable
     private MessageResponseDto messageResponseDto;
     private Boolean wasSuccessful;
 
-    public LockAndUnlockAccountResponseDto(@Nullable MessageResponseDto messageResponseDto, Boolean wasSuccessful) {
+    public CreateChatResponseDto(@Nullable MessageResponseDto messageResponseDto, Boolean wasSuccessful) {
         this.messageResponseDto = messageResponseDto;
         this.wasSuccessful = wasSuccessful;
+    }
+
+    public CreateChatResponseDto() {
     }
 
     @Override

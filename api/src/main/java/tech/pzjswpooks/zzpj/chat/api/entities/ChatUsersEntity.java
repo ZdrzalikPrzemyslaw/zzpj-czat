@@ -31,6 +31,11 @@ public class ChatUsersEntity {
 
     }
 
+    public ChatUsersEntity(ChatsEntity chatId, AccountsEntity accountId) {
+        this.chatId = chatId;
+        this.accountId = accountId;
+    }
+
     @Id
     @SequenceGenerator(name = "chat_users_generator", sequenceName = "chat_users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_users_generator")
@@ -50,12 +55,12 @@ public class ChatUsersEntity {
         return id;
     }
 
-    public Long getChatId() {
-        return chatId.getId();
+    public ChatsEntity getChatId() {
+        return chatId;
     }
 
-    public Long getAccountId() {
-        return accountId.getId();
+    public AccountsEntity getAccountId() {
+        return accountId;
     }
 
     @Override

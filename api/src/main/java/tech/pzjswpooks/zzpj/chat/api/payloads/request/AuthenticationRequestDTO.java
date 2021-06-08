@@ -1,16 +1,22 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
+import tech.pzjswpooks.zzpj.chat.api.security.Login;
+
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class LoginRequestDTO {
+public class AuthenticationRequestDTO {
     // TODO: 09.05.2021 Ograniczenia
-    @NotNull
+    @NotNull(message = I18n.LOGIN_NULL)
+    @Login
     private String username;
-    @NotNull
+    @Size(min = 8, message = I18n.PASSWORD_INVALID_SIZE)
+    @NotNull(message = I18n.PASSWORD_NULL)
     private String password;
 
-    public LoginRequestDTO() {
+    public AuthenticationRequestDTO() {
     }
 
     public String getUsername() {
@@ -29,7 +35,7 @@ public class LoginRequestDTO {
         this.password = password;
     }
 
-    public LoginRequestDTO(String username, String password) {
+    public AuthenticationRequestDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }

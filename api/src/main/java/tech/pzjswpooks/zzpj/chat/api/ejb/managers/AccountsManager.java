@@ -1,6 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
 
 import javax.ejb.Local;
 
@@ -12,9 +13,11 @@ public interface AccountsManager {
 
     void unlockAccount(Long id);
 
+    void unlockAccount(String username);
+
     void registerAccount(AccountsEntity accountsEntity);
 
-    AccountsEntity getLoggedInAccount();
-  
+    void addAccessLevel(String username, String accessLevel) throws AppBaseException;
+
     AccountsEntity getAccountByUsername(String username);
 }

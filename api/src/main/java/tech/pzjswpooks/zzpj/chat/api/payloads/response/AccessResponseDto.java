@@ -3,17 +3,17 @@ package tech.pzjswpooks.zzpj.chat.api.payloads.response;
 import com.sun.istack.Nullable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class RegistrationResponseDto {
+public class AccessResponseDto {
     @Nullable
     private MessageResponseDto messageResponseDto;
     private Boolean wasSuccessful;
 
-    public RegistrationResponseDto(@Nullable MessageResponseDto messageResponseDto, Boolean wasSuccessful) {
+    public AccessResponseDto(@Nullable MessageResponseDto messageResponseDto, Boolean wasSuccessful) {
         this.messageResponseDto = messageResponseDto;
         this.wasSuccessful = wasSuccessful;
     }
 
-    public RegistrationResponseDto() {
+    public AccessResponseDto() {
     }
 
     @Override

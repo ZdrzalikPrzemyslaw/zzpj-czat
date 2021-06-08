@@ -1,9 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.common;
 
-import org.apache.commons.lang3.NotImplementedException;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AdminData;
 import tech.pzjswpooks.zzpj.chat.api.entities.UserData;
+import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
 
 public class AccessLevelMapper {
     /**
@@ -11,15 +11,14 @@ public class AccessLevelMapper {
      *
      * @param level poziom dostępu do zamiany na obiekt
      * @return obiekt poziomu dostępu
-     * @throws NotImplementedException gdy poziom dostepu nie istnieje
+     * @throws AppBaseException {@link AppBaseException#invalidAccessLevel()} gdy poziom dostepu nie istnieje
      */
-    public static AccessLevelsEntity mapLevelNameToAccessLevel(String level) throws NotImplementedException {
+    public static AccessLevelsEntity mapLevelNameToAccessLevel(String level) throws AppBaseException {
         if (AccessLevels.ADMIN.getLevel().equals(level)) {
             return new AdminData();
         } else if (AccessLevels.USER.getLevel().equals(level)) {
             return new UserData();
         }
-        // TODO: 24.04.2021 Zmienic na nasz wyjatek
-        throw new NotImplementedException();
+        throw AppBaseException.invalidAccessLevel();
     }
 }
