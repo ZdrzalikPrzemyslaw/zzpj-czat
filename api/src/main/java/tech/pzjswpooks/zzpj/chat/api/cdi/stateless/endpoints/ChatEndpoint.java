@@ -102,9 +102,9 @@ public class ChatEndpoint {
         try {
             chatUsersManager.addUser(addUserToChatRequestDTO, id);
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_FAILED)).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_FAILED)).build();
         }
-        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_SUCCESSFUL)).build();
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_SUCCESSFUL)).build();
     }
 
 }
