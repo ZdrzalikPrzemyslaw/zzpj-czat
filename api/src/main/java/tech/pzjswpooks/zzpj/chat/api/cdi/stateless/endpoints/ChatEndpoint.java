@@ -38,15 +38,18 @@ public class ChatEndpoint {
 
     private final AccountsManager accountsManager;
     private final ChatsManager chatsManager;
+    private final ChatUsersManager chatUsersManager;
     private final LoggedInAccountUtil loggedInAccountUtil;
 
     @Inject
     public ChatEndpoint(AccountsManager accountsManager,
                         ChatsManager chatsManager,
-                        LoggedInAccountUtil loggedInAccountUtil) {
+                        LoggedInAccountUtil loggedInAccountUtil,
+                        ChatUsersManager chatUsersManager) {
         this.accountsManager = accountsManager;
         this.chatsManager = chatsManager;
         this.loggedInAccountUtil = loggedInAccountUtil;
+        this.chatUsersManager = chatUsersManager;
     }
 
     @POST
@@ -97,7 +100,7 @@ public class ChatEndpoint {
     @Produces({MediaType.APPLICATION_JSON})
     public Response addUserToChat(@NotNull @Valid AddUserToChatRequestDTO addUserToChatRequestDTO, @PathParam("id") Long id) {
         try {
-            chatsManager.changeOwner(changeChatOwnerRequestDTO, id);
+            chatUsersManager.addUser(addUserToChatRequestDTO, id);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_OWNER_CHANGE_FAILED)).build();
         }

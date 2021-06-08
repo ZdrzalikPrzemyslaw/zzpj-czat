@@ -29,8 +29,9 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
     private AccountsManager accountsManager;
 
     @Inject
-    public ChatUsersManagerImplementation(ChatsEntityFacade chatsEntityFacade, ChatUsersFacade chatsUsersFacade, AccountsManager accountsManager) {
+    public ChatUsersManagerImplementation(ChatsEntityFacade chatsEntityFacade, LoggedInAccountUtil loggedInAccountUtil, ChatUsersFacade chatsUsersFacade, AccountsManager accountsManager) {
         this.chatsEntityFacade = chatsEntityFacade;
+        this.loggedInAccountUtil = loggedInAccountUtil;
         this.chatsUsersFacade = chatsUsersFacade;
         this.accountsManager = accountsManager;
     }
