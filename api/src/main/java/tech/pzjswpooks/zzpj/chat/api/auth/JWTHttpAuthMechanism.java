@@ -5,6 +5,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.security.JwtUtils;
+import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
@@ -31,6 +32,9 @@ public class JWTHttpAuthMechanism implements HttpAuthenticationMechanism {
     @Inject
     private AccountsManager accountsManager;
 
+    @Inject
+    private PropertiesLoader propertiesLoader;
+
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest req, HttpServletResponse res, HttpMessageContext msgContext) {
         try {
@@ -55,7 +59,8 @@ public class JWTHttpAuthMechanism implements HttpAuthenticationMechanism {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return msgContext.responseUnauthorized();
+        // Unauthenticated shows as anon
+        return msgContext.notifyContainerAboutLogin(propertiesLoader.getAnonymousUserName(), new HashSet<>());
     }
 
     private String parseJwt(HttpServletRequest request) {

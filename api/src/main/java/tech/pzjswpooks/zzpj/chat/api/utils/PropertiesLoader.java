@@ -3,7 +3,6 @@ package tech.pzjswpooks.zzpj.chat.api.utils;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,6 +15,11 @@ import java.util.Properties;
 public class PropertiesLoader {
 
     private String confirmationJwtSecret;
+    private String anonymousUserName;
+    private Long confirmationJwtExpiration;
+
+    public PropertiesLoader() {
+    }
 
     /**
      * Pobiera pole confirmation jwt secret.
@@ -35,17 +39,17 @@ public class PropertiesLoader {
         return confirmationJwtExpiration;
     }
 
-    public PropertiesLoader() {
+    public String getAnonymousUserName() {
+        return anonymousUserName;
     }
 
-    private Long confirmationJwtExpiration;
 
     @PostConstruct
     public void loadProperties() {
         Properties prop = null;
         try {
             prop = new Properties();
-            InputStream inputStream  = PropertiesLoader.class.getClassLoader()
+            InputStream inputStream = PropertiesLoader.class.getClassLoader()
                     .getResourceAsStream("application.properties");
             if (inputStream != null) {
                 prop.load(inputStream);
@@ -55,7 +59,6 @@ public class PropertiesLoader {
         }
         confirmationJwtSecret = prop.getProperty("confirmation.jwt.secret");
         confirmationJwtExpiration = Long.valueOf(prop.getProperty("confirmation.jwt.expirationMs"));
-        System.out.println(confirmationJwtExpiration);
-        System.out.println(confirmationJwtSecret);
+        anonymousUserName = prop.getProperty("anonymous.user.name");
     }
 }

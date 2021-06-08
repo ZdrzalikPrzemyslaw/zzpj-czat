@@ -12,9 +12,9 @@ public interface AccountsManager {
 
     void unlockAccount(Long id);
 
+    void unlockAccount(String username);
+
     void registerAccount(AccountsEntity accountsEntity);
 
-    AccountsEntity getLoggedInAccount();
-  
     AccountsEntity getAccountByUsername(String username);
 }

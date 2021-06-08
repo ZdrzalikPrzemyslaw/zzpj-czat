@@ -49,6 +49,12 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
     }
 
     @Override
+    public void unlockAccount(String username) {
+        AccountsEntity account = accountEntityFacade.findByUsername(username);
+        account.setEnabled(true);
+    }
+
+    @Override
     public void registerAccount(AccountsEntity accountsEntity) {
         UserData userData = new UserData();
         userData.setAccountId(accountsEntity);
@@ -56,15 +62,6 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
         accountEntityFacade.create(accountsEntity);
     }
 
-    @Override
-    public AccountsEntity getLoggedInAccount() {
-        if (securityContext.getCallerPrincipal() == null) {
-            return null;
-        } else {
-            return accountEntityFacade.findByUsername(securityContext.getCallerPrincipal().getName());
-        }
-    }
-      
     // TODO: 10.05.2021 Wy jąt ki
     @Override
     public AccountsEntity getAccountByUsername(String username) {
