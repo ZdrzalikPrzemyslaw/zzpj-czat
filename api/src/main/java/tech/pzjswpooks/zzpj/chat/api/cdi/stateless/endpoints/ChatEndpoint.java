@@ -111,12 +111,12 @@ public class ChatEndpoint {
 
     @POST
     @RolesAllowed({I18n.USER, I18n.ADMIN})
-    @Path("/delete-user/{id}")
+    @Path("/remove-user/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response deleteUserFromChat(@NotNull @Valid DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, @PathParam("id") Long id) {
         try {
-            chatUsersManager.deleteUser(deleteUserFromChatRequestDTO, id);
+            chatUsersManager.removeUserFromChat(deleteUserFromChatRequestDTO, id);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_USERS_DELETE_FAILED)).build();
         }

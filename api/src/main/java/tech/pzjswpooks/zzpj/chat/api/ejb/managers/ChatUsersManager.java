@@ -12,6 +12,6 @@ public interface ChatUsersManager {
 
     void addUser(AddUserToChatRequestDTO addUserToChatRequestDTO, Long id) throws AppBaseException;
 
-    void deleteUser(DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, Long id) throws AppBaseException;
+    void removeUserFromChat(DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, Long id) throws AppBaseException;
 
 }

@@ -15,6 +15,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.function.Consumer;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -46,6 +47,12 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
         var newUser = accountsManager.getAccountByUsername(addUserToChatRequestDTO.getUsername());
         try {
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
+            chatsEntity.getChatUsers().forEach(chatUsersEntity -> {
+                if (chatUsersEntity.getAccountId().equals(newUser)) {
+                    chatUsersEntity.getAccountId().setEnabled(true);
+                    return;
+                }
+            });
             ChatUsersEntity chatUsersEntity = new ChatUsersEntity(chatsEntity, newUser);
             chatsUsersFacade.create(chatUsersEntity);
         } catch (Exception e) {
@@ -55,13 +62,14 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
     }
 
     @Override
-    public void deleteUser(DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, Long id) throws AppBaseException {
+    public void removeUserFromChat(DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO, Long id) throws AppBaseException {
         var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
         var user = accountsManager.getAccountByUsername(deleteUserFromChatRequestDTO.getUsername());
         try {
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
             ChatUsersEntity chatUsersEntity = chatsUsersFacade.getChatUserByIdAndUsername(deleteUserFromChatRequestDTO.getUsername(), id);
-            chatsUsersFacade.remove(chatUsersEntity);
+            chatUsersEntity.setEnabled(false);
+            chatsUsersFacade.edit(chatUsersEntity);
         } catch (Exception e) {
             e.printStackTrace();
             throw AppBaseException.noResultsError();
