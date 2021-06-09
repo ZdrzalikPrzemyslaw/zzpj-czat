@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +29,22 @@ import javax.persistence.UniqueConstraint;
                 + "WHERE ae.id = cue.accountId.id AND ce.id = cue.chatId.id AND ae.username = :username AND ce.id = :id")
 })
 public class ChatUsersEntity {
+    @Id
+    @SequenceGenerator(name = "chat_users_generator", sequenceName = "chat_users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_users_generator")
+    @Basic(optional = false)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private ChatsEntity chatId;
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private AccountsEntity accountId;
+    @Basic(optional = false)
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled = true;
+
     public ChatUsersEntity() {
 
     }
@@ -39,20 +54,13 @@ public class ChatUsersEntity {
         this.accountId = accountId;
     }
 
-    @Id
-    @SequenceGenerator(name = "chat_users_generator", sequenceName = "chat_users_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chat_users_generator")
-    @Basic(optional = false)
-    @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-    @JoinColumn(name = "chat_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private ChatsEntity chatId;
-
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private AccountsEntity accountId;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public Long getId() {
         return id;
