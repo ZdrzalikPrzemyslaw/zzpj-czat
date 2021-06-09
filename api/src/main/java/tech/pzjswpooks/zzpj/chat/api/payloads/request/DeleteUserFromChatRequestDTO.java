@@ -13,6 +13,9 @@ public class DeleteUserFromChatRequestDTO {
         this.username = username;
     }
 
+    public DeleteUserFromChatRequestDTO() {
+    }
+
     public String getUsername() {
         return username;
     }
@@ -21,6 +24,5 @@ public class DeleteUserFromChatRequestDTO {
         this.username = username;
     }
 
-    public DeleteUserFromChatRequestDTO() {
-    }
+
 }
