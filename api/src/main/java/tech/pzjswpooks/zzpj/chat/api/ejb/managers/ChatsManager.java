@@ -3,6 +3,7 @@ package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatNameRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 
@@ -19,4 +20,6 @@ public interface ChatsManager {
     Collection<ChatsEntity> getChatsUserBelongsTo(String username);
 
     void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, Long id) throws AppBaseException;
+
+    void changeName(ChangeChatNameRequestDTO changeChatNameRequestDTO, Long id) throws AppBaseException;
 }
