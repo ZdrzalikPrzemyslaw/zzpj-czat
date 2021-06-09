@@ -60,7 +60,7 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
         var user = accountsManager.getAccountByUsername(deleteUserFromChatRequestDTO.getUsername());
         try {
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
-            ChatUsersEntity chatUsersEntity = new ChatUsersEntity(chatsEntity, user);
+            ChatUsersEntity chatUsersEntity = chatsUsersFacade.getChatUserByIdAndUsername(deleteUserFromChatRequestDTO.getUsername(), id);
             chatsUsersFacade.remove(chatUsersEntity);
         } catch (Exception e) {
             e.printStackTrace();

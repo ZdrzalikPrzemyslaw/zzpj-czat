@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,9 @@ import javax.persistence.UniqueConstraint;
 })
 @NamedQueries({
         @NamedQuery(name = "ChatUsersEntity.findAll", query = "SELECT a FROM ChatUsersEntity a"),
-        @NamedQuery(name = "ChatUsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id")
+        @NamedQuery(name = "ChatUsersEntity.findById", query = "SELECT a FROM ChatUsersEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "ChatUsersEntity.findUserInChat", query = "SELECT cue FROM ChatUsersEntity cue, AccountsEntity ae, ChatsEntity ce " +
+                "WHERE ae.id = cue.accountId.id AND ce.id = cue.chatId.id AND ae.username = :username AND ce.id = :id")
 })
 public class ChatUsersEntity {
     public ChatUsersEntity() {

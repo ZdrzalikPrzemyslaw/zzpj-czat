@@ -109,7 +109,7 @@ public class ChatEndpoint {
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_ADD_SUCCESSFUL)).build();
     }
 
-    @DELETE
+    @POST
     @RolesAllowed({I18n.USER, I18n.ADMIN})
     @Path("/delete-user/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
