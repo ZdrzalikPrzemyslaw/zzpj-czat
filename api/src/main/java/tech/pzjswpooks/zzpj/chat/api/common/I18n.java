@@ -155,12 +155,14 @@ public class I18n {
 
     public static final String CHAT_OWNER_CHANGE_SUCCESSFUL = "chat_owner_change_succesful";
     public static final String CHAT_OWNER_CHANGE_FAILED = "chat_owner_change_failed";
-
     public static final String CHAT_USERS_ADD_SUCCESSFUL = "chat_users_add_successful";
     public static final String CHAT_USERS_ADD_FAILED = "chat_users_add_failed";
 
     public static final String CHAT_USERS_DELETE_SUCCESSFUL = "chat_users_delete_successful";
     public static final String CHAT_USERS_DELETE_FAILED = "chat_users_delete_failed";
+
+    public static final String CHAT_NAME_CHANGE_SUCCESSFUL = "chat_name_change_succesful";
+    public static final String CHAT_NAME_CHANGE_FAILED = "chat_name_change_failed";
 
     public static final String MESSAGE_SEND_FAILED = "message_send_failed";
     public static final String MESSAGE_SEND_SUCCESSFULLY = "message_send_successfully";

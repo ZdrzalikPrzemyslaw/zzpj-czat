@@ -7,6 +7,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManagerImplementation
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatNameRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.DeleteUserFromChatRequestDTO;
@@ -121,6 +122,21 @@ public class ChatEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_USERS_DELETE_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_DELETE_SUCCESSFUL)).build();
+
+      
+    @PUT
+    @RolesAllowed({I18n.USER, I18n.ADMIN})
+    @Path("/change-name/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response changeChatName(@NotNull @Valid ChangeChatNameRequestDTO changeChatNameRequestDTO, @PathParam("id") Long id) {
+        try {
+            chatsManager.changeName(changeChatNameRequestDTO, id);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_FAILED)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_SUCCESSFUL)).build();
+
     }
 
 
