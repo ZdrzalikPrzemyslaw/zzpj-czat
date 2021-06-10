@@ -123,7 +123,8 @@ public class ChatEndpoint {
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_USERS_DELETE_SUCCESSFUL)).build();
 
-      
+    }
+
     @PUT
     @RolesAllowed({I18n.USER, I18n.ADMIN})
     @Path("/change-name/{id}")
