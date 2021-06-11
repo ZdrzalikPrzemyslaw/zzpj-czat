@@ -14,6 +14,12 @@ import java.io.Serializable;
         @NamedQuery(name = "AdminData.findAll", query = "SELECT a FROM AdminData a")})
 public class AdminData extends AccessLevelsEntity implements Serializable {
 
+
+
+    public AdminData() {
+    }
+
+
     // TODO: 24.04.2021 Nwm jak to dziala z dziedziczeniem
     @Override
     public String toString() {

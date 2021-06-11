@@ -90,7 +90,7 @@ public class AccountEndpoint {
     }
 
     @POST
-    @Path("/access")
+    @Path("/add-access-level")
     @RolesAllowed("level.admin")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -101,6 +101,20 @@ public class AccountEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.ACCESS_LEVEL_ADD_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.ACCESS_LEVEL_ADDED_SUCCESSFULLY)).build();
+    }
+
+    @POST
+    @Path("/revoke-access-level")
+    @RolesAllowed("level.admin")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response revokeAccessLevel(@Valid @NotNull AccessRequestDto accessRequestDto) {
+        try {
+            accountsManager.revokeAccessLevel(accessRequestDto.getUsername(), accessRequestDto.getAccessLevel());
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.ACCESS_LEVEL_REMOVE_FAILED)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.ACCESS_LEVEL_REMOVED_SUCCESSFULLY)).build();
     }
 
 }

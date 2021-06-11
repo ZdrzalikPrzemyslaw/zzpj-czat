@@ -19,5 +19,7 @@ public interface AccountsManager {
 
     void addAccessLevel(String username, String accessLevel) throws AppBaseException;
 
+    void revokeAccessLevel(String username, String accessLevel) throws AppBaseException;
+
     AccountsEntity getAccountByUsername(String username);
 }

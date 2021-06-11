@@ -166,4 +166,6 @@ public class I18n {
 
     public static final String MESSAGE_SEND_FAILED = "message_send_failed";
     public static final String MESSAGE_SEND_SUCCESSFULLY = "message_send_successfully";
+    public static final String ACCESS_LEVEL_REMOVE_FAILED = "access_level_remove_failed";
+    public static final String ACCESS_LEVEL_REMOVED_SUCCESSFULLY = "access_level_removed_successfully";
 }
