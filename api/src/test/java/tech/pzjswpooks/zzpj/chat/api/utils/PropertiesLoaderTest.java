@@ -23,4 +23,9 @@ class PropertiesLoaderTest {
     void getConfirmationJwtExpiration() {
         assertEquals(propertiesLoader.getConfirmationJwtExpiration(), 86400000);
     }
+
+    @Test
+    void getAnonymousUserName() {
+        assertEquals(propertiesLoader.getAnonymousUserName(), "anonymous");
+    }
 }
