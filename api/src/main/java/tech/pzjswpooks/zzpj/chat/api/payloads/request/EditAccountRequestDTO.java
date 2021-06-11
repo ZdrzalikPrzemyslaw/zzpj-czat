@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 public class EditAccountRequestDTO {
-    @Email(message = I18n.NOT_AN_EMAIL)
+
     @Size(min = 4, max = 100, message = I18n.EMAIL_INVALID_SIZE)
     private String email;
     @Size(min = 1, max = 50, message = I18n.FIRST_NAME_INVALID_SIZE)

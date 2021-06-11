@@ -17,7 +17,6 @@ public class RegistrationRequestDto {
     @NotNull(message = I18n.PASSWORD_NULL)
     private String password;
     @NotNull(message = I18n.EMAIL_NULL)
-    @Email(message = I18n.NOT_AN_EMAIL)
     @Size(min = 5, max = 100, message = I18n.EMAIL_INVALID_SIZE)
     private String email;
     @NotNull(message = I18n.FIRST_NAME_NULL)
