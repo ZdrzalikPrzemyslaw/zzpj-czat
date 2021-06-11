@@ -1,10 +1,12 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
+
 import javax.validation.constraints.NotNull;
 
 public class SearchUserRequestDto {
 
-    @NotNull
+    @NotNull(message = I18n.FILTER_EMPTY)
     private String filter;
 
     public SearchUserRequestDto() {

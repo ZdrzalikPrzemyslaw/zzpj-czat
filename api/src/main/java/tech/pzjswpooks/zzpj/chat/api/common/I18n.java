@@ -173,4 +173,5 @@ public class I18n {
     public static final String NOT_FOUND = "not_found";
     public static final String MESSAGE_SIZE_INVALID = "message_size_invalid";
     public static final String MESSAGE_EMPTY = "message_empty";
+    public static final String FILTER_EMPTY = "filter_empty";
 }

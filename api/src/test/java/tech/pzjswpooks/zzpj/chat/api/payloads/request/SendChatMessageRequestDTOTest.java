@@ -1,38 +1,36 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
-
 import java.nio.CharBuffer;
-import java.util.Set;
-import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SendChatMessageRequestDTOTest {
 
+    SendChatMessageRequestDTO sendChatMessageRequestDTO = new SendChatMessageRequestDTO();
     private Validator validator;
-
-    @Before
-    public void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
 
     public SendChatMessageRequestDTOTest() {
 
     }
 
+    @BeforeEach
+    public void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
     @Test
     public void nullTest() {
-        SendChatMessageRequestDTO sendChatMessageRequestDTO = new SendChatMessageRequestDTO();
         sendChatMessageRequestDTO.setMessage(null);
         var validate = validator.validate(sendChatMessageRequestDTO);
         assertFalse(validate.isEmpty());
@@ -47,7 +45,6 @@ public class SendChatMessageRequestDTOTest {
 
     @Test
     public void tooSmall() {
-        SendChatMessageRequestDTO sendChatMessageRequestDTO = new SendChatMessageRequestDTO();
         sendChatMessageRequestDTO.setMessage("");
         var validate = validator.validate(sendChatMessageRequestDTO);
         assertFalse(validate.isEmpty());
@@ -62,8 +59,7 @@ public class SendChatMessageRequestDTOTest {
 
     @Test
     public void tooBig() {
-        SendChatMessageRequestDTO sendChatMessageRequestDTO = new SendChatMessageRequestDTO();
-        sendChatMessageRequestDTO.setMessage(CharBuffer.allocate(10000).toString().replace( '\0', ' ' ));
+        sendChatMessageRequestDTO.setMessage(CharBuffer.allocate(10000).toString().replace('\0', ' '));
         var validate = validator.validate(sendChatMessageRequestDTO);
         assertFalse(validate.isEmpty());
         final boolean[] correctMessage = {false};
@@ -77,11 +73,20 @@ public class SendChatMessageRequestDTOTest {
 
     @Test
     public void correct() {
-        SendChatMessageRequestDTO sendChatMessageRequestDTO = new SendChatMessageRequestDTO();
         sendChatMessageRequestDTO.setMessage("message");
         var validate = validator.validate(sendChatMessageRequestDTO);
         assertTrue(validate.isEmpty());
 
     }
 
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @org.junit.jupiter.api.Test
+    void getMessage() {
+        sendChatMessageRequestDTO.setMessage("message");
+        assertEquals(sendChatMessageRequestDTO.getMessage(), "message");
+    }
 }
