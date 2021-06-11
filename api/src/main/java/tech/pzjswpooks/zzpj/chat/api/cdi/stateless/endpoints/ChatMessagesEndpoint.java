@@ -51,4 +51,17 @@ public class ChatMessagesEndpoint {
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.MESSAGE_SEND_SUCCESSFULLY)).build();
     }
 
+    @PUT
+    @Path("/send_joke/{id}")
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response sendJoke(@PathParam("id") Long id) {
+        try {
+            chatMessagesManager.sendJoke(id);
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.MESSAGE_SEND_FAILED)).build();
+        }
+        return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.MESSAGE_SEND_SUCCESSFULLY)).build();
+    }
+
 }

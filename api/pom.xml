@@ -25,7 +25,7 @@
         </developer>
         <developer>
             <name>Kamil Skalski</name>
-            <id>TODO</id>
+            <id>224427</id>
         </developer>
         <developer>
             <name>Przemysław Zdrzalik</name>
@@ -177,6 +177,11 @@
             <artifactId>rider-junit5</artifactId>
             <version>1.23.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
         </dependency>
     </dependencies>
 
