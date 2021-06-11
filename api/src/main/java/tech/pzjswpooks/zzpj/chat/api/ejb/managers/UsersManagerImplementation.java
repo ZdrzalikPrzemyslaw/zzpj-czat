@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -60,22 +61,9 @@ public class UsersManagerImplementation extends AbstractManager implements Users
     @Override
     public List<UsersResponseDTO> searchUserByUsernameRegex(SearchUserRequestDto dto) {
         String regex = ".*" + dto.getFilter() + ".*";
-
-        /*
-        List<UsersEntity> filteredUsers = new ArrayList<>();
-        AccountsEntity accountsEntity = new AccountsEntity();
-        for ( UsersEntity u : allUsers ) {
-            AccountsEntity accountsEntity = accountEntityFacade.find(u.getId());
-            if ( Pattern.matches(regex, accountsEntity.getUsername()) ) {
-                filteredUsers.add(u);
-            }
-        }
-         */
-
-        // tu nie jestem pewien czy się bierze dobre id
         return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> Pattern.matches(regex, accountEntityFacade.find(u.getId()).getUsername()))
+                .filter(u -> Pattern.matches(regex.toLowerCase(), accountEntityFacade.find(u.getId()).getUsername().toLowerCase()))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -85,7 +73,7 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         String regex = ".*" + dto.getFilter() + ".*";
         return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> Pattern.matches(regex, u.getEmail()))
+                .filter(u -> Pattern.matches(regex.toLowerCase(), u.getEmail().toLowerCase()))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -95,7 +83,7 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         String regex = ".*" + dto.getFilter() + ".*";
         return usersEntityFacade.findAll()
                 .stream()
-                .filter(u -> (Pattern.matches(regex, u.getFirstName()) || Pattern.matches(regex, u.getLastName())))
+                .filter(u -> (Pattern.matches(regex.toLowerCase(), u.getFirstName().toLowerCase()) || Pattern.matches(regex.toLowerCase(), u.getLastName().toLowerCase())))
                 .map(UsersEntityToDtoMapper::mapUsersEntityToDto)
                 .collect(Collectors.toList());
     }

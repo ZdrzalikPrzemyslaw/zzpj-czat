@@ -13,6 +13,8 @@ public class AccessRequestDto {
     @NotNull
     private String accessLevel;
 
+    public AccessRequestDto() {
+    }
 
     public AccessRequestDto(@NotEmpty @Login String username,
                             @NotEmpty String accessLevel) {
