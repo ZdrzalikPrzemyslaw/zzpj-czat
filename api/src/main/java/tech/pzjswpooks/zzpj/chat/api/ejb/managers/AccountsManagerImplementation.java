@@ -15,6 +15,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.security.enterprise.SecurityContext;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Stateful
@@ -108,5 +109,10 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
     @Override
     public AccountsEntity getAccountByUsername(String username) {
         return accountEntityFacade.findByUsername(username);
+    }
+
+    @Override
+    public List<AccountsEntity> getAllAccounts() {
+        return accountEntityFacade.findAll();
     }
 }

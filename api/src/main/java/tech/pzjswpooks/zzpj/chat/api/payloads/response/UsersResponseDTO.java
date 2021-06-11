@@ -5,6 +5,8 @@ import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 public class UsersResponseDTO {
 
     private String firstName;
+    private String phoneNumber;
+    private String language;
     private String lastName;
     private String email;
 
@@ -18,6 +20,8 @@ public class UsersResponseDTO {
         this.firstName = usersEntity.getFirstName();
         this.lastName = usersEntity.getLastName();
         this.email = usersEntity.getEmail();
+        this.phoneNumber = usersEntity.getPhoneNumber();
+        this.language = usersEntity.getLanguage();
     }
 
     public String getFirstName() {
