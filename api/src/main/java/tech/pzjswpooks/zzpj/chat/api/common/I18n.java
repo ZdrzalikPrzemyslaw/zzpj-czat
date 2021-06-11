@@ -168,4 +168,7 @@ public class I18n {
     public static final String MESSAGE_SEND_SUCCESSFULLY = "message_send_successfully";
     public static final String ACCESS_LEVEL_REMOVE_FAILED = "access_level_remove_failed";
     public static final String ACCESS_LEVEL_REMOVED_SUCCESSFULLY = "access_level_removed_successfully";
+    public static final String FORBIDDEN = "forbidden";
+    public static final String INTERNAL_SERVER_ERROR = "internal_server_error";
+    public static final String NOT_FOUND = "not_found";
 }

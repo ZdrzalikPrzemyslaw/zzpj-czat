@@ -15,7 +15,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import java.util.function.Consumer;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -47,12 +47,13 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
         var newUser = accountsManager.getAccountByUsername(addUserToChatRequestDTO.getUsername());
         try {
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
-            chatsEntity.getChatUsers().forEach(chatUsersEntity -> {
-                if (chatUsersEntity.getAccountId().equals(newUser)) {
-                    chatUsersEntity.getAccountId().setEnabled(true);
+            for (ChatUsersEntity chatUser : chatsEntity.getChatUsers()) {
+                if (chatUser.getAccountId().equals(newUser)) {
+                    chatUser.setEnabled(true);
+                    chatsUsersFacade.edit(chatUser);
                     return;
                 }
-            });
+            }
             ChatUsersEntity chatUsersEntity = new ChatUsersEntity(chatsEntity, newUser);
             chatsUsersFacade.create(chatUsersEntity);
         } catch (Exception e) {

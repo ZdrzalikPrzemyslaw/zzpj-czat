@@ -25,11 +25,17 @@ public class ChatsInfoResponseDTO {
         private final ChatUsersResponseDTO chatUsersResponseDTO;
         private final String name;
         private final UsersResponseDTO ownerData;
+        private final Long chatId;
 
         public ChatInfoResponseDTO(ChatsEntity chatsEntity) {
             chatUsersResponseDTO = new ChatUsersResponseDTO(chatsEntity);
             name = chatsEntity.getName();
             ownerData = new UsersResponseDTO(chatsEntity.getOwner().getUserId());
+            chatId = chatsEntity.getId();
+        }
+
+        public Long getChatId() {
+            return chatId;
         }
 
         public ChatUsersResponseDTO getChatUsersResponseDTO() {
