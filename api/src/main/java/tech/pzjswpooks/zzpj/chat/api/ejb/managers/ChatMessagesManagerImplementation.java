@@ -44,7 +44,7 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
     public void sendMessage(Long id, String text) {
         ChatsEntity chatsEntity = chatsEntityFacade.find(id);
         var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
-        ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity,text,accountByUsername);
+        ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity, text, accountByUsername);
         chatMessagesEntityFacade.create(chatMessagesEntity);
     }
 
@@ -62,7 +62,7 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
         JSONObject obj = new JSONObject(response.getBody());
         String joke = obj.getString("value");
 
-        ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity,joke,accountByUsername);
+        ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity, joke, accountByUsername);
         chatMessagesEntityFacade.create(chatMessagesEntity);
     }
 }

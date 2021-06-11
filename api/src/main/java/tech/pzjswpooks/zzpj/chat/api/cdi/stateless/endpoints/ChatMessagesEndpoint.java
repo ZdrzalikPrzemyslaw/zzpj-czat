@@ -2,6 +2,7 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatMessagesManager;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.SendChatMessageRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
@@ -42,9 +43,9 @@ public class ChatMessagesEndpoint {
     @Path("/send/{id}")
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response sendMessage(@PathParam("id") Long id, String text) {
+    public Response sendMessage(@PathParam("id") Long id, SendChatMessageRequestDTO text) {
         try {
-            chatMessagesManager.sendMessage(id,text);
+            chatMessagesManager.sendMessage(id, text.getMessage());
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.MESSAGE_SEND_FAILED)).build();
         }
