@@ -4,7 +4,6 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.UsersManager;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
-import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
@@ -25,11 +24,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Interceptors(LogInterceptor.class)
 @DenyAll
@@ -67,10 +65,10 @@ public class UserEndpoint {
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByUsername(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByUsername(@QueryParam("filter") String filter) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByUsernameRegex(searchUserRequestDto);
+            users = usersManager.searchUserByUsernameRegex(filter);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
@@ -82,10 +80,10 @@ public class UserEndpoint {
     @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByEmail(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByEmail(@QueryParam("filter") String filter) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByEmailRegex(searchUserRequestDto);
+            users = usersManager.searchUserByEmailRegex(filter);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
@@ -94,12 +92,13 @@ public class UserEndpoint {
 
     @GET
     @Path("/search_name")
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response searchUserByFirstOrLastName(@Valid @NotNull SearchUserRequestDto searchUserRequestDto) {
+    public Response searchUserByFirstOrLastName(@QueryParam("filter") String filter) {
         List<UsersResponseDTO> users;
         try {
-            users = usersManager.searchUserByFirstOrLastNameRegex(searchUserRequestDto);
+            users = usersManager.searchUserByFirstOrLastNameRegex(filter);
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.USERS_DATA_FETCH_FAILED)).build();
         }
