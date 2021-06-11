@@ -8,6 +8,8 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.nio.CharBuffer;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RegistrationRequestDtoTest {
@@ -67,6 +69,32 @@ class RegistrationRequestDtoTest {
     }
 
     @Test
+    void usernameInvalidSize() {
+        registrationRequestDto.setUsername("1");
+        assertEquals(registrationRequestDto.getUsername(), "1");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.LOGIN_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+
+        registrationRequestDto.setUsername(CharBuffer.allocate(10000).toString().replace('\0', ' '));
+        validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        correctMessage[0] = false;
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.LOGIN_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+    }
+
+    @Test
     void getPassword() {
         assertEquals(registrationRequestDto.getPassword(), PASSWORD);
         var validate = validator.validate(registrationRequestDto);
@@ -82,6 +110,21 @@ class RegistrationRequestDtoTest {
         final boolean[] correctMessage = {false};
         validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
             if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.PASSWORD_NULL)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+    }
+
+    @Test
+    void passwordInvalidSize() {
+        registrationRequestDto.setPassword("1");
+        assertEquals(registrationRequestDto.getPassword(), "1");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.PASSWORD_INVALID_SIZE)) {
                 correctMessage[0] = true;
             }
         });
@@ -111,6 +154,33 @@ class RegistrationRequestDtoTest {
     }
 
     @Test
+    void emailInvalidSize() {
+        registrationRequestDto.setEmail("1");
+        assertEquals(registrationRequestDto.getEmail(), "1");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.EMAIL_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+
+        registrationRequestDto.setEmail(CharBuffer.allocate(10000).toString().replace('\0', ' '));
+        validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        correctMessage[0] = false;
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.EMAIL_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+    }
+
+
+    @Test
     void getFirstName() {
         assertEquals(registrationRequestDto.getFirstName(), NAME);
         var validate = validator.validate(registrationRequestDto);
@@ -133,12 +203,39 @@ class RegistrationRequestDtoTest {
     }
 
     @Test
+    void firstNameInvalidSize() {
+        registrationRequestDto.setFirstName("");
+        assertEquals(registrationRequestDto.getFirstName(), "");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.FIRST_NAME_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+
+        registrationRequestDto.setFirstName(CharBuffer.allocate(10000).toString().replace('\0', ' '));
+        validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        correctMessage[0] = false;
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.FIRST_NAME_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+    }
+
+    @Test
     void getLastName() {
         assertEquals(registrationRequestDto.getLastName(), SURNAME);
         var validate = validator.validate(registrationRequestDto);
         assertTrue(validate.isEmpty());
     }
 
+    @Test
     void lastNameNull() {
         registrationRequestDto.setLastName(null);
         assertNull(registrationRequestDto.getLastName());
@@ -147,6 +244,32 @@ class RegistrationRequestDtoTest {
         final boolean[] correctMessage = {false};
         validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
             if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.LAST_NAME_NULL)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+    }
+
+    @Test
+    void lastNameInvalidSize() {
+        registrationRequestDto.setLastName("");
+        assertEquals(registrationRequestDto.getLastName(), "");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.LAST_NAME_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+
+        registrationRequestDto.setLastName(CharBuffer.allocate(10000).toString().replace('\0', ' '));
+        validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        correctMessage[0] = false;
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.LAST_NAME_INVALID_SIZE)) {
                 correctMessage[0] = true;
             }
         });
@@ -181,5 +304,31 @@ class RegistrationRequestDtoTest {
         assertNull(registrationRequestDto.getPhoneNumber());
         var validate = validator.validate(registrationRequestDto);
         assertTrue(validate.isEmpty());
+    }
+
+    @Test
+    void phoneNumberInvalidSize() {
+        registrationRequestDto.setPhoneNumber("1");
+        assertEquals(registrationRequestDto.getPhoneNumber(), "1");
+        var validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        final boolean[] correctMessage = {false};
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.PHONE_NUMBER_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
+
+        registrationRequestDto.setPhoneNumber(CharBuffer.allocate(20).toString().replace('\0', ' '));
+        validate = validator.validate(registrationRequestDto);
+        assertFalse(validate.isEmpty());
+        correctMessage[0] = false;
+        validate.forEach(sendChatMessageRequestDTOConstraintViolation -> {
+            if (sendChatMessageRequestDTOConstraintViolation.getMessage().equals(I18n.PHONE_NUMBER_INVALID_SIZE)) {
+                correctMessage[0] = true;
+            }
+        });
+        assertTrue(correctMessage[0]);
     }
 }

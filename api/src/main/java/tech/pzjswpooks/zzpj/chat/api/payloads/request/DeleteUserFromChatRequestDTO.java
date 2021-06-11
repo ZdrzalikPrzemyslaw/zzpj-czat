@@ -1,11 +1,13 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.security.Login;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class DeleteUserFromChatRequestDTO {
-    @NotEmpty
+    @NotNull(message = I18n.LOGIN_NULL)
     @Login
     private String username;
 

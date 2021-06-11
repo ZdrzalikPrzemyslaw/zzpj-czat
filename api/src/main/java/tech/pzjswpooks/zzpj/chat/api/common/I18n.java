@@ -174,4 +174,6 @@ public class I18n {
     public static final String MESSAGE_SIZE_INVALID = "message_size_invalid";
     public static final String MESSAGE_EMPTY = "message_empty";
     public static final String FILTER_EMPTY = "filter_empty";
+    public static final String LOGIN_INVALID_SIZE = "login_invalid_size";
+    public static final String LOGIN_NOT_IN_PATTERN = "login_not_in_pattern";
 }
