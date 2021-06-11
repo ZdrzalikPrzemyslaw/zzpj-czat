@@ -56,6 +56,11 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
     }
 
     @Override
+    public ChatsEntity findById(Long id) {
+        return chatsEntityFacade.find(id);
+    }
+
+    @Override
     public Collection<ChatsEntity> getChatsUserBelongsTo(String username) {
         return chatsEntityFacade.getChatsByUsernameBelongsTo(username);
     }

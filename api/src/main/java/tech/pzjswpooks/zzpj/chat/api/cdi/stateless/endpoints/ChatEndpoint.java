@@ -6,6 +6,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManagerImplementation;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatNameRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
@@ -137,6 +138,21 @@ public class ChatEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.CHAT_NAME_CHANGE_SUCCESSFUL)).build();
+
+    }
+
+    @GET
+    @RolesAllowed({I18n.USER, I18n.ADMIN})
+    @Path("/info/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getChatInfoByID(@PathParam("id") Long id) {
+        try {
+            var x = chatsManager.findById(id);
+            return Response.status(Response.Status.OK).entity(new ChatsInfoResponseDTO.ChatInfoResponseDTO(x)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHATS_DATA_FETCH_FAILED)).build();
+        }
 
     }
 

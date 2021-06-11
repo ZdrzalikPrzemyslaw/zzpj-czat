@@ -71,7 +71,6 @@ public class AccountEndpoint {
     /**
      * Metoda służąca do blokowania konta przez administratora.
      *
-     * @param username username blokowanego konta
      * @return Response
      */
     // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina

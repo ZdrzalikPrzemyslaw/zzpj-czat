@@ -17,6 +17,8 @@ public interface ChatsManager {
 
     void createChat(CreateChatRequestDto createChatRequestDto);
 
+    ChatsEntity findById(Long id);
+
     Collection<ChatsEntity> getChatsUserBelongsTo(String username);
 
     void changeOwner(ChangeChatOwnerRequestDTO changeChatOwnerRequestDTO, Long id) throws AppBaseException;
