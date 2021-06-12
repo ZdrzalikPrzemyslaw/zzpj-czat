@@ -85,6 +85,7 @@ public class AccountEndpoint {
             allAccounts.forEach(accountsEntity -> accountInfoResponseDTOS.add(new AccountInfoResponseDTO(accountsEntity)));
             return Response.status(Response.Status.OK).entity(accountInfoResponseDTOS).build();
         } catch (Throwable e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.ACCOUNT_GET_ALL_ACCOUNTS_FAILED)).build();
         }
     }

@@ -1,10 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.response;
 
-import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class AccountInfoResponseDTO {
 
@@ -12,24 +11,25 @@ public class AccountInfoResponseDTO {
     private String username;
     private Boolean enabled;
     private UsersResponseDTO userData;
-    private Set<String> roles;
+    private Set<AccessLevelDTO> roles;
 
     public AccountInfoResponseDTO() {
     }
 
     public AccountInfoResponseDTO(AccountsEntity accountsEntity) {
-        accountsEntity.getAccessLevels().forEach(accessLevelsEntity -> roles.add(accessLevelsEntity.getLevel()));
+        roles = new HashSet<>();
+        accountsEntity.getAccessLevels().forEach(accessLevelsEntity -> roles.add(new AccessLevelDTO(accessLevelsEntity.getLevel(), accessLevelsEntity.getEnabled())));
         userData = new UsersResponseDTO(accountsEntity.getUserId());
         id = accountsEntity.getId();
         username = accountsEntity.getUsername();
         enabled = accountsEntity.getEnabled();
     }
 
-    public Set<String> getRoles() {
+    public Set<AccessLevelDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<AccessLevelDTO> roles) {
         this.roles = roles;
     }
 
@@ -47,6 +47,32 @@ public class AccountInfoResponseDTO {
 
     public UsersResponseDTO getUserData() {
         return userData;
+    }
+
+    public static class AccessLevelDTO {
+        private String role;
+        private Boolean enabled;
+
+        public AccessLevelDTO(String role, Boolean enabled) {
+            this.role = role;
+            this.enabled = enabled;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public Boolean getEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(Boolean enabled) {
+            this.enabled = enabled;
+        }
     }
 
 }

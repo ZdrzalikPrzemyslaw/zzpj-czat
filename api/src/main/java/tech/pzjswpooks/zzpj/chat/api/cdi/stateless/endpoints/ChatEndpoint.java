@@ -3,17 +3,13 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManager;
-import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatUsersManagerImplementation;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.ChatsManager;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
-import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AddUserToChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatNameRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.DeleteUserFromChatRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.ChatsInfoResponseDTO;
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.CreateChatResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
@@ -23,17 +19,15 @@ import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.DELETE;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.POST;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Objects;
 
 @Stateful
 @Path("chat")
@@ -76,7 +70,9 @@ public class ChatEndpoint {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllChatsCurrentUserBelongsTo() {
         try {
-            return Response.status(Response.Status.OK).entity(new ChatsInfoResponseDTO(chatsManager.getChatsUserBelongsTo(loggedInAccountUtil.getLoggedInAccountLogin()))).build();
+            var allChats = chatsManager.getChatsUserBelongsTo(loggedInAccountUtil.getLoggedInAccountLogin());
+            allChats.forEach(chatsEntity -> chatsEntity.getChatUsers().removeIf(x -> !x.getEnabled()));
+            return Response.status(Response.Status.OK).entity(new ChatsInfoResponseDTO(allChats)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHATS_DATA_FETCH_FAILED)).build();
         }
@@ -149,6 +145,7 @@ public class ChatEndpoint {
     public Response getChatInfoByID(@PathParam("id") Long id) {
         try {
             var x = chatsManager.findById(id);
+            x.getChatUsers().removeIf(y -> !y.getEnabled());
             return Response.status(Response.Status.OK).entity(new ChatsInfoResponseDTO.ChatInfoResponseDTO(x)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.CHATS_DATA_FETCH_FAILED)).build();
