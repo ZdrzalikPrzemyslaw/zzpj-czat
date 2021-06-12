@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS chat_messages;
 DROP TABLE IF EXISTS chat_users;
 DROP TABLE IF EXISTS chats;
 DROP TABLE IF EXISTS access_levels;
-DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS accounts;
 
 DROP SEQUENCE IF EXISTS chat_messages_seq;
 DROP SEQUENCE IF EXISTS chat_users_seq;
@@ -178,6 +178,7 @@ CREATE TABLE chat_users
         CONSTRAINT chat_users_chats_fk REFERENCES chats (id),
     account_id BIGINT NOT NULL
         CONSTRAINT chat_users_accounts_fk REFERENCES accounts (id),
+    enabled bool not null default true,
     UNIQUE (chat_id, account_id)
 );
 

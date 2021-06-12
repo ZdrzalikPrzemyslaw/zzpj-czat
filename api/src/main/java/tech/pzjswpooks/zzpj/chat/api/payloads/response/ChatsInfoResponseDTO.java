@@ -22,18 +22,24 @@ public class ChatsInfoResponseDTO {
 
     public static class ChatInfoResponseDTO {
         @Null
-        private final ChatUsersResponseDTO chatUsersResponseDTO;
+        private final ChatUsersResponseDTO usersData;
         private final String name;
         private final UsersResponseDTO ownerData;
+        private final Long chatId;
 
         public ChatInfoResponseDTO(ChatsEntity chatsEntity) {
-            chatUsersResponseDTO = new ChatUsersResponseDTO(chatsEntity);
+            usersData = new ChatUsersResponseDTO(chatsEntity);
             name = chatsEntity.getName();
             ownerData = new UsersResponseDTO(chatsEntity.getOwner().getUserId());
+            chatId = chatsEntity.getId();
         }
 
-        public ChatUsersResponseDTO getChatUsersResponseDTO() {
-            return chatUsersResponseDTO;
+        public Long getChatId() {
+            return chatId;
+        }
+
+        public ChatUsersResponseDTO getUsersData() {
+            return usersData;
         }
 
         public String getName() {
@@ -45,15 +51,15 @@ public class ChatsInfoResponseDTO {
         }
 
         public static class ChatUsersResponseDTO {
-            private final List<UsersResponseDTO> usersResponseDTO;
+            private final List<UsersResponseDTO> user;
 
             public ChatUsersResponseDTO(ChatsEntity chatsEntity) {
-                usersResponseDTO = new ArrayList<>();
-                chatsEntity.getChatUsers().forEach(chatUsersEntity -> usersResponseDTO.add(new UsersResponseDTO(chatUsersEntity.getAccountId().getUserId())));
+                user = new ArrayList<>();
+                chatsEntity.getChatUsers().forEach(chatUsersEntity -> user.add(new UsersResponseDTO(chatUsersEntity.getAccountId().getUserId())));
             }
 
-            public List<UsersResponseDTO> getUsersResponseDTO() {
-                return usersResponseDTO;
+            public List<UsersResponseDTO> getUser() {
+                return user;
             }
         }
     }

@@ -1,7 +1,5 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
-import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
-import tech.pzjswpooks.zzpj.chat.api.payloads.request.SearchUserRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
 
@@ -13,10 +11,10 @@ public interface UsersManager {
 
     void changeUserDetails(String username, EditAccountRequestDTO r);
 
-    List<UsersResponseDTO> searchUserByUsernameRegex(SearchUserRequestDto dto);
+    List<UsersResponseDTO> searchUserByUsernameRegex(String filter);
 
-    List<UsersResponseDTO> searchUserByEmailRegex(SearchUserRequestDto dto);
+    List<UsersResponseDTO> searchUserByEmailRegex(String filter);
 
-    List<UsersResponseDTO> searchUserByFirstOrLastNameRegex(SearchUserRequestDto dto);
+    List<UsersResponseDTO> searchUserByFirstOrLastNameRegex(String filter);
 
 }

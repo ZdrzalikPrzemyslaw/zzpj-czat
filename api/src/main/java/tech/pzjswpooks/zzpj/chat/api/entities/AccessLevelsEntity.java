@@ -62,6 +62,16 @@ public class AccessLevelsEntity {
 
     }
 
+    public AccessLevelsEntity(AccountsEntity accountId, Boolean enabled) {
+        this.accountId = accountId;
+        this.enabled = enabled;
+    }
+
+    public AccessLevelsEntity(String level, AccountsEntity accountId) {
+        this.level = level;
+        this.accountId = accountId;
+    }
+
     public void setAccountId(AccountsEntity accountId) {
         this.accountId = accountId;
     }

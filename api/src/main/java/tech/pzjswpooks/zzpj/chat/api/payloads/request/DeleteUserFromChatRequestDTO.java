@@ -3,17 +3,19 @@ package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.security.Login;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class ChangeChatOwnerRequestDTO {
-
+public class DeleteUserFromChatRequestDTO {
     @NotNull(message = I18n.LOGIN_NULL)
     @Login
     private String username;
 
-
-    public ChangeChatOwnerRequestDTO(@NotNull String username) {
+    public DeleteUserFromChatRequestDTO(@NotEmpty String username) {
         this.username = username;
+    }
+
+    public DeleteUserFromChatRequestDTO() {
     }
 
     public String getUsername() {
@@ -24,6 +26,5 @@ public class ChangeChatOwnerRequestDTO {
         this.username = username;
     }
 
-    public ChangeChatOwnerRequestDTO() {
-    }
+
 }

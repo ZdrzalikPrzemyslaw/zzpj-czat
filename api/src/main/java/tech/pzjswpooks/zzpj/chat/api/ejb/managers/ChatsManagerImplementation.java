@@ -5,6 +5,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.exceptions.AppBaseException;
+import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatNameRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.ChangeChatOwnerRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.CreateChatRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
@@ -55,6 +56,11 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
     }
 
     @Override
+    public ChatsEntity findById(Long id) {
+        return chatsEntityFacade.find(id);
+    }
+
+    @Override
     public Collection<ChatsEntity> getChatsUserBelongsTo(String username) {
         return chatsEntityFacade.getChatsByUsernameBelongsTo(username);
     }
@@ -66,6 +72,21 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
         try {
             ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
             chatsEntity.setOwner(newOwner);
+            chatsEntityFacade.edit(chatsEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw AppBaseException.noResultsError();
+        }
+
+
+    }
+
+    @Override
+    public void changeName(ChangeChatNameRequestDTO changeChatNameRequestDTO, Long id) throws AppBaseException {
+        var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
+        try {
+            ChatsEntity chatsEntity = chatsEntityFacade.getChatByOwnerAndId(accountByUsername.getUsername(), id);
+            chatsEntity.setName(changeChatNameRequestDTO.getName());
             chatsEntityFacade.edit(chatsEntity);
         } catch (Exception e) {
             e.printStackTrace();

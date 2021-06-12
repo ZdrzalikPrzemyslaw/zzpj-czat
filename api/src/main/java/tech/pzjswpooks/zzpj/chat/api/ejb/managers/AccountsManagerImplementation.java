@@ -1,6 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import tech.pzjswpooks.zzpj.chat.api.common.AccessLevelMapper;
+import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccessLevelsFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.AccountEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
@@ -14,8 +15,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.security.enterprise.SecurityContext;
-import javax.ws.rs.core.Context;
-import java.util.function.Consumer;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -23,12 +24,14 @@ import java.util.function.Consumer;
 public class AccountsManagerImplementation extends AbstractManager implements AccountsManager {
 
     private AccountEntityFacade accountEntityFacade;
+    private AccessLevelsFacade accessLevelsFacade;
     private SecurityContext securityContext;
 
     @Inject
-    public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade, SecurityContext securityContext) {
+    public AccountsManagerImplementation(AccountEntityFacade accountEntityFacade, SecurityContext securityContext, AccessLevelsFacade accessLevelsFacade) {
         this.accountEntityFacade = accountEntityFacade;
         this.securityContext = securityContext;
+        this.accessLevelsFacade = accessLevelsFacade;
     }
 
     public AccountsManagerImplementation() {
@@ -73,22 +76,43 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
     @Override
     public void addAccessLevel(String username, String accessLevel) throws AppBaseException {
         AccountsEntity accountsEntity = getAccountByUsername(username);
+        AtomicBoolean shouldReturn = new AtomicBoolean(false);
         accountsEntity.getAccessLevels().forEach(accessLevelsEntity -> {
             if (accessLevelsEntity.getLevel().equals(accessLevel)) {
                 accessLevelsEntity.setEnabled(true);
-                accountEntityFacade.edit(accountsEntity);
+                accessLevelsFacade.edit(accessLevelsEntity);
+                shouldReturn.set(true);
+            }
+        });
+        if (shouldReturn.get()) {
+            return;
+        }
+        AccessLevelsEntity accessLevelsEntity = AccessLevelMapper.mapLevelNameToAccessLevel(accessLevel);
+        accessLevelsEntity.setAccountId(accountsEntity);
+        accessLevelsFacade.edit(accessLevelsEntity);
+    }
+
+
+    @Override
+    public void revokeAccessLevel(String username, String accessLevel) throws AppBaseException {
+        AccountsEntity accountsEntity = getAccountByUsername(username);
+        accountsEntity.getAccessLevels().forEach(accessLevelsEntity -> {
+            if (accessLevelsEntity.getLevel().equals(accessLevel)) {
+                accessLevelsEntity.setEnabled(false);
+                accessLevelsFacade.edit(accessLevelsEntity);
                 return;
             }
         });
-        AccessLevelsEntity accessLevelsEntity = AccessLevelMapper.mapLevelNameToAccessLevel(accessLevel);
-        accessLevelsEntity.setAccountId(accountsEntity);
-        accountsEntity.addAccessLevels(accessLevelsEntity);
-        accountEntityFacade.edit(accountsEntity);
     }
 
     // TODO: 10.05.2021 Wy jąt ki
     @Override
     public AccountsEntity getAccountByUsername(String username) {
         return accountEntityFacade.findByUsername(username);
+    }
+
+    @Override
+    public List<AccountsEntity> getAllAccounts() {
+        return accountEntityFacade.findAll();
     }
 }
