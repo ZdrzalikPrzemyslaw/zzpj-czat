@@ -1,12 +1,9 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
-import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageWithDataResponseDTO;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessagesWithDataResponseDTO;
 
 import javax.ejb.Local;
-import java.util.List;
 
 @Local
 public interface ChatMessagesManager {
@@ -15,6 +12,6 @@ public interface ChatMessagesManager {
 
     void sendJoke(Long id) throws UnirestException;
 
-    List<MessageWithDataResponseDTO> getAll(Long id);
+    MessagesWithDataResponseDTO getAll(Long id);
 
 }
