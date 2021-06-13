@@ -8,6 +8,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatMessagesEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageWithDataResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
@@ -16,6 +17,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -64,5 +67,13 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
 
         ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity, joke, accountByUsername);
         chatMessagesEntityFacade.create(chatMessagesEntity);
+    }
+
+    @Override
+    public List<MessageWithDataResponseDTO> getAll(Long id) {
+        List<ChatMessagesEntity> allMessages = chatMessagesEntityFacade.getAllForChat(chatsEntityFacade.find(id));
+        List<MessageWithDataResponseDTO> messageWithDataResponseDTOS = new ArrayList<>();
+        allMessages.forEach(messagesEntity -> messageWithDataResponseDTOS.add(new MessageWithDataResponseDTO(messagesEntity)));
+        return messageWithDataResponseDTOS;
     }
 }
