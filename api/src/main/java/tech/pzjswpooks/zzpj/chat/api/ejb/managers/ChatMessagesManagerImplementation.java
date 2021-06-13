@@ -8,6 +8,7 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatMessagesEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessagesWithDataResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
 
@@ -64,5 +65,10 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
 
         ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity, joke, accountByUsername);
         chatMessagesEntityFacade.create(chatMessagesEntity);
+    }
+
+    @Override
+    public MessagesWithDataResponseDTO getAll(Long id) {
+        return new MessagesWithDataResponseDTO(chatMessagesEntityFacade.getAllForChat(chatsEntityFacade.find(id)));
     }
 }
