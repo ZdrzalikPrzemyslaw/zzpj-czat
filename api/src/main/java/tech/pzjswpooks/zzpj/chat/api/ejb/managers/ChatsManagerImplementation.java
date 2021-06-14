@@ -42,9 +42,6 @@ public class ChatsManagerImplementation extends AbstractManager implements Chats
         this.chatsUsersFacade = chatsUsersFacade;
     }
 
-    public ChatsManagerImplementation() {
-
-    }
 
     @Override
     public void createChat(CreateChatRequestDto createChatRequestDto) {

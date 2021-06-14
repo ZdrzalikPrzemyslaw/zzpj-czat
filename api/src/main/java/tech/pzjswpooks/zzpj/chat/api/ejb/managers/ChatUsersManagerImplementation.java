@@ -37,9 +37,6 @@ public class ChatUsersManagerImplementation extends AbstractManager implements C
         this.accountsManager = accountsManager;
     }
 
-    public ChatUsersManagerImplementation() {
-    }
-
     @Override
     public void addUser(AddUserToChatRequestDTO addUserToChatRequestDTO, Long id) throws AppBaseException {
         var accountByUsername = accountsManager.getAccountByUsername(loggedInAccountUtil.getLoggedInAccountLogin());
