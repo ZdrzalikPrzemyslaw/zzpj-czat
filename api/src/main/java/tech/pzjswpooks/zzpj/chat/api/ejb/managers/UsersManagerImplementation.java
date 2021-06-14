@@ -31,9 +31,6 @@ public class UsersManagerImplementation extends AbstractManager implements Users
         this.accountEntityFacade = accountEntityFacade;
     }
 
-    public UsersManagerImplementation() {
-    }
-
     @Override
     public void changeUserDetails(String username, EditAccountRequestDTO r) {
         var byUsername = accountEntityFacade.findByUsername(username);

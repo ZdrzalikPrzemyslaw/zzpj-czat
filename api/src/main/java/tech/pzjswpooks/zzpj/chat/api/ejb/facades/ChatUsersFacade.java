@@ -1,7 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatUsersEntity;
-import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.TransactionAttribute;

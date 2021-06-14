@@ -17,6 +17,11 @@ public class PropertiesLoader {
     private String confirmationJwtSecret;
     private String anonymousUserName;
     private Long confirmationJwtExpiration;
+    private String apiKey;
+
+    public String getApiKey() {
+        return apiKey;
+    }
 
     public PropertiesLoader() {
     }
@@ -55,10 +60,11 @@ public class PropertiesLoader {
                 prop.load(inputStream);
             }
         } catch (IOException e) {
-            // TODO: 18.04.2021
+            e.printStackTrace();
         }
         confirmationJwtSecret = prop.getProperty("confirmation.jwt.secret");
         confirmationJwtExpiration = Long.valueOf(prop.getProperty("confirmation.jwt.expirationMs"));
         anonymousUserName = prop.getProperty("anonymous.user.name");
+        apiKey = prop.getProperty("api.key");
     }
 }

@@ -1,5 +1,6 @@
 package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 
+import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AuthenticationRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.JWTResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
@@ -45,8 +46,7 @@ public class LoginEndpoint {
     public Response authenticate(@Valid @NotNull AuthenticationRequestDTO authenticationRequestDTO) {
         CredentialValidationResult credentialValidationResult = identityStoreHandler.validate(authenticationRequestDTO.toCredential());
         if (credentialValidationResult.getStatus() != CredentialValidationResult.Status.VALID) {
-            // TODO: 09.05.2021 Poprawić odpowiedź
-            return Response.status(Response.Status.UNAUTHORIZED).entity(new MessageResponseDto("Login Password Incorrect")).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(new MessageResponseDto(I18n.LOGIN_PASSWORD_INCORRECT)).build();
         }
         return Response.ok().entity(
                 new JWTResponseDTO(credentialValidationResult.getCallerPrincipal().getName(),

@@ -1,6 +1,5 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,26 +8,27 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import java.nio.CharBuffer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EditAccountRequestDTOTest {
     EditAccountRequestDTO editAccountRequestDTO = new EditAccountRequestDTO();
     private Validator validator;
+    private final String EMAIL = "hello@email.com";
+    private final String NAME = "Przemyslaw";
+    private final String SURNAME = "Zdrzalik";
+    private final String LANGUAGE = "PL";
+    private final String PHONE = "1234567890";
+
     @BeforeEach
     void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
         makeCorrectDTO();
     }
-
-    private String EMAIL = "hello@email.com";
-    private String NAME = "Przemyslaw";
-    private String SURNAME = "Zdrzalik";
-    private String LANGUAGE = "PL";
-    private String PHONE = "1234567890";
 
     void makeCorrectDTO() {
         editAccountRequestDTO.setLanguage(LANGUAGE);

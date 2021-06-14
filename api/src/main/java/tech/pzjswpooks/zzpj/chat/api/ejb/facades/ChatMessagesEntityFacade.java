@@ -53,7 +53,6 @@ public class ChatMessagesEntityFacade extends AbstractFacade<ChatMessagesEntity>
             super.edit(entity);
         } catch (PersistenceException e) {
             throw e;
-            // TODO: 20.04.2021 - uzupełnić o wyjątki aplikacyjne
         }
     }
 

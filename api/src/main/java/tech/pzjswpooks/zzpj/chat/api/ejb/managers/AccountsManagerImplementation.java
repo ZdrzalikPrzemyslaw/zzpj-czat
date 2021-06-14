@@ -34,9 +34,6 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
         this.accessLevelsFacade = accessLevelsFacade;
     }
 
-    public AccountsManagerImplementation() {
-    }
-
     @Override
     public void lockAccount(String username) {
         AccountsEntity account = accountEntityFacade.findByUsername(username);
@@ -105,7 +102,6 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
         });
     }
 
-    // TODO: 10.05.2021 Wy jąt ki
     @Override
     public AccountsEntity getAccountByUsername(String username) {
         return accountEntityFacade.findByUsername(username);

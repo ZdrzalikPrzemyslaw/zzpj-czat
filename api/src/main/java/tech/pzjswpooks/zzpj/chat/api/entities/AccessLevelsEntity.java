@@ -45,7 +45,7 @@ public class AccessLevelsEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     @Basic(optional = false)
-    @Column(name = "level", nullable = false, length = 32, updatable = false, insertable  = false)
+    @Column(name = "level", nullable = false, length = 32, updatable = false, insertable = false)
     private String level;
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -72,10 +72,6 @@ public class AccessLevelsEntity {
         this.accountId = accountId;
     }
 
-    public void setAccountId(AccountsEntity accountId) {
-        this.accountId = accountId;
-    }
-
     // Nie jestem pewien tego konstruktora
     public AccessLevelsEntity(Long id, String level, AccountsEntity accountId) {
         this.id = id;
@@ -93,6 +89,10 @@ public class AccessLevelsEntity {
 
     public AccountsEntity getAccountId() {
         return accountId;
+    }
+
+    public void setAccountId(AccountsEntity accountId) {
+        this.accountId = accountId;
     }
 
     public Boolean getEnabled() {

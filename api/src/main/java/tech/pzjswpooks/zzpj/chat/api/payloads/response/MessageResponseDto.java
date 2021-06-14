@@ -13,14 +13,14 @@ public class MessageResponseDto {
         return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("message", message)
                 .toString();
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

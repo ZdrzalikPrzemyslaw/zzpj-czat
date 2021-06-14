@@ -1,8 +1,8 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
 import javax.validation.Validation;

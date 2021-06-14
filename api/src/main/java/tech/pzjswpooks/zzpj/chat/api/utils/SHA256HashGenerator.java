@@ -27,7 +27,6 @@ public class SHA256HashGenerator implements HashGenerator {
         try {
             return bytesToHex(MessageDigest.getInstance("SHA-256").digest(input.getBytes(StandardCharsets.UTF_8)));
         } catch (NoSuchAlgorithmException e) {
-            // TODO: 20.04.2021
             e.printStackTrace();
         }
         return null;

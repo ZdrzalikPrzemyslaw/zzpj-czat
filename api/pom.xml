@@ -240,23 +240,23 @@
                 <artifactId>payara-micro-maven-plugin</artifactId>
                 <version>1.3.0</version>
 
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>startpayara</id>-->
-<!--                        <phase>pre-integration-test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>start</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
+                <!--                <executions>-->
+                <!--                    <execution>-->
+                <!--                        <id>startpayara</id>-->
+                <!--                        <phase>pre-integration-test</phase>-->
+                <!--                        <goals>-->
+                <!--                            <goal>start</goal>-->
+                <!--                        </goals>-->
+                <!--                    </execution>-->
 
-<!--                    <execution>-->
-<!--                        <id>stoppayara</id>-->
-<!--                        <phase>post-integration-test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>stop</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
+                <!--                    <execution>-->
+                <!--                        <id>stoppayara</id>-->
+                <!--                        <phase>post-integration-test</phase>-->
+                <!--                        <goals>-->
+                <!--                            <goal>stop</goal>-->
+                <!--                        </goals>-->
+                <!--                    </execution>-->
+                <!--                </executions>-->
 
                 <configuration>
                     <payaraVersion>5.2021.1</payaraVersion>

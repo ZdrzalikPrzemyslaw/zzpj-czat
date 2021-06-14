@@ -25,13 +25,10 @@ class AccountsEntityTest {
     @org.junit.jupiter.api.Test
     void getOwnedChats() {
         ChatsEntity chatsEntity = new ChatsEntity();
-
         assertTrue(accountsEntity.getOwnedChats().isEmpty());
         accountsEntity.getOwnedChats().add(chatsEntity);
         assertFalse(accountsEntity.getOwnedChats().isEmpty());
         assertTrue(accountsEntity.getOwnedChats().contains(chatsEntity));
-
-
     }
 
     @Test

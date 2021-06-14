@@ -1,6 +1,5 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,21 +8,23 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import java.nio.CharBuffer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteUserFromChatRequestDTOTest {
     DeleteUserFromChatRequestDTO deleteUserFromChatRequestDTO = new DeleteUserFromChatRequestDTO();
 
-    private String USERNAME = "username";
+    private final String USERNAME = "username";
+    private Validator validator;
 
     void makeCorrectDTO() {
         deleteUserFromChatRequestDTO.setUsername(USERNAME);
     }
 
-    private Validator validator;
     @BeforeEach
     void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
