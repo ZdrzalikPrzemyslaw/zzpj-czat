@@ -16,14 +16,14 @@ public class ChangeChatOwnerRequestDTO {
         this.username = username;
     }
 
+    public ChangeChatOwnerRequestDTO() {
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public ChangeChatOwnerRequestDTO() {
     }
 }

@@ -1,14 +1,11 @@
 package tech.pzjswpooks.zzpj.chat.api.exceptions;
 
 
-
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
 import javax.ejb.ApplicationException;
-import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 import java.io.IOException;
-
 
 
 /**
@@ -102,6 +99,7 @@ public class AppBaseException extends Exception {
 
     /**
      * Tworzy wyjątek reprezentujący różne wartości wersji dla encji.
+     *
      * @return wyjątek typu AppBaseException
      */
     public static AppBaseException versionMismatchException() {

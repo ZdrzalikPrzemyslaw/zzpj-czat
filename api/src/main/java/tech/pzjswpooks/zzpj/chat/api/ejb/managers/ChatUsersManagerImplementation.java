@@ -15,7 +15,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Stateful
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)

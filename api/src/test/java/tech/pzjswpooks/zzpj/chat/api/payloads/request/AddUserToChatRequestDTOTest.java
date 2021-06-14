@@ -1,6 +1,5 @@
 package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,20 +8,21 @@ import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import java.nio.CharBuffer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AddUserToChatRequestDTOTest {
     AddUserToChatRequestDTO addUserToChatRequestDTO = new AddUserToChatRequestDTO();
-    private String LOGIN = "username";
+    private final String LOGIN = "username";
+    private Validator validator;
 
     private void makeValidDTO() {
         addUserToChatRequestDTO.setUsername(LOGIN);
     }
-
-    private Validator validator;
 
     @BeforeEach
     void setUp() {

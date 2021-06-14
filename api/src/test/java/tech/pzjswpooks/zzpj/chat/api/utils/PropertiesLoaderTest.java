@@ -3,11 +3,11 @@ package tech.pzjswpooks.zzpj.chat.api.utils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PropertiesLoaderTest {
 
-    private static PropertiesLoader propertiesLoader = new PropertiesLoader();
+    private static final PropertiesLoader propertiesLoader = new PropertiesLoader();
 
     @BeforeAll
     static void beforeAll() {

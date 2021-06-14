@@ -32,6 +32,15 @@ public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
     }
 
     /**
+     * Tworzy nową instancję klasy AccountFacade.
+     *
+     * @param entityClass entity class
+     */
+    public AccountEntityFacade(Class<AccountsEntity> entityClass) {
+        super(entityClass);
+    }
+
+    /**
      * Find by username account.
      *
      * @param username username
@@ -43,27 +52,17 @@ public class AccountEntityFacade extends AbstractFacade<AccountsEntity> {
         return tq.getSingleResult();
     }
 
-    /**
-     * Tworzy nową instancję klasy AccountFacade.
-     *
-     * @param entityClass entity class
-     */
-    public AccountEntityFacade(Class<AccountsEntity> entityClass) {
-        super(entityClass);
-    }
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
     @Override
-    public void edit(AccountsEntity entity)  {
+    public void edit(AccountsEntity entity) {
         try {
             super.edit(entity);
         } catch (PersistenceException e) {
             throw e;
-            // TODO: 20.04.2021 - uzupełnić o wyjątki aplikacyjne
         }
     }
 

@@ -105,7 +105,6 @@ public class AccountsManagerImplementation extends AbstractManager implements Ac
         });
     }
 
-    // TODO: 10.05.2021 Wy jąt ki
     @Override
     public AccountsEntity getAccountByUsername(String username) {
         return accountEntityFacade.findByUsername(username);

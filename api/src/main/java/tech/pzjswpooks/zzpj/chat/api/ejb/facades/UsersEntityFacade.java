@@ -45,12 +45,11 @@ public class UsersEntityFacade extends AbstractFacade<UsersEntity> {
     }
 
     @Override
-    public void edit(UsersEntity entity)  {
+    public void edit(UsersEntity entity) {
         try {
             super.edit(entity);
         } catch (PersistenceException e) {
             throw e;
-            // TODO: 20.04.2021 - uzupełnić o wyjątki aplikacyjne
         }
     }
 

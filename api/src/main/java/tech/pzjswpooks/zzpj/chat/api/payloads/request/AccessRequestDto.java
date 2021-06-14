@@ -5,7 +5,6 @@ import tech.pzjswpooks.zzpj.chat.api.security.Login;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class AccessRequestDto {
     @NotNull(message = I18n.LOGIN_NULL)
