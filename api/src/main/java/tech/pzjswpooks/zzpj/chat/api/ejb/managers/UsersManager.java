@@ -1,7 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.managers;
 
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 
 import javax.ejb.Local;
 import java.util.List;

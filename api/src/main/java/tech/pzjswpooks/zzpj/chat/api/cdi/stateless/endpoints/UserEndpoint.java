@@ -5,23 +5,21 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.UsersManager;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.EditAccountRequestDTO;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessageResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.SearchUserResponseDto;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
-
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.SearchUserResponseDto;
-import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
-
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;

@@ -1,6 +1,7 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
+import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,8 @@ import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Klasa definiująca główne operacje wykonywane na encjach typu ChatMessagesEntity.
@@ -45,13 +48,18 @@ public class ChatMessagesEntityFacade extends AbstractFacade<ChatMessagesEntity>
     }
 
     @Override
-    public void edit(ChatMessagesEntity entity)  {
+    public void edit(ChatMessagesEntity entity) {
         try {
             super.edit(entity);
         } catch (PersistenceException e) {
             throw e;
-            // TODO: 20.04.2021 - uzupełnić o wyjątki aplikacyjne
         }
+    }
+
+    public List<ChatMessagesEntity> getAllForChat(ChatsEntity id) {
+        TypedQuery<ChatMessagesEntity> tq = em.createNamedQuery("ChatMessagesEntity.findByChatId", ChatMessagesEntity.class);
+        tq.setParameter("chatId", id);
+        return tq.getResultList();
     }
 
 

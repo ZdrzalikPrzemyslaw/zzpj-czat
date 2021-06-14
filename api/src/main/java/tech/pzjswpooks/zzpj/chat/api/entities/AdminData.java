@@ -15,12 +15,9 @@ import java.io.Serializable;
 public class AdminData extends AccessLevelsEntity implements Serializable {
 
 
-
     public AdminData() {
     }
 
-
-    // TODO: 24.04.2021 Nwm jak to dziala z dziedziczeniem
     @Override
     public String toString() {
         return new ToStringBuilder(this)

@@ -1,25 +1,20 @@
 package tech.pzjswpooks.zzpj.chat.api.auth;
 
-import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccessLevelsManager;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.security.JwtUtils;
 import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
-import javax.security.enterprise.identitystore.IdentityStoreHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.ext.Provider;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @RequestScoped

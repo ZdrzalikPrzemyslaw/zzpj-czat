@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -24,7 +23,8 @@ import java.time.LocalDateTime;
 @Table(name = "chat_messages")
 @NamedQueries({
         @NamedQuery(name = "ChatMessagesEntity.findAll", query = "SELECT a FROM ChatMessagesEntity a"),
-        @NamedQuery(name = "ChatMessagesEntity.findById", query = "SELECT a FROM ChatMessagesEntity a WHERE a.id = :id")
+        @NamedQuery(name = "ChatMessagesEntity.findById", query = "SELECT a FROM ChatMessagesEntity a WHERE a.id = :id"),
+        @NamedQuery(name = "ChatMessagesEntity.findByChatId", query = "SELECT a FROM ChatMessagesEntity a WHERE a.chatId = :chatId")
 })
 public class ChatMessagesEntity {
 
@@ -75,6 +75,10 @@ public class ChatMessagesEntity {
 
     public Long getAccountId() {
         return accountId.getId();
+    }
+
+    public AccountsEntity getAccount() {
+        return accountId;
     }
 
     public String getText() {

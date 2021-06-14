@@ -3,7 +3,6 @@ package tech.pzjswpooks.zzpj.chat.api.payloads.request;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

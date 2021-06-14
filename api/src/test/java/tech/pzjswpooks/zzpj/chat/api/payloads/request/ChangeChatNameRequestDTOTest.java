@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChangeChatNameRequestDTOTest {
-    ChangeChatNameRequestDTO changeChatNameRequestDTO = new ChangeChatNameRequestDTO();
     private final String NAME = "name";
+    ChangeChatNameRequestDTO changeChatNameRequestDTO = new ChangeChatNameRequestDTO();
     private Validator validator;
 
     private void makeValidDTO() {

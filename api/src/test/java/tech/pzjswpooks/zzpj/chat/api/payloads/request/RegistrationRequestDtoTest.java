@@ -10,12 +10,21 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.nio.CharBuffer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegistrationRequestDtoTest {
-    private Validator validator;
-
     RegistrationRequestDto registrationRequestDto = new RegistrationRequestDto();
+    private Validator validator;
+    private final String EMAIL = "hello@email.com";
+    private final String PASSWORD = "P@ssw0rd";
+    private final String LOGIN = "username";
+    private final String NAME = "Przemyslaw";
+    private final String SURNAME = "Zdrzalik";
+    private final String LANGUAGE = "PL";
+    private final String PHONE = "1234567890";
 
     @BeforeEach
     void setUp() {
@@ -27,14 +36,6 @@ class RegistrationRequestDtoTest {
     @AfterEach
     void tearDown() {
     }
-
-    private String EMAIL = "hello@email.com";
-    private String PASSWORD = "P@ssw0rd";
-    private String LOGIN = "username";
-    private String NAME = "Przemyslaw";
-    private String SURNAME = "Zdrzalik";
-    private String LANGUAGE = "PL";
-    private String PHONE = "1234567890";
 
     void makeCorrectDTO() {
         registrationRequestDto.setEmail("hello@email.com");

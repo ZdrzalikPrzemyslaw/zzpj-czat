@@ -6,6 +6,6 @@ import tech.pzjswpooks.zzpj.chat.api.payloads.response.UsersResponseDTO;
 public class UsersEntityToDtoMapper {
 
     public static UsersResponseDTO mapUsersEntityToDto(UsersEntity usersEntity) {
-        return new UsersResponseDTO(usersEntity.getFirstName(),usersEntity.getLastName(), usersEntity.getEmail());
+        return new UsersResponseDTO(usersEntity.getFirstName(), usersEntity.getLastName(), usersEntity.getEmail());
     }
 }

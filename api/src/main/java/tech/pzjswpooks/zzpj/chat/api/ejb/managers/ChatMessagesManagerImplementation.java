@@ -8,8 +8,10 @@ import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatMessagesEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.ejb.facades.ChatsEntityFacade;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatMessagesEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
+import tech.pzjswpooks.zzpj.chat.api.payloads.response.MessagesWithDataResponseDTO;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 import tech.pzjswpooks.zzpj.chat.api.utils.LoggedInAccountUtil;
+import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -22,23 +24,21 @@ import javax.interceptor.Interceptors;
 @Interceptors(LogInterceptor.class)
 public class ChatMessagesManagerImplementation extends AbstractManager implements ChatMessagesManager {
 
-    private ChatMessagesEntityFacade chatMessagesEntityFacade;
-    private ChatsEntityFacade chatsEntityFacade;
-    private LoggedInAccountUtil loggedInAccountUtil;
-    private AccountsManager accountsManager;
+    private final ChatMessagesEntityFacade chatMessagesEntityFacade;
+    private final ChatsEntityFacade chatsEntityFacade;
+    private final LoggedInAccountUtil loggedInAccountUtil;
+    private final AccountsManager accountsManager;
+    private final PropertiesLoader propertiesLoader;
 
     @Inject
     public ChatMessagesManagerImplementation(ChatMessagesEntityFacade chatMessagesEntityFacade, ChatsEntityFacade chatsEntityFacade,
-                                             LoggedInAccountUtil loggedInAccountUtil, AccountsManager accountsManager) {
+                                             LoggedInAccountUtil loggedInAccountUtil, AccountsManager accountsManager, PropertiesLoader propertiesLoader) {
         this.chatMessagesEntityFacade = chatMessagesEntityFacade;
         this.chatsEntityFacade = chatsEntityFacade;
         this.loggedInAccountUtil = loggedInAccountUtil;
         this.accountsManager = accountsManager;
+        this.propertiesLoader = propertiesLoader;
     }
-
-    public ChatMessagesManagerImplementation() {
-    }
-
 
     @Override
     public void sendMessage(Long id, String text) {
@@ -55,7 +55,7 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
 
         HttpResponse<String> response = Unirest.get("https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random")
                 .header("accept", "application/json")
-                .header("x-rapidapi-key", "2b0e2551c2msh7c2a02db2fe9574p1eba8cjsn14704ca06f25")
+                .header("x-rapidapi-key", propertiesLoader.getApiKey())
                 .header("x-rapidapi-host", "matchilling-chuck-norris-jokes-v1.p.rapidapi.com")
                 .asString();
 
@@ -64,5 +64,10 @@ public class ChatMessagesManagerImplementation extends AbstractManager implement
 
         ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity(chatsEntity, joke, accountByUsername);
         chatMessagesEntityFacade.create(chatMessagesEntity);
+    }
+
+    @Override
+    public MessagesWithDataResponseDTO getAll(Long id) {
+        return new MessagesWithDataResponseDTO(chatMessagesEntityFacade.getAllForChat(chatsEntityFacade.find(id)));
     }
 }

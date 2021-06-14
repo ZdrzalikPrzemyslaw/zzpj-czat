@@ -2,7 +2,6 @@ package tech.pzjswpooks.zzpj.chat.api.payloads.response;
 
 import com.sun.istack.Nullable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 
 import java.util.List;
 

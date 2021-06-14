@@ -11,6 +11,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,7 +36,7 @@ public class ChatMessagesEndpoint {
     /**
      * Metoda służąca do wysyłania wiadomości.
      *
-     * @param id id czatu na który ma zostać wysłana wiadomość
+     * @param id   id czatu na który ma zostać wysłana wiadomość
      * @param text tekst wiadomości
      * @return Response
      */
@@ -63,6 +64,18 @@ public class ChatMessagesEndpoint {
             return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.MESSAGE_SEND_FAILED)).build();
         }
         return Response.status(Response.Status.OK).entity(new MessageResponseDto(I18n.MESSAGE_SEND_SUCCESSFULLY)).build();
+    }
+
+    @GET
+    @Path("/get-all/{id}")
+    @RolesAllowed({I18n.ADMIN, I18n.USER})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAll(@PathParam("id") Long id) {
+        try {
+            return Response.status(Response.Status.OK).entity(chatMessagesManager.getAll(id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new MessageResponseDto(I18n.MESSAGE_GET_ALL_FAILED)).build();
+        }
     }
 
 }

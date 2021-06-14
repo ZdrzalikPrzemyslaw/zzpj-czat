@@ -177,4 +177,6 @@ public class I18n {
     public static final String LOGIN_INVALID_SIZE = "login_invalid_size";
     public static final String LOGIN_NOT_IN_PATTERN = "login_not_in_pattern";
     public static final String CHAT_NAME_NULL = "chat_name_null";
+    public static final String MESSAGE_GET_ALL_FAILED = "message_get_all_failed";
+    public static final String LOGIN_PASSWORD_INCORRECT = "login_password_incorrect";
 }

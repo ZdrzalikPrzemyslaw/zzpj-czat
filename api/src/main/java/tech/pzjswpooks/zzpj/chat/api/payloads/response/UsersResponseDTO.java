@@ -4,11 +4,11 @@ import tech.pzjswpooks.zzpj.chat.api.entities.UsersEntity;
 
 public class UsersResponseDTO {
 
-    private String firstName;
+    private final String firstName;
     private String phoneNumber;
     private String language;
-    private String lastName;
-    private String email;
+    private final String lastName;
+    private final String email;
 
     public UsersResponseDTO(String firstName, String lastName, String email) {
         this.firstName = firstName;

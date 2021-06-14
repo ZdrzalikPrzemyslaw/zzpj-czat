@@ -10,18 +10,13 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-
+import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.DependsOn;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.util.Date;
-
-import tech.pzjswpooks.zzpj.chat.api.utils.PropertiesLoader;
 
 /**
  * Typ Jwt utils.
@@ -33,7 +28,6 @@ public class JwtUtils {
     private PropertiesLoader propertiesLoader;
     private String registrationConfirmationJwtSecret;
     private Long registrationConfirmationJwtExpirationMs;
-
 
 
     @PostConstruct
@@ -60,7 +54,6 @@ public class JwtUtils {
             return signedJWT.serialize();
         } catch (JOSEException e) {
             e.printStackTrace();
-            // TODO: 18.04.2021
             return "JWT error";
         }
     }

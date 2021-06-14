@@ -1,6 +1,5 @@
 package tech.pzjswpooks.zzpj.chat.api.ejb.facades;
 
-import tech.pzjswpooks.zzpj.chat.api.entities.AccessLevelsEntity;
 import tech.pzjswpooks.zzpj.chat.api.entities.ChatsEntity;
 import tech.pzjswpooks.zzpj.chat.api.utils.LogInterceptor;
 
@@ -10,7 +9,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 
@@ -60,8 +58,6 @@ public class ChatsEntityFacade extends AbstractFacade<ChatsEntity> {
 
         return tq.getSingleResult();
     }
-
-
 
 
 }

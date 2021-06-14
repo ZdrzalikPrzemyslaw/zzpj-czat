@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 public abstract class AbstractManager {
 
     protected static final Logger LOGGER = Logger.getGlobal();
-    private String transactionID;
     boolean lastTransactionRollback;
+    private String transactionID;
 
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public boolean isLastTransactionRollback() {

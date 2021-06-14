@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AccessRequestDtoTest {
-    AccessRequestDto accessRequestDto = new AccessRequestDto();
     private final String LEVEL = "level.user";
     private final String LOGIN = "username";
+    AccessRequestDto accessRequestDto = new AccessRequestDto();
     private Validator validator;
 
     private void makeValidDTO() {
@@ -107,7 +107,6 @@ class AccessRequestDtoTest {
         });
         assertTrue(correctMessage[0]);
     }
-
 
 
 }

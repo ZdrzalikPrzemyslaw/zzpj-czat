@@ -23,10 +23,6 @@ public class AccessLevelsManagerImplementation extends AbstractManager implement
         this.accessLevelsFacade = accessLevelsFacade;
     }
 
-    public AccessLevelsManagerImplementation() {
-
-    }
-
     @Override
     public List<AccessLevelsEntity> getLevelsForUsername(String username) {
         return accessLevelsFacade.findByUsername(username);

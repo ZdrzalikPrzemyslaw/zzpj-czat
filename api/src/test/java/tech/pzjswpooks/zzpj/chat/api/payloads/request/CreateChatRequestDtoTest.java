@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CreateChatRequestDtoTest {
-    CreateChatRequestDto createChatRequestDto = new CreateChatRequestDto();
     private final String NAME = "name";
+    CreateChatRequestDto createChatRequestDto = new CreateChatRequestDto();
     private Validator validator;
 
     private void makeValidDTO() {

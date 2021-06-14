@@ -3,7 +3,6 @@ package tech.pzjswpooks.zzpj.chat.api.cdi.stateless.endpoints;
 import tech.pzjswpooks.zzpj.chat.api.common.AccountEntityMapper;
 import tech.pzjswpooks.zzpj.chat.api.common.I18n;
 import tech.pzjswpooks.zzpj.chat.api.ejb.managers.AccountsManager;
-import tech.pzjswpooks.zzpj.chat.api.entities.AccountsEntity;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.AccessRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.request.RegistrationRequestDto;
 import tech.pzjswpooks.zzpj.chat.api.payloads.response.AccountInfoResponseDTO;
@@ -30,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Interceptors(LogInterceptor.class)
 @Path("account")
@@ -54,7 +52,6 @@ public class AccountEndpoint {
      * @param username username blokowanego konta
      * @return Response
      */
-    // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina
     @POST
     @Path("/lock/{username}")
     @RolesAllowed(I18n.ADMIN)
@@ -73,7 +70,6 @@ public class AccountEndpoint {
      *
      * @return Response
      */
-    // TODO: 24.04.2021 Zabezpieczyć, tylko dla admina
     @GET
     @Path("/get-all/")
     @RolesAllowed(I18n.ADMIN)
